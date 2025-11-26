@@ -51,7 +51,14 @@ func StructToMap[T any](input T, includeFields []string, excludeFields []string)
 	return result
 }
 
-// StructToMapOmit 将结构体转为 map，并支持白名单、黑名单、omitEmpty 开关
+// StructToMapOmit [T any]
+//
+//	@Description: 将结构体转为 map
+//	@param input 输入
+//	@param includeFields 需要保留的字段
+//	@param excludeFields 需要移除的字段
+//	@param omitEmpty true 忽略零值数据
+//	@return map[string]interface{} 返回的map
 func StructToMapOmit[T any](input T, includeFields []string, excludeFields []string, omitEmpty bool) map[string]interface{} {
 	includeSet := make(map[string]struct{})
 	excludeSet := make(map[string]struct{})
