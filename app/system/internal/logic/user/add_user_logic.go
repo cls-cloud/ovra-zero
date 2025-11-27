@@ -2,10 +2,9 @@ package user
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"time"
 	"toolkit/errx"
-	"toolkit/helper"
 	"toolkit/utils"
 
 	"system/internal/svc"
@@ -29,17 +28,55 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 }
 
 func (l *AddUserLogic) AddUser(req *types.AddOrUpdateUserReq) error {
+	userId := utils.GetID()
+	dal := l.svcCtx.Dal
+	if req.UserName != "" {
+		if exit := dal.SysUserDal.SelectByUserNameExit(l.ctx, "", req.UserName); exit {
+			return errx.BizErr("用户名已经存在")
+		}
+	}
+	if req.PhoneNumber != "" {
+		if exit := dal.SysUserDal.SelectByPhoneExit(l.ctx, "", req.PhoneNumber); exit {
+			return errx.BizErr("手机号已经存在")
+		}
+	}
+	if req.Email != "" {
+		if exit := dal.SysUserDal.SelectByEmailExit(l.ctx, "", req.Email); exit {
+			return errx.BizErr("邮箱已经存在")
+		}
+	}
+
+	user, err := l.genUser(req, userId)
+	if err != nil {
+		return err
+	}
+	if err := dal.SysUserDal.Insert(l.ctx, user); err != nil {
+		return err
+	}
+	if len(req.RoleIds) != 0 {
+		if err := dal.SysUserDal.AddSysUserRoles(l.ctx, userId, req.RoleIds); err != nil {
+			return err
+		}
+	}
+	if len(req.PostIds) != 0 {
+		if err := dal.SysUserDal.AddSysUserPosts(l.ctx, userId, req.PostIds); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (l *AddUserLogic) genUser(req *types.AddOrUpdateUserReq, userId string) (*model.SysUser, error) {
 	if req.UserID != "" {
-		return errx.BizErr("用户ID不为空")
+		return nil, errx.BizErr("用户ID不为空")
 	}
 	if req.Password == "" {
-		return errx.BizErr("密码不能为空")
+		return nil, errx.BizErr("密码不能为空")
 	}
-	req.UserID = utils.GetID()
 	user := &model.SysUser{
-		UserID:      req.UserID,
+		UserID:      userId,
 		UserName:    req.UserName,
-		Password:    helper.Encrypt(req.Password),
+		Password:    req.Password,
 		NickName:    req.NickName,
 		Phonenumber: req.PhoneNumber,
 		Email:       req.Email,
@@ -55,34 +92,5 @@ func (l *AddUserLogic) AddUser(req *types.AddOrUpdateUserReq) error {
 	if req.TenantID != "" {
 		user.TenantID = req.TenantID
 	}
-	q := l.svcCtx.Query
-	if err := q.SysUser.WithContext(l.ctx).Create(user); err != nil {
-		return errx.GORMErr(err)
-	}
-	if len(req.RoleIds) != 0 {
-		userRole := make([]*model.SysUserRole, len(req.RoleIds))
-		for i, roleId := range req.RoleIds {
-			userRole[i] = &model.SysUserRole{
-				UserID: req.UserID,
-				RoleID: roleId,
-			}
-		}
-		if err := q.SysUserRole.WithContext(l.ctx).CreateInBatches(userRole, len(userRole)); err != nil {
-			return errx.GORMErr(err)
-		}
-	}
-	if len(req.PostIds) != 0 {
-		userPost := make([]*model.SysUserPost, len(req.PostIds))
-		for i, postId := range req.PostIds {
-			userPost[i] = &model.SysUserPost{
-				UserID: req.UserID,
-				PostID: postId,
-			}
-		}
-		if err := q.SysUserPost.WithContext(l.ctx).CreateInBatches(userPost, len(userPost)); err != nil {
-			return errx.GORMErr(err)
-		}
-	}
-
-	return nil
+	return user, nil
 }

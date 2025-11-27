@@ -3,9 +3,6 @@ package role
 import (
 	"context"
 	"strings"
-	"system/internal/dao/model"
-	"toolkit/errx"
-
 	"system/internal/svc"
 	"system/internal/types"
 
@@ -28,17 +25,10 @@ func NewSelectAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SelectA
 
 func (l *SelectAllLogic) SelectAll(req *types.SelectAllReq) error {
 	userIds := strings.Split(req.UserIds, ",")
-	q := l.svcCtx.Query
-	userRoles := make([]*model.SysUserRole, len(userIds))
-	for i, userId := range userIds {
-		userRole := &model.SysUserRole{
-			UserID: userId,
-			RoleID: req.RoleId,
-		}
-		userRoles[i] = userRole
-	}
-	if err := q.SysUserRole.WithContext(l.ctx).CreateInBatches(userRoles, len(userRoles)); err != nil {
-		return errx.GORMErr(err)
+	dal := l.svcCtx.Dal
+	err := dal.SysRoleDal.AddSysRoleUsers(l.ctx, req.RoleId, userIds)
+	if err != nil {
+		return err
 	}
 	return nil
 }

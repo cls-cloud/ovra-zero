@@ -2,12 +2,13 @@ package role
 
 import (
 	"context"
-	"github.com/zeromicro/go-zero/core/logx"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
 	"toolkit/errx"
 	"toolkit/utils"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type AddLogic struct {
@@ -25,8 +26,8 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddLogic {
 }
 
 func (l *AddLogic) Add(req *types.AddOrUpdateRoleReq) error {
-	q := l.svcCtx.Query
-	if oRoles, err := q.SysRole.WithContext(l.ctx).Where(q.SysRole.RoleKey.Eq(req.RoleKey)).First(); err == nil && oRoles != nil {
+	dal := l.svcCtx.Dal
+	if exit := dal.SysRoleDal.SelectByRoleKeyExit(l.ctx, "", req.RoleKey); exit {
 		return errx.BizErr("角色编码已存在")
 	}
 	roleId := utils.GetID()
@@ -45,19 +46,12 @@ func (l *AddLogic) Add(req *types.AddOrUpdateRoleReq) error {
 	if req.TenantID != "" {
 		role.TenantID = req.TenantID
 	}
-	if err := q.SysRole.WithContext(l.ctx).Create(role); err != nil {
-		return errx.GORMErr(err)
+	if err := dal.SysRoleDal.Insert(l.ctx, role); err != nil {
+		return err
 	}
 	if len(req.MenuIds) != 0 {
-		roleMenus := make([]*model.SysRoleMenu, 0, len(req.MenuIds))
-		for _, menuId := range req.MenuIds {
-			roleMenus = append(roleMenus, &model.SysRoleMenu{
-				RoleID: roleId,
-				MenuID: menuId,
-			})
-		}
-		if err := q.SysRoleMenu.WithContext(l.ctx).CreateInBatches(roleMenus, len(roleMenus)); err != nil {
-			return errx.GORMErr(err)
+		if err := dal.SysRoleDal.AddSysRoleMenus(l.ctx, roleId, req.MenuIds); err != nil {
+			return err
 		}
 	}
 	return nil

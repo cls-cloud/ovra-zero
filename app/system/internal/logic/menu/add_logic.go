@@ -3,10 +3,9 @@ package menu
 import (
 	"context"
 	"strconv"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
-	"toolkit/errx"
 	"toolkit/utils"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -44,9 +43,10 @@ func (l *AddLogic) Add(req *types.ModifyMenuReq) error {
 		Perms:     req.Perms,
 		Icon:      req.Icon,
 	}
-	q := l.svcCtx.Query
-	if err := q.SysMenu.WithContext(l.ctx).Create(menu); err != nil {
-		return errx.GORMErr(err)
+	dal := l.svcCtx.Dal
+	err := dal.SysMenuDal.Insert(l.ctx, menu)
+	if err != nil {
+		return err
 	}
 	return nil
 }

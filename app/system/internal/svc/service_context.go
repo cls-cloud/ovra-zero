@@ -1,17 +1,20 @@
 package svc
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/redis"
-	"github.com/zeromicro/go-zero/rest"
-	"github.com/zeromicro/go-zero/zrpc"
-	"gorm.io/gorm"
 	"monitor/client/logininforpc"
 	"monitor/client/operlogrpc"
 	"monitor/pb/monitor"
 	"system/internal/config"
+	"system/internal/dal"
+	q "system/internal/dal/query"
 	"system/internal/dao/query"
 	"system/internal/middleware"
 	"system/internal/svc/dbs"
+
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
+	"gorm.io/gorm"
 )
 
 type ServiceContext struct {
@@ -22,6 +25,7 @@ type ServiceContext struct {
 	Auth         rest.Middleware
 	LoginInfoRpc monitor.LoginInfoRpcClient
 	OperLogRpc   monitor.OperLogRpcClient
+	Dal          *dal.Dal
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -35,5 +39,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Auth:         middleware.NewAuthMiddleware(c, rds).Handle,
 		LoginInfoRpc: logininforpc.NewLoginInfoRpc(zrpc.MustNewClient(c.MonitorRpc)),
 		OperLogRpc:   operlogrpc.NewOperLogRpc(zrpc.MustNewClient(c.MonitorRpc)),
+		Dal:          dal.NewDal(db, q.Use(db), c),
 	}
 }

@@ -3,13 +3,14 @@ package middlewares
 import (
 	"context"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/stores/redis"
 	"net/http"
 	"strings"
 	"toolkit/auth"
 	"toolkit/ip"
 	"toolkit/tenant"
 	"toolkit/utils"
+
+	"github.com/zeromicro/go-zero/core/stores/redis"
 )
 
 func ExecHandle(next http.HandlerFunc, accessSecret string, rds *redis.Redis, multipleLoginDevices bool) http.HandlerFunc {

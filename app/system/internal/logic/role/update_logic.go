@@ -2,7 +2,6 @@ package role
 
 import (
 	"context"
-	"system/internal/dao/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -32,28 +31,18 @@ func (l *UpdateLogic) Update(req *types.AddOrUpdateRoleReq) error {
 	}
 	roleId := req.RoleID
 	q := l.svcCtx.Query
-	if oRoles, err := q.SysRole.WithContext(l.ctx).Where(q.SysRole.RoleKey.Eq(req.RoleKey)).
-		Where(q.SysRole.RoleID.Neq(roleId)).
-		First(); err == nil && oRoles != nil {
+	dal := l.svcCtx.Dal
+	if exit := dal.SysRoleDal.SelectByRoleKeyExit(l.ctx, roleId, req.RoleKey); exit {
 		return errx.BizErr("角色编码已存在")
 	}
+
 	omit := utils.StructToMapOmit(req.RoleBase, nil, []string{"SuperAdmin"}, true)
 	if _, err := q.SysRole.WithContext(l.ctx).Where(q.SysRole.RoleID.Eq(roleId)).Updates(omit); err != nil {
 		return errx.GORMErr(err)
 	}
 	if len(req.MenuIds) != 0 {
-		if _, err := q.SysRoleMenu.WithContext(l.ctx).Where(q.SysRoleMenu.RoleID.Eq(roleId)).Unscoped().Delete(); err != nil {
-			return errx.GORMErr(err)
-		}
-		roleMenus := make([]*model.SysRoleMenu, 0, len(req.MenuIds))
-		for _, menuId := range req.MenuIds {
-			roleMenus = append(roleMenus, &model.SysRoleMenu{
-				RoleID: roleId,
-				MenuID: menuId,
-			})
-		}
-		if err := q.SysRoleMenu.WithContext(l.ctx).CreateInBatches(roleMenus, len(roleMenus)); err != nil {
-			return errx.GORMErr(err)
+		if err := dal.SysRoleDal.AddSysRoleMenus(l.ctx, roleId, req.MenuIds); err != nil {
+			return err
 		}
 	}
 	return nil

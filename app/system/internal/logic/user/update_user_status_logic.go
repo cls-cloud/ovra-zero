@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"system/internal/dal/model"
 
 	"system/internal/svc"
 	"system/internal/types"
@@ -24,9 +25,10 @@ func NewUpdateUserStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *UpdateUserStatusLogic) UpdateUserStatus(req *types.UpdateUserStatusReq) error {
-	q := l.svcCtx.Query
-	_, err := q.SysUser.WithContext(l.ctx).Where(q.SysUser.UserID.Eq(req.UserId)).Update(q.SysUser.Status, req.Status)
-	if err != nil {
+	if err := l.svcCtx.Dal.SysUserDal.Update(l.ctx, &model.SysUser{
+		UserID: req.UserId,
+		Status: req.Status,
+	}); err != nil {
 		return err
 	}
 	return nil

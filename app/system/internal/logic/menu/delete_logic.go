@@ -3,8 +3,6 @@ package menu
 import (
 	"context"
 	"strings"
-	"toolkit/errx"
-
 	"system/internal/svc"
 	"system/internal/types"
 
@@ -27,9 +25,11 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 
 func (l *DeleteLogic) Delete(req *types.CodeReq) error {
 	ids := strings.Split(req.Code, ",")
-	q := l.svcCtx.Query
-	if _, err := q.SysMenu.WithContext(l.ctx).Where(q.SysMenu.MenuID.In(ids...)).Unscoped().Delete(); err != nil {
-		return errx.GORMErr(err)
+	dal := l.svcCtx.Dal
+	if len(ids) > 0 {
+		if err := dal.SysMenuDal.DeleteBatch(l.ctx, ids); err != nil {
+			return err
+		}
 	}
 	return nil
 }

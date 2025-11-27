@@ -2,11 +2,10 @@ package user
 
 import (
 	"context"
-	"toolkit/errx"
-	"toolkit/helper"
-
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
+	"toolkit/errx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,14 +25,14 @@ func NewResetPwdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ResetPwd
 }
 
 func (l *ResetPwdLogic) ResetPwd(req *types.ResetPwdReq) error {
-	q := l.svcCtx.Query
 	if len(req.Password) < 5 || len(req.Password) > 20 {
 		return errx.BizErr("密码长度为5 - 20")
 	}
-	_, err := q.SysUser.WithContext(l.ctx).Where(q.SysUser.UserID.Eq(req.UserId)).
-		Update(q.SysUser.Password, helper.Encrypt(req.Password))
-	if err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysUserDal.Update(l.ctx, &model.SysUser{
+		UserID:   req.UserId,
+		Password: req.Password,
+	}); err != nil {
+		return err
 	}
 	return nil
 }

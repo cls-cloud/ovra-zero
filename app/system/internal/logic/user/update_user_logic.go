@@ -2,12 +2,10 @@ package user
 
 import (
 	"context"
-	"system/internal/dao/model"
-	"toolkit/errx"
-	"toolkit/utils"
-
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
+	"toolkit/errx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,46 +25,47 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateUserLogic) UpdateUser(req *types.AddOrUpdateUserReq) error {
-	if req.UserID == "" {
-		return errx.BizErr("用户ID不能为空")
-	}
 	userId := req.UserID
-	userToMap := utils.StructToMapOmit(req.UserBase, nil, []string{"Password"}, true)
-	//更新数据
-	q := l.svcCtx.Query
-	if _, err := q.SysUser.WithContext(l.ctx).Where(q.SysUser.UserID.Eq(userId)).Updates(userToMap); err != nil {
-		return errx.GORMErr(err)
+	dal := l.svcCtx.Dal
+	if req.UserName != "" {
+		if exit := dal.SysUserDal.SelectByUserNameExit(l.ctx, userId, req.UserName); exit {
+			return errx.BizErr("用户名已经存在")
+		}
 	}
-	if _, err := q.SysUserPost.WithContext(l.ctx).Where(q.SysUserPost.UserID.Eq(userId)).Delete(); err != nil {
-		return errx.GORMErr(err)
+	if req.PhoneNumber != "" {
+		if exit := dal.SysUserDal.SelectByPhoneExit(l.ctx, userId, req.PhoneNumber); exit {
+			return errx.BizErr("手机号已经存在")
+		}
 	}
-	if _, err := q.SysUserRole.WithContext(l.ctx).Where(q.SysUserRole.UserID.Eq(userId)).Delete(); err != nil {
-		return errx.GORMErr(err)
+	if req.Email != "" {
+		if exit := dal.SysUserDal.SelectByEmailExit(l.ctx, userId, req.Email); exit {
+			return errx.BizErr("邮箱已经存在")
+		}
+	}
+	if err := dal.SysUserDal.Update(l.ctx, &model.SysUser{
+		UserID:      userId,
+		DeptID:      req.DeptID,
+		UserName:    req.UserName,
+		NickName:    req.NickName,
+		UserType:    req.UserType,
+		Email:       req.Email,
+		Phonenumber: req.PhoneNumber,
+		Sex:         req.Sex,
+		Avatar:      req.Avatar,
+		Status:      req.Status,
+		Remark:      req.Remark,
+	}); err != nil {
+		return err
 	}
 	if len(req.RoleIds) != 0 {
-		userRole := make([]*model.SysUserRole, len(req.RoleIds))
-		for i, roleId := range req.RoleIds {
-			userRole[i] = &model.SysUserRole{
-				UserID: userId,
-				RoleID: roleId,
-			}
-		}
-		if err := q.SysUserRole.WithContext(l.ctx).CreateInBatches(userRole, len(userRole)); err != nil {
-			return errx.GORMErr(err)
+		if err := dal.SysUserDal.AddSysUserRoles(l.ctx, userId, req.RoleIds); err != nil {
+			return err
 		}
 	}
 	if len(req.PostIds) != 0 {
-		userPost := make([]*model.SysUserPost, len(req.PostIds))
-		for i, postId := range req.PostIds {
-			userPost[i] = &model.SysUserPost{
-				UserID: userId,
-				PostID: postId,
-			}
-		}
-		if err := q.SysUserPost.WithContext(l.ctx).CreateInBatches(userPost, len(userPost)); err != nil {
-			return errx.GORMErr(err)
+		if err := dal.SysUserDal.AddSysUserPosts(l.ctx, userId, req.PostIds); err != nil {
+			return err
 		}
 	}
-
 	return nil
 }
