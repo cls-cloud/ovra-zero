@@ -16,7 +16,7 @@ database:
     - report_visual_map
     - report_visual_record
   # specify a directory for output
-  outPath: "./internal/dao/query"
+  outPath: "./internal/dal/query"
   # query code file name, default: gen.go
   outFile: "query.go"
   # generate unit test for query code

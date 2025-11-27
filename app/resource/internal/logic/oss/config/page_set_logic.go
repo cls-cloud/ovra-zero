@@ -30,7 +30,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetOssConfigReq) (resp *types.PageSetOssConfigResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysOssConfig.WithContext(l.ctx)
 	if req.ConfigKey != "" {
 		do = do.Where(q.SysOssConfig.ConfigKey.Like(fmt.Sprintf("%%%s%%", req.ConfigKey)))

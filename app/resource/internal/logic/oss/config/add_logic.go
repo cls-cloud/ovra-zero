@@ -43,7 +43,7 @@ func (l *AddLogic) Add(req *types.ModifyOssConfigReq) error {
 		Ext1:         req.Ext1,
 		Remark:       req.Remark,
 	}
-	if err := l.svcCtx.Query.SysOssConfig.WithContext(l.ctx).Create(ossConfig); err != nil {
+	if err := l.svcCtx.Dal.Query.SysOssConfig.WithContext(l.ctx).Create(ossConfig); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

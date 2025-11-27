@@ -27,7 +27,7 @@ func NewListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListLogic {
 }
 
 func (l *ListLogic) List(req *types.QueryMenuListReq) (resp []*types.MenuBase, err error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	userId := auth.GetUserId(l.ctx)
 	do := q.SysMenu.WithContext(l.ctx)
 	// 除了超级管理员 其余所有用户都只能查询自己角色绑定的菜单

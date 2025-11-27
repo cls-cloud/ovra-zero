@@ -26,7 +26,7 @@ func NewTreeSelectLogic(ctx context.Context, svcCtx *svc.ServiceContext) *TreeSe
 
 func (l *TreeSelectLogic) TreeSelect() (resp []*types.SelectMenuTree, err error) {
 	resp = make([]*types.SelectMenuTree, 0)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 
 	userId := auth.GetUserId(l.ctx)
 	do := q.SysMenu.WithContext(l.ctx)

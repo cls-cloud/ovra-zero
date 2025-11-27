@@ -34,7 +34,7 @@ type ListResp struct {
 
 func (l *PageSetLogic) PageSet(req *types.PageSetClientReq) (resp *ListResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysClient.WithContext(l.ctx)
 	if req.ClientKey != "" {
 		do = do.Where(q.SysClient.ClientKey.Like(fmt.Sprintf("%%%s%%", req.ClientKey)))

@@ -28,7 +28,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetTenantPackageReq) (resp *types.PageSetTenantPackageResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysTenantPackage.WithContext(l.ctx)
 	if req.PackageName != "" {
 		do = do.Where(q.SysTenantPackage.PackageName.Like(fmt.Sprintf("%%%s%%", req.PackageName)))

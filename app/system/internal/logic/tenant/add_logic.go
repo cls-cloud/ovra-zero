@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strings"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"system/internal/logic/dept"
 	"system/internal/logic/user"
 	"time"
@@ -34,7 +34,7 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddLogic {
 }
 
 func (l *AddLogic) Add(req *types.ModifyTenantReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	//获取当前最大的租户编号
 	tenantID, err := l.generateUniqueTenantID()
 	if err != nil {
@@ -70,7 +70,7 @@ func (l *AddLogic) Add(req *types.ModifyTenantReq) error {
 }
 
 func (l *AddLogic) generateUniqueTenantID() (string, error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	rand.NewSource(time.Now().UnixNano())
 	for {
 		tenantId := fmt.Sprintf("%06d", rand.Intn(1000000))
@@ -85,7 +85,7 @@ func (l *AddLogic) generateUniqueTenantID() (string, error) {
 }
 
 func (l *AddLogic) createAdminUser(tenant *model.SysTenant, req *types.ModifyTenantReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	tenantPackage, err := q.SysTenantPackage.WithContext(l.ctx).Where(q.SysTenantPackage.PackageID.Eq(tenant.PackageID)).First()
 	if err != nil {
 		return errx.GORMErr(err)

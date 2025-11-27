@@ -28,7 +28,7 @@ func (l *DeptTreeLogic) DeptTree(req *types.IdReq) (resp *types.DeptTreeResp, er
 	tree, err := user.NewGetDeptTreeLogic(l.ctx, l.svcCtx).GetDeptTree()
 	resp.Depts = tree
 	//获取角色已经分配的部门
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	roleDept, err := q.SysRoleDept.WithContext(l.ctx).Where(q.SysRoleDept.RoleID.Eq(req.Id)).Find()
 	deptIds := make([]string, 0, len(roleDept))
 	for i := range roleDept {

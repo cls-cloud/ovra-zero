@@ -27,7 +27,7 @@ func NewInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InfoLogic {
 
 func (l *InfoLogic) Info(req *types.IdReq) (resp *types.ClientBase, err error) {
 	resp = new(types.ClientBase)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	sysClient, err := q.SysClient.WithContext(l.ctx).Where(q.SysClient.ID.Eq(req.Id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)

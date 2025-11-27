@@ -25,7 +25,7 @@ func NewChangeStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Chan
 }
 
 func (l *ChangeStatusLogic) ChangeStatus(req *types.ClientQuery) (resp []*types.ClientBase, err error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	if _, err := q.SysClient.WithContext(l.ctx).Where(q.SysClient.ClientID.Eq(req.ClientId)).Update(q.SysClient.Status, req.Status); err != nil {
 		return nil, errx.GORMErr(err)
 	}

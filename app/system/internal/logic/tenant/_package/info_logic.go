@@ -27,7 +27,7 @@ func NewInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InfoLogic {
 
 func (l *InfoLogic) Info(req *types.IdReq) (resp *types.TenantPackageBase, err error) {
 	resp = new(types.TenantPackageBase)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	sysTenantPackage, err := q.SysTenantPackage.WithContext(l.ctx).Where(q.SysTenantPackage.PackageID.Eq(req.Id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)

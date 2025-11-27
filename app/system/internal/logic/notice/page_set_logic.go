@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/jinzhu/copier"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
 	"time"
@@ -30,7 +30,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetNoticeReq) (resp *types.PageSetNoticeResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	var result []struct {
 		model.SysNotice
 		CreateByName string `gorm:"column:user_name"`

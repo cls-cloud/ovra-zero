@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyPostReq) error {
 	toMapOmit := utils.StructToMapOmit(req.PostBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Query.SysPost.WithContext(l.ctx).Where(l.svcCtx.Query.SysPost.PostID.Eq(req.PostID)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysPost.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysPost.PostID.Eq(req.PostID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

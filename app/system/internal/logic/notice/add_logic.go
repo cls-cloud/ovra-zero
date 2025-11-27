@@ -2,7 +2,7 @@ package notice
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 
 	"system/internal/svc"
@@ -32,7 +32,7 @@ func (l *AddLogic) Add(req *types.ModifyNoticeReq) error {
 		NoticeContent: []byte(req.NoticeContent),
 		Status:        req.Status,
 	}
-	if err := l.svcCtx.Query.SysNotice.WithContext(l.ctx).Create(notice); err != nil {
+	if err := l.svcCtx.Dal.Query.SysNotice.WithContext(l.ctx).Create(notice); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

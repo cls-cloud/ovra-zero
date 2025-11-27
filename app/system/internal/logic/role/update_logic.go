@@ -30,7 +30,7 @@ func (l *UpdateLogic) Update(req *types.AddOrUpdateRoleReq) error {
 		return errx.BizErr("角色ID不能为空")
 	}
 	roleId := req.RoleID
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	dal := l.svcCtx.Dal
 	if exit := dal.SysRoleDal.SelectByRoleKeyExit(l.ctx, roleId, req.RoleKey); exit {
 		return errx.BizErr("角色编码已存在")

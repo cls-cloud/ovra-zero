@@ -91,7 +91,7 @@ func (l *PageSetLogic) PageSet(req *types.OnlineQuery) (resp *types.PageSetOnlin
 	for id := range loginInfoMap {
 		loginInfoIds = append(loginInfoIds, id)
 	}
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysLogininfor.WithContext(l.ctx)
 	if req.Ipaddr != "" {
 		do = do.Where(q.SysLogininfor.Ipaddr.Like(fmt.Sprintf("%%%s%%", req.Ipaddr)))

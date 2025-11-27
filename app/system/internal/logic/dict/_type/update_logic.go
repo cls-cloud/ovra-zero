@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyDictTypeReq) error {
 	toMapOmit := utils.StructToMapOmit(req.DictTypeBase, nil, []string{"CreateTime"}, true)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	dictTypeBase, err := NewInfoLogic(l.ctx, l.svcCtx).Info(&types.IdReq{Id: req.DictID})
 	if err != nil {
 		return err
@@ -38,7 +38,7 @@ func (l *UpdateLogic) Update(req *types.ModifyDictTypeReq) error {
 		First(); err == nil && sysDictType != nil {
 		return errx.BizErr("字典类型不能重复")
 	}
-	if _, err := q.SysDictType.WithContext(l.ctx).Where(l.svcCtx.Query.SysDictType.DictID.Eq(req.DictID)).Updates(toMapOmit); err != nil {
+	if _, err := q.SysDictType.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysDictType.DictID.Eq(req.DictID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	//如果修改字典类型名称 需要同步修改字典数据绑定字典

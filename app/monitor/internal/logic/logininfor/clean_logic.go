@@ -23,7 +23,7 @@ func NewCleanLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CleanLogic 
 }
 
 func (l *CleanLogic) Clean() error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	_, err := q.SysLogininfor.WithContext(l.ctx).Unscoped().Delete(&model.SysLogininfor{})
 	if err != nil {
 		return err

@@ -37,7 +37,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	loginInfoId := utils.GetID()
 
 	resp, err = l.LoginHandler(req, loginInfoId, err)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	if err == nil {
 		loginStatus = true
 		l.LoginInfo("登陆成功", loginStatus, req, loginInfoId)
@@ -57,7 +57,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 
 func (l *LoginLogic) LoginHandler(req *types.LoginReq, loginInfoId string, err error) (*types.LoginResp, error) {
 	//判断clientId是否正常
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	if req.ClientId == "" {
 		return nil, errx.AuthErr("clientId不能为空")
 	}
@@ -140,7 +140,7 @@ func (l *LoginLogic) LoginHandler(req *types.LoginReq, loginInfoId string, err e
 }
 
 func (l *LoginLogic) LoginInfo(msg string, status bool, req *types.LoginReq, loginInfoId string) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	client, _ := q.SysClient.WithContext(l.ctx).Where(q.SysClient.ClientID.Eq(req.ClientId)).
 		Where(q.SysClient.GrantType.Like(fmt.Sprintf("%%%s%%", req.GrantType))).
 		First()

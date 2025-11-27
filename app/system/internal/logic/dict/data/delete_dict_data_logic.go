@@ -27,7 +27,7 @@ func NewDeleteDictDataLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 
 func (l *DeleteDictDataLogic) DeleteDictData(req *types.CodeReq) error {
 	ids := strings.Split(req.Code, ",")
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	if _, err := q.SysDictDatum.WithContext(l.ctx).Where(q.SysDictDatum.DictCode.In(ids...)).Unscoped().Delete(); err != nil {
 		return errx.GORMErr(err)
 	}

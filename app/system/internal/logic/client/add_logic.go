@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -37,7 +37,7 @@ func (l *AddLogic) Add(req *types.ModifyClientReq) error {
 		Timeout:       req.Timeout,
 		ActiveTimeout: req.ActiveTimeout,
 	}
-	if err := l.svcCtx.Query.SysClient.WithContext(l.ctx).Create(client); err != nil {
+	if err := l.svcCtx.Dal.Query.SysClient.WithContext(l.ctx).Create(client); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

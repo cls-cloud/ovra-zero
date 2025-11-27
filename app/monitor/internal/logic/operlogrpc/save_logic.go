@@ -27,7 +27,7 @@ func NewSaveLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SaveLogic {
 }
 
 func (l *SaveLogic) Save(in *monitor.OperLogReq) (*monitor.EmptyResp, error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	id := utils.GetID()
 	err := q.SysOperLog.WithContext(l.ctx).Create(&model.SysOperLog{
 		OperID:        id,

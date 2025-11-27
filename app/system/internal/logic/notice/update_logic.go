@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyNoticeReq) error {
 	toMapOmit := utils.StructToMapOmit(req.NoticeBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Query.SysNotice.WithContext(l.ctx).Where(l.svcCtx.Query.SysNotice.NoticeID.Eq(req.NoticeID)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysNotice.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysNotice.NoticeID.Eq(req.NoticeID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

@@ -24,7 +24,7 @@ func NewRoleMenuTreeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Role
 }
 func (l *RoleMenuTreeLogic) RoleMenuTree(req *types.IdReq) (resp *types.SelectMenuTreeResp, err error) {
 	resp = new(types.SelectMenuTreeResp)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 
 	// 查询角色信息
 	role, err := q.SysRole.WithContext(l.ctx).Where(q.SysRole.RoleID.Eq(req.Id)).First()

@@ -25,7 +25,7 @@ func NewChangeStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Chan
 }
 
 func (l *ChangeStatusLogic) ChangeStatus(req *types.ChangeStatusTenantPackageReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	//查询正在使用该套餐的租户 如果有租户正在使用 需要先停用租户
 	if req.Status == "1" {
 		count, err := q.SysTenant.WithContext(l.ctx).Where(q.SysTenant.PackageID.Eq(req.PackageId), q.SysTenant.Status.Eq("0")).Count()

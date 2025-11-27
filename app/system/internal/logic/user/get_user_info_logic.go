@@ -32,7 +32,7 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserInfoResp, err error) {
 	// 获取用户权限
 	// 获取用户角色
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	userId := auth.GetUserId(l.ctx)
 	tenantKey := fmt.Sprintf(tenant.TENANT_KEY, userId)
 	//删除租户ID缓存
@@ -53,7 +53,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserInfoResp, err error) {
 		}
 	}
 	resp = new(types.UserInfoResp)
-	sysUser := l.svcCtx.Query.SysUser
+	sysUser := l.svcCtx.Dal.Query.SysUser
 	udo := sysUser.WithContext(l.ctx).Where(sysUser.UserID.Eq(userId))
 	if tenantId != "" {
 		udo.Where(sysUser.TenantID.Eq(tenantId))
@@ -65,8 +65,8 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserInfoResp, err error) {
 		}
 		return nil, err
 	}
-	sysRole := l.svcCtx.Query.SysRole
-	sysUserRole := l.svcCtx.Query.SysUserRole
+	sysRole := l.svcCtx.Dal.Query.SysRole
+	sysUserRole := l.svcCtx.Dal.Query.SysUserRole
 	var roleIds []string
 	err = sysUserRole.WithContext(l.ctx).Select(sysUserRole.RoleID).Where(sysUserRole.UserID.Eq(userId)).Scan(&roleIds)
 	if err != nil {

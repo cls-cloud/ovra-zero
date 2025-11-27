@@ -25,7 +25,7 @@ func NewConfigKeyLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ConfigK
 }
 
 func (l *ConfigKeyLogic) ConfigKey(req *types.CodeReq) (resp *types.ConfigKeyResp, err error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	config, err := q.SysConfig.WithContext(l.ctx).Where(q.SysConfig.ConfigKey.Eq(req.Code)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)

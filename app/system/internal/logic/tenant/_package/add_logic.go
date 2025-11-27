@@ -3,7 +3,7 @@ package _package
 import (
 	"context"
 	"strings"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -36,7 +36,7 @@ func (l *AddLogic) Add(req *types.ModifyTenantPackageReq) error {
 		Remark:            req.Remark,
 		MenuCheckStrictly: req.MenuCheckStrictly,
 	}
-	if err := l.svcCtx.Query.SysTenantPackage.WithContext(l.ctx).Create(tenantPackage); err != nil {
+	if err := l.svcCtx.Dal.Query.SysTenantPackage.WithContext(l.ctx).Create(tenantPackage); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

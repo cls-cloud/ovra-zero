@@ -30,7 +30,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetOssReq) (resp *types.PageSetOssResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysOss.WithContext(l.ctx)
 	if req.FileName != "" {
 		do = do.Where(q.SysOss.FileName.Like(fmt.Sprintf("%%%s%%", req.FileName)))

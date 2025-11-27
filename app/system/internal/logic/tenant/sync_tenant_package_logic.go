@@ -3,7 +3,7 @@ package tenant
 import (
 	"context"
 	"strings"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 
 	"system/internal/svc"
@@ -26,7 +26,7 @@ func NewSyncTenantPackageLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 func (l *SyncTenantPackageLogic) SyncTenantPackage(req *types.SyncTenantPackageReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	// 获取套餐信息
 	tenantPackage, err := q.SysTenantPackage.
 		WithContext(l.ctx).

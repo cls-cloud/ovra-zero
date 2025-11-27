@@ -2,7 +2,7 @@ package _config
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -35,7 +35,7 @@ func (l *AddLogic) Add(req *types.ModifyConfigReq) error {
 		ConfigValue: req.ConfigValue,
 		Remark:      req.Remark,
 	}
-	if err := l.svcCtx.Query.SysConfig.WithContext(l.ctx).Create(&config); err != nil {
+	if err := l.svcCtx.Dal.Query.SysConfig.WithContext(l.ctx).Create(&config); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

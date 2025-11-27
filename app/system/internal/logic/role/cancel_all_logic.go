@@ -27,7 +27,7 @@ func NewCancelAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CancelA
 
 func (l *CancelAllLogic) CancelAll(req *types.SelectAllReq) error {
 	userIds := strings.Split(req.UserIds, ",")
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	if _, err := q.SysUserRole.WithContext(l.ctx).Where(q.SysUserRole.UserID.In(userIds...)).Unscoped().Delete(); err != nil {
 		return errx.GORMErr(err)
 	}

@@ -31,7 +31,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetOperLogReq) (resp *types.PageSetOperLogResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysOperLog.WithContext(l.ctx)
 	if req.Title != "" {
 		do = do.Where(q.SysOperLog.Title.Like(fmt.Sprintf("%%%s%%", req.Title)))

@@ -25,7 +25,7 @@ func NewChangeStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Chan
 }
 
 func (l *ChangeStatusLogic) ChangeStatus(req *types.UpdateRoleStatusReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	_, err := q.SysRole.WithContext(l.ctx).Where(q.SysRole.RoleID.Eq(req.RoleID)).Update(q.SysRole.Status, req.Status)
 	if err != nil {
 		return errx.GORMErr(err)

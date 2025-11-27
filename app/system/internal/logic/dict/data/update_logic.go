@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyDictDataReq) error {
 	toMapOmit := utils.StructToMapOmit(req.DictDataBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Query.SysDictDatum.WithContext(l.ctx).Where(l.svcCtx.Query.SysDictDatum.DictCode.Eq(req.DictCode)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysDictDatum.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysDictDatum.DictCode.Eq(req.DictCode)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

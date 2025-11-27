@@ -31,7 +31,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetLogininforReq) (resp *types.PageSetLogininforResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysLogininfor.WithContext(l.ctx)
 	if req.Ipaddr != "" {
 		do = do.Where(q.SysLogininfor.Ipaddr.Like(fmt.Sprintf("%%%s%%", req.Ipaddr)))

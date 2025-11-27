@@ -28,7 +28,7 @@ func NewRemoveLogic(ctx context.Context, svcCtx *svc.ServiceContext) *RemoveLogi
 
 func (l *RemoveLogic) Remove(req *types.CodeReq) error {
 	ids := strings.Split(req.Code, ",")
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	//先查询角色是否有用户绑定
 	if count, err := q.SysUserRole.WithContext(l.ctx).Where(q.SysUserRole.RoleID.In(ids...)).Count(); err != nil {
 		return errx.GORMErr(err)

@@ -28,7 +28,7 @@ func NewInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InfoLogic {
 
 func (l *InfoLogic) Info(req *types.IdReq) (resp *types.OssConfigBase, err error) {
 	resp = new(types.OssConfigBase)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	ossConfig, err := q.SysOssConfig.WithContext(l.ctx).Where(q.SysOssConfig.OssConfigID.Eq(req.Id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)

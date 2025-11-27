@@ -2,7 +2,7 @@ package _type
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -33,7 +33,7 @@ func (l *AddLogic) Add(req *types.ModifyDictTypeReq) error {
 		DictType: req.DictType,
 		Remark:   req.Remark,
 	}
-	if err := l.svcCtx.Query.SysDictType.WithContext(l.ctx).Create(dictType); err != nil {
+	if err := l.svcCtx.Dal.Query.SysDictType.WithContext(l.ctx).Create(dictType); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

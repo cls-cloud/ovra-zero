@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 	"gorm.io/gorm"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
 	"time"
@@ -36,8 +36,8 @@ type ListResp struct {
 }
 
 func (l *QueryPageUserListLogic) QueryPageUserList(req *types.QueryPageUserListReq) (resp *ListResp, err error) {
-	sysUser := l.svcCtx.Query.SysUser
-	sysDept := l.svcCtx.Query.SysDept
+	sysUser := l.svcCtx.Dal.Query.SysUser
+	sysDept := l.svcCtx.Dal.Query.SysDept
 
 	do := sysUser.WithContext(l.ctx).
 		LeftJoin(sysDept, sysDept.DeptID.EqCol(sysUser.DeptID)).

@@ -70,7 +70,7 @@ func (l *DataByTypeLogic) DataByType(req *types.CodeReq) (resp []*types.DictData
 	}
 
 	// 缓存未命中或解析失败，查数据库
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	sysDictData, err := q.SysDictDatum.WithContext(l.ctx).Where(q.SysDictDatum.DictType.Eq(req.Code)).Find()
 	if err != nil {
 		return nil, errx.GORMErr(err)

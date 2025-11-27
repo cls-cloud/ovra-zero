@@ -6,8 +6,7 @@ import (
 	"monitor/pb/monitor"
 	"system/internal/config"
 	"system/internal/dal"
-	q "system/internal/dal/query"
-	"system/internal/dao/query"
+	"system/internal/dal/query"
 	"system/internal/middleware"
 	"system/internal/svc/dbs"
 
@@ -35,10 +34,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:       c,
 		Rds:          rds,
 		Db:           db,
-		Query:        query.Use(db),
 		Auth:         middleware.NewAuthMiddleware(c, rds).Handle,
 		LoginInfoRpc: logininforpc.NewLoginInfoRpc(zrpc.MustNewClient(c.MonitorRpc)),
 		OperLogRpc:   operlogrpc.NewOperLogRpc(zrpc.MustNewClient(c.MonitorRpc)),
-		Dal:          dal.NewDal(db, q.Use(db), c),
+		Dal:          dal.NewDal(db, query.Use(db), c),
 	}
 }

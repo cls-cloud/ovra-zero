@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyConfigReq) error {
 	toMapOmit := utils.StructToMapOmit(req.ConfigBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Query.SysConfig.WithContext(l.ctx).Where(l.svcCtx.Query.SysConfig.ConfigID.Eq(req.ConfigID)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysConfig.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysConfig.ConfigID.Eq(req.ConfigID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

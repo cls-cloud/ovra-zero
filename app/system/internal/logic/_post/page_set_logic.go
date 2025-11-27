@@ -29,7 +29,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetRoleReq) (resp *types.PageSetRoleResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysPost.WithContext(l.ctx)
 	if req.PostName != "" {
 		do = do.Where(q.SysPost.PostName.Like(fmt.Sprintf("%%%s%%", req.PostName)))

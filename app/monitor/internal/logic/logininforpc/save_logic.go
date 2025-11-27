@@ -45,6 +45,6 @@ func (l *SaveLogic) Save(in *monitor.LoginInfoReq) (*monitor.EmptyResp, error) {
 		LoginTime:     time.Now(),
 		Status:        in.Status,
 	}
-	err := l.svcCtx.Query.SysLogininfor.WithContext(l.ctx).Create(logininfor)
+	err := l.svcCtx.Dal.Query.SysLogininfor.WithContext(l.ctx).Create(logininfor)
 	return &monitor.EmptyResp{}, err
 }

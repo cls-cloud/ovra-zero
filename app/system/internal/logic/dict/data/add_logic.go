@@ -2,7 +2,7 @@ package data
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -37,7 +37,7 @@ func (l *AddLogic) Add(req *types.ModifyDictDataReq) error {
 		ListClass: req.ListClass,
 		CSSClass:  req.CssClass,
 	}
-	q := l.svcCtx.Query.SysDictDatum
+	q := l.svcCtx.Dal.Query.SysDictDatum
 	if err := q.WithContext(l.ctx).Create(dictData); err != nil {
 		return errx.GORMErr(err)
 	}

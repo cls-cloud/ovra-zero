@@ -63,7 +63,7 @@ func (l *UploadLogic) Upload() error {
 		OriginalName: fileName,
 		URL:          url,
 	}
-	if err := l.svcCtx.Query.SysOss.WithContext(l.ctx).Create(ossRecord); err != nil {
+	if err := l.svcCtx.Dal.Query.SysOss.WithContext(l.ctx).Create(ossRecord); err != nil {
 		return fmt.Errorf("save file record failed: %w", err)
 	}
 	return nil
@@ -98,7 +98,7 @@ func uploadOss(ctx context.Context, config *model.SysOssConfig, objectName strin
 }
 
 func (l *UploadLogic) getConfig() (*model.SysOssConfig, error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	cfg := &model.SysOssConfig{}
 	ex, err := l.svcCtx.Rds.ExistsCtx(l.ctx, constants.OssConfigDefaultCache)
 	if !ex && err == nil {

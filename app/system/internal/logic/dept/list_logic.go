@@ -27,7 +27,7 @@ func NewListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListLogic {
 }
 
 func (l *ListLogic) List(req *types.DeptQuery) (resp []*types.DeptBase, err error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysDept.WithContext(l.ctx)
 	if req.DeptName != "" {
 		do = do.Where(q.SysDept.DeptName.Like(fmt.Sprintf("%%%s%%", req.DeptName)))

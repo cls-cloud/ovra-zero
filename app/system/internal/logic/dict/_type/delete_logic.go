@@ -27,7 +27,7 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 
 func (l *DeleteLogic) Delete(req *types.CodeReq) error {
 	ids := strings.Split(req.Code, ",")
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	dictTypes := make([]string, 0)
 	err := q.SysDictType.WithContext(l.ctx).Select(q.SysDictType.DictType).Where(q.SysDictType.DictID.In(ids...)).Scan(&dictTypes)
 	if err != nil {

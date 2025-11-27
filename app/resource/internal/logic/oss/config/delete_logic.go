@@ -29,7 +29,7 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 
 func (l *DeleteLogic) Delete(req *types.IdsReq) error {
 	ids := strings.Split(req.Ids, ",")
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	configs, err := q.SysOssConfig.WithContext(l.ctx).Find()
 	if err != nil {
 		return errx.GORMErr(err)

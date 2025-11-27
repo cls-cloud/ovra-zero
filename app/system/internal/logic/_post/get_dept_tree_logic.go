@@ -25,7 +25,7 @@ func NewGetDeptTreeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetDe
 }
 
 func (l *GetDeptTreeLogic) GetDeptTree() (resp []types.DeptTree, err error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	sysDepts, err := q.SysDept.WithContext(l.ctx).Order(q.SysDept.OrderNum).Find()
 	if err != nil {
 		return nil, errx.GORMErr(err)

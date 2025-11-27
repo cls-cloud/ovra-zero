@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyMenuReq) error {
 	toMapOmit := utils.StructToMapOmit(req.MenuBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Query.SysMenu.WithContext(l.ctx).Where(l.svcCtx.Query.SysMenu.MenuID.Eq(req.MenuID)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysMenu.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysMenu.MenuID.Eq(req.MenuID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

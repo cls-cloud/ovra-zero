@@ -3,7 +3,7 @@ package _package
 import (
 	"context"
 	"strings"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -28,7 +28,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ModifyTenantPackageReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	oTenantPackage, err := q.SysTenantPackage.WithContext(l.ctx).
 		Where(q.SysTenantPackage.PackageID.Neq(req.PackageID)).
 		Where(q.SysTenantPackage.PackageName.Eq(req.PackageName)).

@@ -35,7 +35,7 @@ type ListResp struct {
 
 func (l *PageSetLogic) PageSet(req *types.PageSetTenantReq) (resp *ListResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysTenant.WithContext(l.ctx)
 	if req.TenantId != "" {
 		do = do.Where(q.SysTenant.TenantID.Like(fmt.Sprintf("%%%s%%", req.TenantId)))

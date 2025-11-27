@@ -36,7 +36,7 @@ func (l *UpdateLogic) Update(req *types.ModifyDeptReq) error {
 	if req.Email == "" {
 		toMapOmit["email"] = req.Email
 	}
-	if _, err := l.svcCtx.Query.SysDept.WithContext(l.ctx).Where(l.svcCtx.Query.SysDept.DeptID.Eq(req.DeptID)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysDept.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysDept.DeptID.Eq(req.DeptID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

@@ -24,7 +24,7 @@ func NewSyncTenantDictLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Sy
 
 func (l *SyncTenantDictLogic) SyncTenantDict() error {
 	baseTenantId := "000000"
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	sysTenants, err := q.SysTenant.WithContext(l.ctx).Where(q.SysTenant.Status.Eq("0"), q.SysTenant.TenantID.Neq(baseTenantId)).Find()
 	if err != nil {
 		return err

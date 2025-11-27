@@ -25,7 +25,7 @@ func NewRefreshCacheLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Refr
 }
 
 func (l *RefreshCacheLogic) RefreshCache() error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	key := constants.DictCache
 	dictTypes, err := q.SysDictType.WithContext(l.ctx).Find()
 	if err != nil {

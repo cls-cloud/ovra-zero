@@ -27,7 +27,7 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 
 func (l *DeleteLogic) Delete(req *types.CodeReq) error {
 	ids := strings.Split(req.Code, ",")
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	if _, err := q.SysPost.WithContext(l.ctx).Where(q.SysPost.PostID.In(ids...)).Unscoped().Delete(); err != nil {
 		return errx.GORMErr(err)
 	}

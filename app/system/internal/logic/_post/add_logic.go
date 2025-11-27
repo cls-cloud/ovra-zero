@@ -2,7 +2,7 @@ package _post
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -38,7 +38,7 @@ func (l *AddLogic) Add(req *types.ModifyPostReq) error {
 		PostCategory: req.PostCategory,
 		Remark:       req.Remark,
 	}
-	if err := l.svcCtx.Query.SysPost.WithContext(l.ctx).Create(post); err != nil {
+	if err := l.svcCtx.Dal.Query.SysPost.WithContext(l.ctx).Create(post); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

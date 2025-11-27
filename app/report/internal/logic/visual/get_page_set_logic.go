@@ -33,7 +33,7 @@ func (l *GetPageSetLogic) GetPageSet(req *types.VisualPageSetReq) (resp *types.V
 
 	resp = new(types.VisualPageSetResp)
 	offset := (req.PageNo - 1) * req.PageSize
-	vc := l.svcCtx.Query.ReportVisual
+	vc := l.svcCtx.Dal.Query.ReportVisual
 	do := vc.WithContext(l.ctx)
 	if req.Category != "" {
 		do = do.Where(vc.Category.Eq(req.Category))

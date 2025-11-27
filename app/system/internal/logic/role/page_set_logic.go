@@ -27,7 +27,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 func (l *PageSetLogic) PageSet(req *types.RolePageSetReq) (resp *types.RolePageSetResp, err error) {
 	resp = new(types.RolePageSetResp)
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysRole.WithContext(l.ctx)
 	if req.RoleName != "" {
 		do = do.Where(q.SysRole.RoleName.Like(fmt.Sprintf("%%%s%%", req.RoleName)))

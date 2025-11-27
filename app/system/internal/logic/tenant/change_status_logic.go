@@ -25,7 +25,7 @@ func NewChangeStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Chan
 }
 
 func (l *ChangeStatusLogic) ChangeStatus(req *types.ChangeStatusTenantReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	_, err := q.SysTenant.WithContext(l.ctx).Where(q.SysTenant.TenantID.Eq(req.TenantId), q.SysTenant.ID.Eq(req.Id)).
 		Update(q.SysTenant.Status, req.Status)
 	if err != nil {

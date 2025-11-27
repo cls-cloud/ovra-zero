@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyTenantReq) error {
 	toMapOmit := utils.StructToMapOmit(req.TenantBase, nil, nil, true)
-	if _, err := l.svcCtx.Query.SysTenant.WithContext(l.ctx).Where(l.svcCtx.Query.SysTenant.ID.Eq(req.ID)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysTenant.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysTenant.ID.Eq(req.ID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil

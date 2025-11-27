@@ -15,3 +15,4 @@ grpc:
 
 db:
 	gentool -c "./gen.yaml"
+	./replace.sh

@@ -26,7 +26,7 @@ func NewInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InfoLogic {
 
 func (l *InfoLogic) Info(req *types.IdReq) (resp *types.DictTypeBase, err error) {
 	resp = new(types.DictTypeBase)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	sysDictDatum, err := q.SysDictType.WithContext(l.ctx).Where(q.SysDictType.DictID.Eq(req.Id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)

@@ -9,7 +9,7 @@ database:
     - sys_oper_log
     - sys_logininfor
   # specify a directory for output
-  outPath: "./internal/dao/query"
+  outPath: "./internal/dal/query"
   # query code file name, default: gen.go
   outFile: "query.go"
   # generate unit test for query code

@@ -25,7 +25,7 @@ func NewDeptListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeptList
 }
 
 func (l *DeptListLogic) DeptList(req *types.IdReq) (resp []*types.UserBase, err error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	sysUsers, err := q.SysUser.WithContext(l.ctx).
 		LeftJoin(q.SysDept, q.SysDept.DeptID.EqCol(q.SysUser.DeptID)).
 		Where(q.SysDept.DeptID.Eq(req.Id)).

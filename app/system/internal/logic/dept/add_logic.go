@@ -2,7 +2,7 @@ package dept
 
 import (
 	"context"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
@@ -27,7 +27,7 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddLogic {
 }
 
 func (l *AddLogic) Add(req *types.ModifyDeptReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	var ancestors string
 	parentId := req.ParentID
 	//获取祖级列表

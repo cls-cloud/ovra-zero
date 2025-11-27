@@ -26,7 +26,7 @@ func NewDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DetailLogi
 }
 
 func (l *DetailLogic) Detail(req *types.IdReq) (resp *types.Visual, err error) {
-	reportVisual := l.svcCtx.Query.ReportVisual
+	reportVisual := l.svcCtx.Dal.Query.ReportVisual
 	v, err := reportVisual.WithContext(l.ctx).Where(reportVisual.UUID.Eq(req.Id)).First()
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

@@ -29,7 +29,7 @@ func NewPageSetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PageSetLo
 
 func (l *PageSetLogic) PageSet(req *types.PageSetDictTypeReq) (resp *types.PageSetDictTypeResp, err error) {
 	offset := (req.PageNum - 1) * req.PageSize
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysDictType.WithContext(l.ctx)
 	if req.DictName != "" {
 		do = do.Where(q.SysDictType.DictName.Like(fmt.Sprintf("%%%s%%", req.DictName)))

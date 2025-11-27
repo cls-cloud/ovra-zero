@@ -26,7 +26,7 @@ func NewTenantPackageTreeLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 func (l *TenantPackageTreeLogic) TenantPackageTree(req *types.IdReq) (resp *types.SelectMenuTreeResp, err error) {
 	resp = new(types.SelectMenuTreeResp)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	resultIds := make([]string, 0)
 
 	// 只有非 0 ID 才查套餐

@@ -28,7 +28,7 @@ func (l *TenantListLogic) TenantList() (resp *types.TenantResp, err error) {
 	resp.TenantEnabled = l.svcCtx.Config.Tenant.Enabled
 	if resp.TenantEnabled {
 		resp.VoList = make([]types.TenantVo, 0)
-		sysTenant := l.svcCtx.Query.SysTenant
+		sysTenant := l.svcCtx.Dal.Query.SysTenant
 		list, _ := sysTenant.WithContext(l.ctx).Find()
 		for _, v := range list {
 			vo := types.TenantVo{

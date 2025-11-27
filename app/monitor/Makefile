@@ -15,6 +15,7 @@ grpc:
 
 db:
 	gentool -c "./gen.yaml"
+	./replace.sh
 
 build:
 	GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -tags no_k8s \

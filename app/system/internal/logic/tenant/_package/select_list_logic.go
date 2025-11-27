@@ -26,7 +26,7 @@ func NewSelectListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Select
 }
 
 func (l *SelectListLogic) SelectList() (resp []*types.TenantPackageBase, err error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	do := q.SysTenantPackage.WithContext(l.ctx)
 	result, err := do.Order(q.SysTenantPackage.CreateTime.Desc()).Find()
 	if err != nil {

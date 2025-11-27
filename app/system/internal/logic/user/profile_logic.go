@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/jinzhu/copier"
 	"strings"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
 	"time"
@@ -31,7 +31,7 @@ func NewProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ProfileLo
 func (l *ProfileLogic) Profile() (resp *types.UserProfileResp, err error) {
 	userId := auth.GetUserId(l.ctx)
 	resp = new(types.UserProfileResp)
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	var result struct {
 		model.SysUser
 		DeptName string `gorm:"column:dept_name"`

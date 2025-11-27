@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"strings"
-	"system/internal/dao/model"
+	"system/internal/dal/model"
 	"system/internal/svc"
 	"system/internal/types"
 	"toolkit/auth"
@@ -30,7 +30,7 @@ func (l *GetRoutersLogic) GetRouters() (resp []*types.RouterMenuResp, err error)
 	userId := auth.GetUserId(l.ctx)
 	// 判断用户是否属于超级管理员
 	isAdmin := false
-	sysUserRole := l.svcCtx.Query.SysUserRole
+	sysUserRole := l.svcCtx.Dal.Query.SysUserRole
 	role, err := sysUserRole.WithContext(l.ctx).Where(sysUserRole.UserID.Eq(userId)).Where(sysUserRole.RoleID.Eq("1")).First()
 	if err == nil && role != nil {
 		isAdmin = true
@@ -105,7 +105,7 @@ func (l *GetRoutersLogic) Tree(node []*types.RouterMenuResp, pid string) []*type
 	return res
 }
 func (l *GetRoutersLogic) GetMenuByUserId(ctx context.Context, userId string, isAdmin bool) ([]*model.SysMenu, error) {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 
 	var sysMenus []*model.SysMenu
 	var err error

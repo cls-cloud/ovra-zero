@@ -25,7 +25,7 @@ func NewChangeStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Chan
 }
 
 func (l *ChangeStatusLogic) ChangeStatus(req *types.ChangeStatusOssConfigReq) error {
-	q := l.svcCtx.Query
+	q := l.svcCtx.Dal.Query
 	_, err := q.SysOssConfig.WithContext(l.ctx).Where(q.SysOssConfig.OssConfigID.Eq(req.OssConfigId), q.SysOssConfig.ConfigKey.Eq(req.ConfigKey)).
 		Update(q.SysOssConfig.Status, req.Status)
 	if err != nil {

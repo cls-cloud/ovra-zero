@@ -1,21 +1,23 @@
 package svc
 
 import (
+	"resource/internal/config"
+	"resource/internal/dal"
+	"resource/internal/dal/query"
+	"resource/internal/middleware"
+	"resource/internal/svc/dbs"
+
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"
 	"gorm.io/gorm"
-	"resource/internal/config"
-	"resource/internal/dao/query"
-	"resource/internal/middleware"
-	"resource/internal/svc/dbs"
 )
 
 type ServiceContext struct {
 	Config config.Config
 	Db     *gorm.DB
 	Rds    *redis.Redis
-	Query  *query.Query
 	Auth   rest.Middleware
+	Dal    *dal.Dal
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -25,7 +27,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config: c,
 		Rds:    rds,
 		Db:     db,
-		Query:  query.Use(db),
 		Auth:   middleware.NewAuthMiddleware(c, rds).Handle,
+		Dal:    dal.NewDal(db, query.Use(db), c),
 	}
 }

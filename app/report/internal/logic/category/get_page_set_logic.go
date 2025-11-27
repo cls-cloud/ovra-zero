@@ -31,7 +31,7 @@ func (l *GetPageSetLogic) GetPageSet(req *types.PageReq) (resp *types.CategoryPa
 
 	resp = new(types.CategoryPageSetResp)
 	offset := (req.PageNo - 1) * req.PageSize
-	vc := l.svcCtx.Query.ReportVisualCategory
+	vc := l.svcCtx.Dal.Query.ReportVisualCategory
 	total, err := vc.WithContext(l.ctx).Count()
 	if err != nil {
 		return nil, err

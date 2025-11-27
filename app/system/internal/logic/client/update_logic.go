@@ -27,7 +27,7 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 
 func (l *UpdateLogic) Update(req *types.ModifyClientReq) error {
 	toMapOmit := utils.StructToMapOmit(req.ClientBase, nil, nil, true)
-	if _, err := l.svcCtx.Query.SysClient.WithContext(l.ctx).Where(l.svcCtx.Query.SysClient.ID.Eq(req.ID)).Updates(toMapOmit); err != nil {
+	if _, err := l.svcCtx.Dal.Query.SysClient.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysClient.ID.Eq(req.ID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)
 	}
 	return nil
