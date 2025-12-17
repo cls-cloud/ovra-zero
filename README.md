@@ -9,10 +9,9 @@
 ## 在线体验
 > 账号密码：admin/admin123
 + 演示地址：
-  + https://vben5.go-atlas.dev/ (vben5版本)
+  + https://vben5.ovra.dev/ (vben5版本)
 + 文档地址：
-  + https://go-atlas.dev/
-  + https://portal.go-atlas.dev/ (备用)
+  + https://ovra.dev/
 
 ## 内置功能
 1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
