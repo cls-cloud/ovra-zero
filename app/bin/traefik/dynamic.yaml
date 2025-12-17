@@ -2,33 +2,30 @@ http:
   routers:
     # System 子路径
     router-system:
-      rule: "Host(`api.go-atlas.cn`) && (PathPrefix(`/system`) || PathPrefix(`/auth`))"
+      rule: "(PathPrefix(`/system`) || PathPrefix(`/auth`))"
       entryPoints:
         - websecure
       service: service-system
       middlewares:
         - cors-header
-      tls: {}
 
     # Monitor
     router-monitor:
-      rule: "Host(`api.go-atlas.cn`) && PathPrefix(`/monitor`)"
+      rule: "PathPrefix(`/monitor`)"
       entryPoints:
         - websecure
       service: service-monitor
       middlewares:
         - cors-header
-      tls: {}
 
     # Resource
     router-resource:
-      rule: "Host(`api.go-atlas.cn`) && PathPrefix(`/resource`)"
+      rule: "PathPrefix(`/resource`)"
       entryPoints:
         - websecure
       service: service-resource
       middlewares:
         - cors-header
-      tls: {}
 
   services:
     service-system:

@@ -2,10 +2,11 @@ package logininfor
 
 import (
 	"context"
-	"monitor/internal/dao/model"
+	"monitor/internal/dal/model"
+
+	"monitor/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"monitor/internal/svc"
 )
 
 type CleanLogic struct {

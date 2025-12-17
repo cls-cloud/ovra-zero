@@ -64,7 +64,7 @@ func (l *SysPostDal) DeleteBatch(ctx context.Context, ids []string) (err error) 
 		if _, err = tx.SysPost.WithContext(ctx).Where(tx.SysPost.PostID.In(ids...)).Delete(); err != nil {
 			return errx.GORMErr(err)
 		}
-		if _, err = tx.SysUserPost.WithContext(ctx).Where(tx.SysUserPost.PostID.Eq(ids...)).Delete(); err != nil {
+		if _, err = tx.SysUserPost.WithContext(ctx).Where(tx.SysUserPost.PostID.In(ids...)).Delete(); err != nil {
 			return errx.GORMErr(err)
 		}
 		return nil

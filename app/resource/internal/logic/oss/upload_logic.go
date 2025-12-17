@@ -4,19 +4,21 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/aliyun/alibabacloud-oss-go-sdk-v2/oss/credentials"
 	"io"
 	"net/http"
 	"path/filepath"
-	"resource/internal/dao/model"
+	"resource/internal/dal/model"
 	"time"
 	"toolkit/constants"
 	"toolkit/errx"
 	"toolkit/utils"
 
+	"github.com/aliyun/alibabacloud-oss-go-sdk-v2/oss/credentials"
+
+	"resource/internal/svc"
+
 	"github.com/aliyun/alibabacloud-oss-go-sdk-v2/oss"
 	"github.com/zeromicro/go-zero/core/logx"
-	"resource/internal/svc"
 )
 
 type UploadLogic struct {

@@ -2,7 +2,7 @@ package operlogrpclogic
 
 import (
 	"context"
-	"monitor/internal/dao/model"
+	"monitor/internal/dal/model"
 	"time"
 	"toolkit/utils"
 

@@ -1,8 +1,8 @@
 entryPoints:
   websecure:
-    address: :443
+    address: ":8080"
   traefik:
-    address: :80
+    address: ":80"
 
 api:
   dashboard: true
@@ -13,8 +13,4 @@ providers:
     filename: "./bin/traefik/dynamic.yaml"
     watch: true
 
-tls:
-  certificates:
-    - certFile: /opt/ssl/fullchain.cer
-      keyFile: /opt/ssl/go-atlas.cn.key
 

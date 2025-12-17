@@ -2,7 +2,7 @@ package config
 
 import (
 	"context"
-	"resource/internal/dao/model"
+	"resource/internal/dal/model"
 	"toolkit/errx"
 	"toolkit/utils"
 
