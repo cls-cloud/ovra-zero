@@ -10,7 +10,6 @@
 > 账号密码：admin/admin123
 + 演示地址：
   + https://vben5.go-atlas.dev/ (vben5版本)
-  + https://vue3.go-atlas.dev/ (vue3版本)
 + 文档地址：
   + https://go-atlas.dev/
   + https://portal.go-atlas.dev/ (备用)
@@ -30,7 +29,9 @@
 12. 租户套餐管理：支持租户套餐管理、模块功能控制、租户容量限制。
 
 ## 待完成功能
-+ [ ] 代码生成，需结合代码生成器（采用GoLand插件形式，仅实现后端生成功能）
++ [X] 代码生成，需结合代码生成器（采用GoLand插件形式，仅实现后端生成功能）
++ [ ] 报表大屏可视化 
++ [ ] OAuth2.0
 
 ## 快速启动（开发环境）
 > 后端需安装 Go 1.24+，数据库为 MySQL（推荐 8.0+）
