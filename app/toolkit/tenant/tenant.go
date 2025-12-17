@@ -3,8 +3,9 @@ package tenant
 import (
 	"context"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/stores/redis"
 	"toolkit/auth"
+
+	"github.com/zeromicro/go-zero/core/stores/redis"
 )
 
 func GetTenantId(ctx context.Context, rds *redis.Redis, user *auth.UserInfo) (string, error) {
@@ -28,9 +29,15 @@ func GetTenantId(ctx context.Context, rds *redis.Redis, user *auth.UserInfo) (st
 func SetTenantId(ctx context.Context, rds *redis.Redis, userId, tenantId string) error {
 	key := fmt.Sprintf(TENANT_KEY, userId)
 	ot := auth.GetTenantId(ctx)
-	err := rds.HsetCtx(ctx, key, "ot", ot)
+	ex, err := rds.ExistsCtx(ctx, key)
 	if err != nil {
 		return err
+	}
+	if !ex {
+		err = rds.HsetCtx(ctx, key, "ot", ot)
+		if err != nil {
+			return err
+		}
 	}
 	err = rds.HsetCtx(ctx, key, "nt", tenantId)
 	if err != nil {
