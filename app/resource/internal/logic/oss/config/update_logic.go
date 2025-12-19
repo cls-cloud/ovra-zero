@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"toolkit/constants"
-	"toolkit/errx"
-	"toolkit/utils"
+	"ovra/toolkit/constants"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/utils"
 
-	"resource/internal/svc"
-	"resource/internal/types"
+	"ovra/app/resource/internal/svc"
+	"ovra/app/resource/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

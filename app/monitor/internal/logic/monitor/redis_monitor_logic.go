@@ -3,8 +3,8 @@ package monitor
 import (
 	"context"
 	"errors"
-	"monitor/internal/svc"
-	"monitor/internal/types"
+	"ovra/app/monitor/internal/svc"
+	"ovra/app/monitor/internal/types"
 	"strconv"
 	"strings"
 

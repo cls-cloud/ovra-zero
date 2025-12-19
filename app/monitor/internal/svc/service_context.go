@@ -1,11 +1,11 @@
 package svc
 
 import (
-	"monitor/internal/config"
-	"monitor/internal/dal"
-	"monitor/internal/dal/query"
-	"monitor/internal/middleware"
-	"monitor/internal/svc/dbs"
+	"ovra/app/monitor/internal/config"
+	"ovra/app/monitor/internal/dal"
+	"ovra/app/monitor/internal/dal/query"
+	"ovra/app/monitor/internal/middleware"
+	"ovra/app/monitor/internal/svc/dbs"
 
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"

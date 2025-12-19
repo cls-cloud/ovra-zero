@@ -2,10 +2,10 @@ package user
 
 import (
 	"context"
-	"system/internal/dal/model"
-	"system/internal/svc"
-	"system/internal/types"
-	"toolkit/errx"
+	"ovra/app/system/internal/dal/model"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/errx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

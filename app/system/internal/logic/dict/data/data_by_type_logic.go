@@ -3,13 +3,14 @@ package data
 import (
 	"context"
 	"encoding/json"
-	"github.com/jinzhu/copier"
-	"system/internal/logic/dict/_type"
-	"toolkit/constants"
-	"toolkit/errx"
+	"ovra/app/system/internal/logic/dict/_type"
+	"ovra/toolkit/constants"
+	"ovra/toolkit/errx"
 
-	"system/internal/svc"
-	"system/internal/types"
+	"github.com/jinzhu/copier"
+
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

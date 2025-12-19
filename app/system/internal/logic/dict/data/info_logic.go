@@ -2,10 +2,11 @@ package data
 
 import (
 	"context"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/errx"
+
 	"github.com/jinzhu/copier"
-	"system/internal/svc"
-	"system/internal/types"
-	"toolkit/errx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

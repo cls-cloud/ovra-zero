@@ -2,9 +2,9 @@ package menu
 
 import (
 	"context"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 	"strings"
-	"system/internal/svc"
-	"system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

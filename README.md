@@ -1,4 +1,4 @@
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold; font-size: 30px">Atlas-Zero</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold; font-size: 30px">Ovra-Zero</h1>
 <h4 align="center">基于Go-Zero实现的若依服务端脚手架（支持多租户）</h4>
 
 ## 平台简介
@@ -9,9 +9,9 @@
 ## 在线体验
 > 账号密码：admin/admin123
 + 演示地址：
-  + https://vben5.ovra.dev/ (vben5版本)
+    + https://vben5.ovra.dev/ (vben5版本)
 + 文档地址：
-  + https://ovra.dev/
+    + https://ovra.dev/
 
 ## 内置功能
 1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
@@ -29,25 +29,23 @@
 
 ## 待完成功能
 + [X] 代码生成，需结合代码生成器（采用GoLand插件形式，仅实现后端生成功能）
-+ [ ] 报表大屏可视化 
++ [ ] 报表大屏可视化
 + [ ] OAuth2.0
 
 ## 快速启动（开发环境）
-> 后端需安装 Go 1.24+，数据库为 MySQL（推荐 8.0+）
++ 后端需安装 Go 1.24+，数据库为 MySQL（推荐 8.0+）
++ clone下来代码需要对应修改etc下的配置文件中数据库与redis地址
++ 服务注册以来etcd(etcd安装教程查看 https://ovra.dev/docs/tutorial-install/etcd-install)
 
 ### 后端运行
 ```shell
 # 克隆后端代码
 git clone https://github.com/cls-cloud/atlas-zero.git
-cd atlas-zero/app/toolkit && go mod tidy
-cd atlas-zero/app/system && go mod tidy
-cd atlas-zero/app/monitor && go mod tidy
-cd atlas-zero/app/resource && go mod tidy
+make init && make build-all && make back-all
 ```
 ### 网关运行
 > 网关使用traefik，下载地址：https://github.com/traefik/traefik/releases
 ```shell
-# 下载系统对应版本的traefik，解压后放在bin/app/traefik目录下
-cd atlas-zero/app
+# 下载系统对应版本的traefik，解压后放在bin/traefik目录下
 ./bin/traefik/traefik --configfile=./bin/traefik/traefik.yaml
 ```

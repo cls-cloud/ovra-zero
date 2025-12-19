@@ -1,0 +1,13 @@
+syntax = "v1"
+
+info (
+	desc:   "系统监控"
+	author: "atlas"
+	email:  "ut1221@icloud.com"
+	date:   "2025-07-13 16:54:29"
+)
+
+import "online.api"
+import "oper_log.api"
+import "logininfor.api"
+import "monitor.api"

@@ -3,13 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
-	"system/internal/config"
-	"system/internal/handler"
-	"system/internal/middleware"
-	"system/internal/svc"
-	"toolkit/helper"
-	"toolkit/middlewares"
-	"toolkit/utils"
+	"os"
+	"ovra/app/system/internal/config"
+	"ovra/app/system/internal/handler"
+	"ovra/app/system/internal/middleware"
+	"ovra/app/system/internal/svc"
+	"ovra/toolkit/helper"
+	"ovra/toolkit/middlewares"
+	"ovra/toolkit/utils"
+	"path/filepath"
 
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -18,7 +20,18 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/system.yaml", "the config file")
+var configFile *string
+
+func init() {
+	env := os.Getenv("ENV")
+	if env == "" {
+		env = "dev"
+	}
+	defaultConfig := filepath.Join("etc", env, "system.yaml")
+	configFile = flag.String("f", defaultConfig, "the config file")
+	flag.Parse()
+	fmt.Println("Using config file:", *configFile)
+}
 
 func main() {
 	flag.Parse()

@@ -2,9 +2,9 @@ package role
 
 import (
 	"context"
-	"system/internal/logic/user"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/logic/user"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

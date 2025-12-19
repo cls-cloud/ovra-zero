@@ -2,10 +2,10 @@ package menu
 
 import (
 	"context"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/errx"
 	"strconv"
-	"system/internal/svc"
-	"system/internal/types"
-	"toolkit/errx"
 
 	"github.com/jinzhu/copier"
 

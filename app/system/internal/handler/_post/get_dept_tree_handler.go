@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/_post"
-	"system/internal/svc"
+	"ovra/app/system/internal/logic/_post"
+	"ovra/app/system/internal/svc"
 )
 
 func GetDeptTreeHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

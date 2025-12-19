@@ -2,15 +2,16 @@ package dbs
 
 import (
 	"fmt"
+	slog "log"
+	"os"
+	"ovra/app/system/internal/config"
+	"ovra/toolkit/gorm/plugin"
+	"time"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
-	slog "log"
-	"os"
-	"system/internal/config"
-	"time"
-	"toolkit/gorm/plugin"
 )
 
 func NewDb(c config.Config) *gorm.DB {

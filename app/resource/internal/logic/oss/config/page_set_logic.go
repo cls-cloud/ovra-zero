@@ -4,12 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/jinzhu/copier"
+	"ovra/toolkit/errx"
 	"time"
-	"toolkit/errx"
 
-	"resource/internal/svc"
-	"resource/internal/types"
+	"github.com/jinzhu/copier"
+
+	"ovra/app/resource/internal/svc"
+	"ovra/app/resource/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

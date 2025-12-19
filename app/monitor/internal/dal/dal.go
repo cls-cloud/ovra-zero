@@ -1,8 +1,8 @@
 package dal
 
 import (
-	"monitor/internal/config"
-	"monitor/internal/dal/query"
+	"ovra/app/monitor/internal/config"
+	"ovra/app/monitor/internal/dal/query"
 
 	"gorm.io/gorm"
 )

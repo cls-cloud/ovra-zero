@@ -24,6 +24,7 @@ selenium-debug.log
 *.njsproj
 *.sln
 *.local
+*.sum
 
 package-lock.json
 yarn.lock
@@ -43,7 +44,7 @@ yarn.lock
 deploy/bin/
 log/
 keystore
-app/bin/traefik/traefik
+bin/traefik/traefik
 
 # OS General
 Thumbs.db

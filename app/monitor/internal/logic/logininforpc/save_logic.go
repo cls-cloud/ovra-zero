@@ -2,12 +2,12 @@ package logininforpclogic
 
 import (
 	"context"
-	"monitor/internal/dal/model"
+	"ovra/app/monitor/internal/dal/model"
+	"ovra/toolkit/utils"
 	"time"
-	"toolkit/utils"
 
-	"monitor/internal/svc"
-	"monitor/pb/monitor"
+	"ovra/app/monitor/internal/svc"
+	"ovra/app/monitor/pb/monitor"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

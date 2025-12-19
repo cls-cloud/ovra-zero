@@ -3,17 +3,18 @@ package auth
 import (
 	"context"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/logx"
-	"monitor/pb/monitor"
 	"net/http"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/monitor/pb/monitor"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/auth"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/helper"
+	"ovra/toolkit/ip"
+	"ovra/toolkit/utils"
 	"time"
-	"toolkit/auth"
-	"toolkit/errx"
-	"toolkit/helper"
-	"toolkit/ip"
-	"toolkit/utils"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type LoginLogic struct {

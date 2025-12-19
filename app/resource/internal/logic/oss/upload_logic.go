@@ -6,16 +6,16 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"ovra/app/resource/internal/dal/model"
+	"ovra/toolkit/constants"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/utils"
 	"path/filepath"
-	"resource/internal/dal/model"
 	"time"
-	"toolkit/constants"
-	"toolkit/errx"
-	"toolkit/utils"
 
 	"github.com/aliyun/alibabacloud-oss-go-sdk-v2/oss/credentials"
 
-	"resource/internal/svc"
+	"ovra/app/resource/internal/svc"
 
 	"github.com/aliyun/alibabacloud-oss-go-sdk-v2/oss"
 	"github.com/zeromicro/go-zero/core/logx"

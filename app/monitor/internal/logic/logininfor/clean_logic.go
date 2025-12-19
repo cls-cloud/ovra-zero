@@ -2,9 +2,9 @@ package logininfor
 
 import (
 	"context"
-	"monitor/internal/dal/model"
+	"ovra/app/monitor/internal/dal/model"
 
-	"monitor/internal/svc"
+	"ovra/app/monitor/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

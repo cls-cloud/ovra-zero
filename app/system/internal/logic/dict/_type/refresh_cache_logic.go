@@ -3,11 +3,12 @@ package _type
 import (
 	"context"
 	"encoding/json"
-	"toolkit/constants"
-	"toolkit/errx"
+	"ovra/toolkit/constants"
+	"ovra/toolkit/errx"
+
+	"ovra/app/system/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"system/internal/svc"
 )
 
 type RefreshCacheLogic struct {

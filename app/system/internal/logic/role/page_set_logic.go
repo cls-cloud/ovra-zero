@@ -3,8 +3,8 @@ package role
 import (
 	"context"
 	"fmt"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"

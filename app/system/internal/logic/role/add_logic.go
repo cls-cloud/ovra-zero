@@ -2,11 +2,11 @@ package role
 
 import (
 	"context"
-	"system/internal/dal/model"
-	"system/internal/svc"
-	"system/internal/types"
-	"toolkit/errx"
-	"toolkit/utils"
+	"ovra/app/system/internal/dal/model"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/utils"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

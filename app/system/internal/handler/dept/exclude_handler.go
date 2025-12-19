@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/dept"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/logic/dept"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 )
 
 func ExcludeHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

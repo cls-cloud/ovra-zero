@@ -1,11 +1,11 @@
 package svc
 
 import (
-	"resource/internal/config"
-	"resource/internal/dal"
-	"resource/internal/dal/query"
-	"resource/internal/middleware"
-	"resource/internal/svc/dbs"
+	"ovra/app/resource/internal/config"
+	"ovra/app/resource/internal/dal"
+	"ovra/app/resource/internal/dal/query"
+	"ovra/app/resource/internal/middleware"
+	"ovra/app/resource/internal/svc/dbs"
 
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"

@@ -2,11 +2,11 @@ package tenant
 
 import (
 	"context"
-	"toolkit/auth"
-	"toolkit/tenant"
+	"ovra/toolkit/auth"
+	"ovra/toolkit/tenant"
 
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

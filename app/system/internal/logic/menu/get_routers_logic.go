@@ -3,12 +3,13 @@ package menu
 import (
 	"context"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/logx"
+	"ovra/app/system/internal/dal/model"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/auth"
 	"strings"
-	"system/internal/dal/model"
-	"system/internal/svc"
-	"system/internal/types"
-	"toolkit/auth"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetRoutersLogic struct {

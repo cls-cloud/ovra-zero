@@ -7,7 +7,7 @@ package operlogrpc
 import (
 	"context"
 
-	"monitor/pb/monitor"
+	"ovra/app/monitor/pb/monitor"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

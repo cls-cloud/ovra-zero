@@ -3,12 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	logininforpcServer "monitor/internal/server/logininforpc"
-	operlogrpcServer "monitor/internal/server/operlogrpc"
-	"monitor/pb/monitor"
-	"toolkit/helper"
-	"toolkit/middlewares"
-	"toolkit/utils"
+	"os"
+	logininforpcServer "ovra/app/monitor/internal/server/logininforpc"
+	operlogrpcServer "ovra/app/monitor/internal/server/operlogrpc"
+	"ovra/app/monitor/pb/monitor"
+	"ovra/toolkit/helper"
+	"ovra/toolkit/middlewares"
+	"ovra/toolkit/utils"
+	"path/filepath"
 
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -16,15 +18,26 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"monitor/internal/config"
-	"monitor/internal/handler"
-	"monitor/internal/svc"
+	"ovra/app/monitor/internal/config"
+	"ovra/app/monitor/internal/handler"
+	"ovra/app/monitor/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/monitor.yaml", "the config file")
+var configFile *string
+
+func init() {
+	env := os.Getenv("ENV")
+	if env == "" {
+		env = "dev"
+	}
+	defaultConfig := filepath.Join("etc", env, "monitor.yaml")
+	configFile = flag.String("f", defaultConfig, "the config file")
+	flag.Parse()
+	fmt.Println("Using config file:", *configFile)
+}
 
 func main() {
 	flag.Parse()

@@ -3,12 +3,12 @@ package config
 import (
 	"context"
 	"fmt"
+	"ovra/toolkit/constants"
+	"ovra/toolkit/errx"
 	"strings"
-	"toolkit/constants"
-	"toolkit/errx"
 
-	"resource/internal/svc"
-	"resource/internal/types"
+	"ovra/app/resource/internal/svc"
+	"ovra/app/resource/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

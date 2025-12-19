@@ -2,11 +2,11 @@ package dept
 
 import (
 	"context"
+	"ovra/toolkit/errx"
 	"strings"
-	"toolkit/errx"
 
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

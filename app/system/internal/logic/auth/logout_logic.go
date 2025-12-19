@@ -4,12 +4,13 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"ovra/toolkit/auth"
+	"ovra/toolkit/errx"
 	"strings"
-	"toolkit/auth"
-	"toolkit/errx"
+
+	"ovra/app/system/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"system/internal/svc"
 )
 
 type LogoutLogic struct {

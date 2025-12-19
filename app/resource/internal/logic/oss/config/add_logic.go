@@ -2,12 +2,12 @@ package config
 
 import (
 	"context"
-	"resource/internal/dal/model"
-	"toolkit/errx"
-	"toolkit/utils"
+	"ovra/app/resource/internal/dal/model"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/utils"
 
-	"resource/internal/svc"
-	"resource/internal/types"
+	"ovra/app/resource/internal/svc"
+	"ovra/app/resource/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

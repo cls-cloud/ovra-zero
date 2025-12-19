@@ -5,7 +5,6 @@
 package model
 
 import (
-	"gorm.io/plugin/soft_delete"
 	"time"
 )
 
@@ -13,35 +12,35 @@ const TableNameSysSocial = "sys_social"
 
 // SysSocial 社会化关系表
 type SysSocial struct {
-	ID               string                `gorm:"column:id;primaryKey;comment:主键" json:"id"`                                             // 主键
-	UserID           string                `gorm:"column:user_id;not null;comment:用户ID" json:"user_id"`                                   // 用户ID
-	TenantID         string                `gorm:"column:tenant_id;default:000000;comment:租户id" json:"tenant_id"`                         // 租户id
-	AuthID           string                `gorm:"column:auth_id;not null;comment:平台+平台唯一id" json:"auth_id"`                              // 平台+平台唯一id
-	Source           string                `gorm:"column:source;not null;comment:用户来源" json:"source"`                                     // 用户来源
-	OpenID           string                `gorm:"column:open_id;comment:平台编号唯一id" json:"open_id"`                                        // 平台编号唯一id
-	UserName         string                `gorm:"column:user_name;not null;comment:登录账号" json:"user_name"`                               // 登录账号
-	NickName         string                `gorm:"column:nick_name;comment:用户昵称" json:"nick_name"`                                        // 用户昵称
-	Email            string                `gorm:"column:email;comment:用户邮箱" json:"email"`                                                // 用户邮箱
-	Avatar           string                `gorm:"column:avatar;comment:头像地址" json:"avatar"`                                              // 头像地址
-	AccessToken      string                `gorm:"column:access_token;not null;comment:用户的授权令牌" json:"access_token"`                      // 用户的授权令牌
-	ExpireIn         int32                 `gorm:"column:expire_in;comment:用户的授权令牌的有效期，部分平台可能没有" json:"expire_in"`                        // 用户的授权令牌的有效期，部分平台可能没有
-	RefreshToken     string                `gorm:"column:refresh_token;comment:刷新令牌，部分平台可能没有" json:"refresh_token"`                       // 刷新令牌，部分平台可能没有
-	AccessCode       string                `gorm:"column:access_code;comment:平台的授权信息，部分平台可能没有" json:"access_code"`                        // 平台的授权信息，部分平台可能没有
-	UnionID          string                `gorm:"column:union_id;comment:用户的 unionid" json:"union_id"`                                   // 用户的 unionid
-	Scope            string                `gorm:"column:scope;comment:授予的权限，部分平台可能没有" json:"scope"`                                      // 授予的权限，部分平台可能没有
-	TokenType        string                `gorm:"column:token_type;comment:个别平台的授权信息，部分平台可能没有" json:"token_type"`                        // 个别平台的授权信息，部分平台可能没有
-	IDToken          string                `gorm:"column:id_token;comment:id token，部分平台可能没有" json:"id_token"`                             // id token，部分平台可能没有
-	MacAlgorithm     string                `gorm:"column:mac_algorithm;comment:小米平台用户的附带属性，部分平台可能没有" json:"mac_algorithm"`                // 小米平台用户的附带属性，部分平台可能没有
-	MacKey           string                `gorm:"column:mac_key;comment:小米平台用户的附带属性，部分平台可能没有" json:"mac_key"`                            // 小米平台用户的附带属性，部分平台可能没有
-	Code             string                `gorm:"column:code;comment:用户的授权code，部分平台可能没有" json:"code"`                                    // 用户的授权code，部分平台可能没有
-	OauthToken       string                `gorm:"column:oauth_token;comment:Twitter平台用户的附带属性，部分平台可能没有" json:"oauth_token"`               // Twitter平台用户的附带属性，部分平台可能没有
-	OauthTokenSecret string                `gorm:"column:oauth_token_secret;comment:Twitter平台用户的附带属性，部分平台可能没有" json:"oauth_token_secret"` // Twitter平台用户的附带属性，部分平台可能没有
-	CreateDept       int64                 `gorm:"column:create_dept;comment:创建部门" json:"create_dept"`                                    // 创建部门
-	CreateBy         int64                 `gorm:"column:create_by;comment:创建者" json:"create_by"`                                         // 创建者
-	CreateTime       time.Time             `gorm:"column:create_time;comment:创建时间" json:"create_time"`                                    // 创建时间
-	UpdateBy         int64                 `gorm:"column:update_by;comment:更新者" json:"update_by"`                                         // 更新者
-	UpdateTime       time.Time             `gorm:"column:update_time;comment:更新时间" json:"update_time"`                                    // 更新时间
-	DelFlag          soft_delete.DeletedAt `gorm:"softDelete:flag"`
+	ID               string    `gorm:"column:id;primaryKey;comment:主键" json:"id"`                                             // 主键
+	UserID           string    `gorm:"column:user_id;not null;comment:用户ID" json:"user_id"`                                   // 用户ID
+	TenantID         string    `gorm:"column:tenant_id;default:000000;comment:租户id" json:"tenant_id"`                         // 租户id
+	AuthID           string    `gorm:"column:auth_id;not null;comment:平台+平台唯一id" json:"auth_id"`                              // 平台+平台唯一id
+	Source           string    `gorm:"column:source;not null;comment:用户来源" json:"source"`                                     // 用户来源
+	OpenID           string    `gorm:"column:open_id;comment:平台编号唯一id" json:"open_id"`                                        // 平台编号唯一id
+	UserName         string    `gorm:"column:user_name;not null;comment:登录账号" json:"user_name"`                               // 登录账号
+	NickName         string    `gorm:"column:nick_name;comment:用户昵称" json:"nick_name"`                                        // 用户昵称
+	Email            string    `gorm:"column:email;comment:用户邮箱" json:"email"`                                                // 用户邮箱
+	Avatar           string    `gorm:"column:avatar;comment:头像地址" json:"avatar"`                                              // 头像地址
+	AccessToken      string    `gorm:"column:access_token;not null;comment:用户的授权令牌" json:"access_token"`                      // 用户的授权令牌
+	ExpireIn         int32     `gorm:"column:expire_in;comment:用户的授权令牌的有效期，部分平台可能没有" json:"expire_in"`                        // 用户的授权令牌的有效期，部分平台可能没有
+	RefreshToken     string    `gorm:"column:refresh_token;comment:刷新令牌，部分平台可能没有" json:"refresh_token"`                       // 刷新令牌，部分平台可能没有
+	AccessCode       string    `gorm:"column:access_code;comment:平台的授权信息，部分平台可能没有" json:"access_code"`                        // 平台的授权信息，部分平台可能没有
+	UnionID          string    `gorm:"column:union_id;comment:用户的 unionid" json:"union_id"`                                   // 用户的 unionid
+	Scope            string    `gorm:"column:scope;comment:授予的权限，部分平台可能没有" json:"scope"`                                      // 授予的权限，部分平台可能没有
+	TokenType        string    `gorm:"column:token_type;comment:个别平台的授权信息，部分平台可能没有" json:"token_type"`                        // 个别平台的授权信息，部分平台可能没有
+	IDToken          string    `gorm:"column:id_token;comment:id token，部分平台可能没有" json:"id_token"`                             // id token，部分平台可能没有
+	MacAlgorithm     string    `gorm:"column:mac_algorithm;comment:小米平台用户的附带属性，部分平台可能没有" json:"mac_algorithm"`                // 小米平台用户的附带属性，部分平台可能没有
+	MacKey           string    `gorm:"column:mac_key;comment:小米平台用户的附带属性，部分平台可能没有" json:"mac_key"`                            // 小米平台用户的附带属性，部分平台可能没有
+	Code             string    `gorm:"column:code;comment:用户的授权code，部分平台可能没有" json:"code"`                                    // 用户的授权code，部分平台可能没有
+	OauthToken       string    `gorm:"column:oauth_token;comment:Twitter平台用户的附带属性，部分平台可能没有" json:"oauth_token"`               // Twitter平台用户的附带属性，部分平台可能没有
+	OauthTokenSecret string    `gorm:"column:oauth_token_secret;comment:Twitter平台用户的附带属性，部分平台可能没有" json:"oauth_token_secret"` // Twitter平台用户的附带属性，部分平台可能没有
+	CreateDept       int64     `gorm:"column:create_dept;comment:创建部门" json:"create_dept"`                                    // 创建部门
+	CreateBy         int64     `gorm:"column:create_by;comment:创建者" json:"create_by"`                                         // 创建者
+	CreateTime       time.Time `gorm:"column:create_time;comment:创建时间" json:"create_time"`                                    // 创建时间
+	UpdateBy         int64     `gorm:"column:update_by;comment:更新者" json:"update_by"`                                         // 更新者
+	UpdateTime       time.Time `gorm:"column:update_time;comment:更新时间" json:"update_time"`                                    // 更新时间
+	DelFlag          string    `gorm:"column:del_flag;default:0;comment:删除标志（0代表存在 1代表删除）" json:"del_flag"`                   // 删除标志（0代表存在 1代表删除）
 }
 
 // TableName SysSocial's table name

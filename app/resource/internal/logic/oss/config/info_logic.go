@@ -2,12 +2,13 @@ package config
 
 import (
 	"context"
-	"github.com/jinzhu/copier"
+	"ovra/toolkit/errx"
 	"strings"
-	"toolkit/errx"
 
-	"resource/internal/svc"
-	"resource/internal/types"
+	"github.com/jinzhu/copier"
+
+	"ovra/app/resource/internal/svc"
+	"ovra/app/resource/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

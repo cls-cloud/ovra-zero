@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"monitor/internal/dal/model"
+	"ovra/app/monitor/internal/dal/model"
 )
 
 func newSysOperLog(db *gorm.DB, opts ...gen.DOOption) sysOperLog {

@@ -3,12 +3,13 @@ package data
 import (
 	"context"
 	"fmt"
-	"github.com/jinzhu/copier"
+	"ovra/toolkit/errx"
 	"time"
-	"toolkit/errx"
 
-	"system/internal/svc"
-	"system/internal/types"
+	"github.com/jinzhu/copier"
+
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

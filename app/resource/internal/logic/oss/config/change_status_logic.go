@@ -2,10 +2,10 @@ package config
 
 import (
 	"context"
-	"toolkit/errx"
+	"ovra/toolkit/errx"
 
-	"resource/internal/svc"
-	"resource/internal/types"
+	"ovra/app/resource/internal/svc"
+	"ovra/app/resource/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

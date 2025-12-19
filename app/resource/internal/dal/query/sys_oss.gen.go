@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"resource/internal/dal/model"
+	"ovra/app/resource/internal/dal/model"
 )
 
 func newSysOss(db *gorm.DB, opts ...gen.DOOption) sysOss {

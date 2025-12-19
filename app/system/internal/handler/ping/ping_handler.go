@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/ping"
-	"system/internal/svc"
+	"ovra/app/system/internal/logic/ping"
+	"ovra/app/system/internal/svc"
 )
 
 func PingHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

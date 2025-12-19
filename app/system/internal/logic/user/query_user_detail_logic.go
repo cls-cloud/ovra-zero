@@ -2,9 +2,9 @@ package user
 
 import (
 	"context"
-	"system/internal/svc"
-	"system/internal/types"
-	"toolkit/errx"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/errx"
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"

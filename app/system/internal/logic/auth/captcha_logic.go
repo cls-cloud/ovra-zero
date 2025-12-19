@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/mojocn/base64Captcha"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/auth"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/tenant"
+
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
-	"system/internal/svc"
-	"system/internal/types"
-	"toolkit/auth"
-	"toolkit/errx"
-	"toolkit/tenant"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

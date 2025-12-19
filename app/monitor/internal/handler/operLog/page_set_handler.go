@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"monitor/internal/logic/operLog"
-	"monitor/internal/svc"
-	"monitor/internal/types"
+	"ovra/app/monitor/internal/logic/operLog"
+	"ovra/app/monitor/internal/svc"
+	"ovra/app/monitor/internal/types"
 )
 
 func PageSetHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

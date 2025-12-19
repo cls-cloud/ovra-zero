@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"monitor/internal/logic/monitor"
-	"monitor/internal/svc"
+	"ovra/app/monitor/internal/logic/monitor"
+	"ovra/app/monitor/internal/svc"
 )
 
 func RedisMonitorHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

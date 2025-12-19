@@ -3,8 +3,8 @@ package middleware
 import (
 	"fmt"
 	"net/http"
-	"system/internal/config"
-	"toolkit/rsa"
+	"ovra/app/system/internal/config"
+	"ovra/toolkit/rsa"
 )
 
 type ApiDecryptMiddleware struct {

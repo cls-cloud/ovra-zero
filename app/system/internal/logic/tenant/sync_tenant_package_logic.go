@@ -2,12 +2,12 @@ package tenant
 
 import (
 	"context"
+	"ovra/app/system/internal/dal/model"
+	"ovra/toolkit/errx"
 	"strings"
-	"system/internal/dal/model"
-	"toolkit/errx"
 
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

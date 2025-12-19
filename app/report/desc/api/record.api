@@ -1,7 +1,0 @@
-syntax = "v1"
-
-info(
-    desc: "数据集资源配置"
-    author: "atlas"
-    email: "ut1221@icloud.com"
-)

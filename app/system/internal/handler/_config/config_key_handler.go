@@ -1,12 +1,15 @@
+// Code scaffolded by goctl. Safe to edit.
+// goctl 1.9.2
+
 package _config
 
 import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/_config"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/logic/_config"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 )
 
 func ConfigKeyHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

@@ -3,13 +3,14 @@ package notice
 import (
 	"context"
 	"fmt"
-	"github.com/jinzhu/copier"
-	"system/internal/dal/model"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/dal/model"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/auth"
+	"ovra/toolkit/errx"
 	"time"
-	"toolkit/auth"
-	"toolkit/errx"
+
+	"github.com/jinzhu/copier"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -2,11 +2,11 @@ package dal
 
 import (
 	"context"
-	"system/internal/dal/model"
-	"system/internal/dal/query"
-	"system/internal/types"
-	"toolkit/errx"
-	"toolkit/utils"
+	"ovra/app/system/internal/dal/model"
+	"ovra/app/system/internal/dal/query"
+	"ovra/app/system/internal/types"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/utils"
 
 	"gorm.io/gorm"
 )

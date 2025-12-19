@@ -7,9 +7,9 @@ package server
 import (
 	"context"
 
-	"monitor/internal/logic/operlogrpc"
-	"monitor/internal/svc"
-	"monitor/pb/monitor"
+	"ovra/app/monitor/internal/logic/operlogrpc"
+	"ovra/app/monitor/internal/svc"
+	"ovra/app/monitor/pb/monitor"
 )
 
 type OperLogRpcServer struct {

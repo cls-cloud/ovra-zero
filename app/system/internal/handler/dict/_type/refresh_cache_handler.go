@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/dict/_type"
-	"system/internal/svc"
+	"ovra/app/system/internal/logic/dict/_type"
+	"ovra/app/system/internal/svc"
 )
 
 func RefreshCacheHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

@@ -3,12 +3,12 @@ package online
 import (
 	"context"
 	"fmt"
-	"monitor/internal/logic/logininfor"
-	"monitor/internal/svc"
-	"monitor/internal/types"
+	"ovra/app/monitor/internal/logic/logininfor"
+	"ovra/app/monitor/internal/svc"
+	"ovra/app/monitor/internal/types"
+	"ovra/toolkit/auth"
+	"ovra/toolkit/errx"
 	"time"
-	"toolkit/auth"
-	"toolkit/errx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

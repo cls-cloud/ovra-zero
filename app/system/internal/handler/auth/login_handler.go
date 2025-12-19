@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/auth"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/logic/auth"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 )
 
 func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/_post"
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/logic/_post"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 )
 
 func DeleteHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

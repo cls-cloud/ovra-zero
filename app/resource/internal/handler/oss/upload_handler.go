@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"resource/internal/logic/oss"
-	"resource/internal/svc"
+	"ovra/app/resource/internal/logic/oss"
+	"ovra/app/resource/internal/svc"
 )
 
 func UploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

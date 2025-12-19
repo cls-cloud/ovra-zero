@@ -2,10 +2,11 @@ package tenant
 
 import (
 	"context"
-	"toolkit/utils"
+	"ovra/toolkit/utils"
+
+	"ovra/app/system/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"system/internal/svc"
 )
 
 type SyncTenantDictLogic struct {

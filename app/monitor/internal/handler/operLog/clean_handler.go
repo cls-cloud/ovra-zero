@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"monitor/internal/logic/operLog"
-	"monitor/internal/svc"
+	"ovra/app/monitor/internal/logic/operLog"
+	"ovra/app/monitor/internal/svc"
 )
 
 func CleanHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

@@ -1,14 +1,14 @@
 package svc
 
 import (
-	"monitor/client/logininforpc"
-	"monitor/client/operlogrpc"
-	"monitor/pb/monitor"
-	"system/internal/config"
-	"system/internal/dal"
-	"system/internal/dal/query"
-	"system/internal/middleware"
-	"system/internal/svc/dbs"
+	"ovra/app/monitor/client/logininforpc"
+	"ovra/app/monitor/client/operlogrpc"
+	"ovra/app/monitor/pb/monitor"
+	"ovra/app/system/internal/config"
+	"ovra/app/system/internal/dal"
+	"ovra/app/system/internal/dal/query"
+	"ovra/app/system/internal/middleware"
+	"ovra/app/system/internal/svc/dbs"
 
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"

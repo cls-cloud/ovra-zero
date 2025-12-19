@@ -7,9 +7,9 @@ package server
 import (
 	"context"
 
-	"monitor/internal/logic/logininforpc"
-	"monitor/internal/svc"
-	"monitor/pb/monitor"
+	"ovra/app/monitor/internal/logic/logininforpc"
+	"ovra/app/monitor/internal/svc"
+	"ovra/app/monitor/pb/monitor"
 )
 
 type LoginInfoRpcServer struct {

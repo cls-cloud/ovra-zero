@@ -2,12 +2,12 @@ package _type
 
 import (
 	"context"
-	"system/internal/dal/model"
-	"toolkit/errx"
-	"toolkit/utils"
+	"ovra/app/system/internal/dal/model"
+	"ovra/toolkit/errx"
+	"ovra/toolkit/utils"
 
-	"system/internal/svc"
-	"system/internal/types"
+	"ovra/app/system/internal/svc"
+	"ovra/app/system/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

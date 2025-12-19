@@ -1,10 +1,11 @@
 package middleware
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/redis"
 	"net/http"
-	"resource/internal/config"
-	"toolkit/middlewares"
+	"ovra/app/resource/internal/config"
+	"ovra/toolkit/middlewares"
+
+	"github.com/zeromicro/go-zero/core/stores/redis"
 )
 
 type AuthMiddleware struct {

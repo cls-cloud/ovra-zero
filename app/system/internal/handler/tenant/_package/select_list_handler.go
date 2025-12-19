@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"system/internal/logic/tenant/_package"
-	"system/internal/svc"
+	"ovra/app/system/internal/logic/tenant/_package"
+	"ovra/app/system/internal/svc"
 )
 
 func SelectListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
