@@ -52,7 +52,7 @@ Data:
     Password: Pl@1221view
     Host: 127.0.0.1
     Port: 3306
-    Database: atlas_zero
+    Database: ovra_zero
   Redis:
     Pass: Pl@1221view
     Host: 127.0.0.1:6379
