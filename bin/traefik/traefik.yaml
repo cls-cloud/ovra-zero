@@ -1,8 +1,8 @@
 entryPoints:
   websecure:
-    address: ":8080"
+    address: ":28080"
   traefik:
-    address: ":80"
+    address: ":28090"
 
 api:
   dashboard: true
