@@ -32,7 +32,7 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext, r *http.Req
 func (l *LogoutLogic) Logout() error {
 	authorization := l.r.Header.Get("Authorization")
 	if authorization == "" {
-		return errx.BizErr("Unauthorized: missing token")
+		return nil
 	}
 	tokenString := strings.TrimPrefix(authorization, "Bearer ")
 	us, err := auth.AnalyseToken(tokenString, l.svcCtx.Config.JwtAuth.AccessSecret)

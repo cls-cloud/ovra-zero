@@ -1,5 +1,5 @@
 RestConf:
-  Mode: dev
+  Mode: prod
   Name: system
   Host: 0.0.0.0
   Port: 8090

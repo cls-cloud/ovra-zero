@@ -1,23 +1,30 @@
 RestConf:
-  Mode: prod
-  Name: monitor
+  Mode: pre
+  Name: system
   Host: 0.0.0.0
-  Port: 8091
+  Port: 8090
   Log:
-    ServiceName: monitor-api
+    ServiceName: system-api
     Level: debug
   Prometheus:
     Host: 0.0.0.0
-    Port: 4002
+    Port: 4001
     Path: /metrics
 RpcConf:
-  Mode: prod
-  Name: monitor
+  Mode: pre
+  Name: system
   ListenOn: 0.0.0.0:9091
   Etcd:
     Hosts:
       - 127.0.0.1:2379
+    Key: system.rpc
+
+MonitorRpc:
+  Etcd:
+    Hosts:
+    - 127.0.0.1:2379
     Key: monitor.rpc
+
 
 JwtAuth:
   AccessSecret: YXTsYXMtYWRtaW4=
@@ -52,7 +59,7 @@ Data:
     Password: Pl@1221view
     Host: 127.0.0.1
     Port: 3306
-    Database: atlas_zero
+    Database: ovra_zero
   Redis:
     Pass: Pl@1221view
     Host: 127.0.0.1:6379
