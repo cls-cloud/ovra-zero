@@ -1,6 +1,8 @@
 entryPoints:
   websecure:
     address: ":28080"
+    forwardedHeaders:
+      insecure: true
   traefik:
     address: ":28090"
 
