@@ -2,9 +2,7 @@ package _post
 
 import (
 	"context"
-	"ovra/toolkit/errx"
-	"ovra/toolkit/utils"
-
+	"ovra/app/system/internal/dal/model"
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
 
@@ -26,9 +24,17 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ModifyPostReq) error {
-	toMapOmit := utils.StructToMapOmit(req.PostBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Dal.Query.SysPost.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysPost.PostID.Eq(req.PostID)).Updates(toMapOmit); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysPostDal.Update(l.ctx, &model.SysPost{
+		PostID:       req.PostID,
+		DeptID:       req.DeptID,
+		PostCode:     req.PostCode,
+		PostCategory: req.PostCategory,
+		PostName:     req.PostName,
+		PostSort:     req.PostSort,
+		Status:       req.Status,
+		Remark:       req.Remark,
+	}); err != nil {
+		return err
 	}
 	return nil
 }

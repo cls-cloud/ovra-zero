@@ -34,7 +34,6 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddLogic {
 }
 
 func (l *AddLogic) Add(req *types.ModifyTenantReq) error {
-	q := l.svcCtx.Dal.Query
 	//获取当前最大的租户编号
 	tenantID, err := l.generateUniqueTenantID()
 	if err != nil {
@@ -59,7 +58,7 @@ func (l *AddLogic) Add(req *types.ModifyTenantReq) error {
 		AccountCount:    req.AccountCount,
 		Address:         req.Address,
 	}
-	if err := q.SysTenant.WithContext(l.ctx).Create(tenant); err != nil {
+	if err = l.svcCtx.Dal.SysTenantDal.Insert(l.ctx, tenant); err != nil {
 		return errx.GORMErr(err)
 	}
 	err = l.createAdminUser(tenant, req)

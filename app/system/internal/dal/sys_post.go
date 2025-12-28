@@ -72,15 +72,13 @@ func (l *SysPostDal) DeleteBatch(ctx context.Context, ids []string) (err error) 
 	return
 }
 
-func (l *SysPostDal) SelectById(ctx context.Context, id string) (info *model.SysPost, err error) {
-	info = new(model.SysPost)
+func (l *SysPostDal) SelectById(ctx context.Context, id string) (*model.SysPost, error) {
 	su := l.query.SysPost
 	data, err := su.WithContext(ctx).Where(su.PostID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysPostDal) PageSet(ctx context.Context, pageNum, pageSize int, query *types.PostQuery) (total int64, list []*model.SysPost, err error) {

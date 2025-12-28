@@ -27,8 +27,7 @@ func NewInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InfoLogic {
 
 func (l *InfoLogic) Info(req *types.IdReq) (resp *types.PostBase, err error) {
 	resp = new(types.PostBase)
-	q := l.svcCtx.Dal.Query
-	sysPost, err := q.SysPost.WithContext(l.ctx).Where(q.SysPost.PostID.Eq(req.Id)).First()
+	sysPost, err := l.svcCtx.Dal.SysPostDal.SelectById(l.ctx, req.Id)
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}

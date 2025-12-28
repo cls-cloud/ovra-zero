@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"ovra/toolkit/errx"
 	"strings"
 
 	"ovra/app/system/internal/svc"
@@ -27,9 +26,8 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 
 func (l *DeleteLogic) Delete(req *types.IdsReq) error {
 	ids := strings.Split(req.Id, ",")
-	q := l.svcCtx.Dal.Query
-	if _, err := q.SysClient.WithContext(l.ctx).Where(q.SysClient.ID.In(ids...)).Unscoped().Delete(); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysClientDal.DeleteBatch(l.ctx, ids); err != nil {
+		return err
 	}
 	return nil
 }

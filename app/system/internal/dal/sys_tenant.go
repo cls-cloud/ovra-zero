@@ -46,6 +46,14 @@ func (l *SysTenantDal) Update(ctx context.Context, param *model.SysTenant) (err 
 	return
 }
 
+func (l *SysTenantDal) UpdateStatus(ctx context.Context, id string, status string) (err error) {
+	su := l.query.SysTenant
+	if _, err = su.WithContext(ctx).Where(su.TenantID.Eq(id)).Update(su.Status, status); err != nil {
+		return errx.GORMErr(err)
+	}
+	return
+}
+
 func (l *SysTenantDal) Delete(ctx context.Context, id string) (err error) {
 	su := l.query.SysTenant
 	_, err = su.WithContext(ctx).Where(su.TenantID.Eq(id)).Delete()

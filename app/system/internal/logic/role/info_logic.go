@@ -27,8 +27,7 @@ func NewInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InfoLogic {
 
 func (l *InfoLogic) Info(req *types.IdReq) (resp *types.RoleBase, err error) {
 	resp = new(types.RoleBase)
-	q := l.svcCtx.Dal.Query
-	sysRole, err := q.SysRole.WithContext(l.ctx).Where(q.SysRole.RoleID.Eq(req.Id)).First()
+	sysRole, err := l.svcCtx.Dal.SysRoleDal.SelectById(l.ctx, req.Id)
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}

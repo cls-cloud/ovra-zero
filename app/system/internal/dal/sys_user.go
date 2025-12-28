@@ -87,15 +87,13 @@ func (l *SysUserDal) DeleteBatch(ctx context.Context, ids []string) (err error) 
 	return
 }
 
-func (l *SysUserDal) SelectById(ctx context.Context, id string) (info *model.SysUser, err error) {
-	info = new(model.SysUser)
+func (l *SysUserDal) SelectById(ctx context.Context, id string) (*model.SysUser, error) {
 	su := l.query.SysUser
 	data, err := su.WithContext(ctx).Where(su.UserID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysUserDal) SelectByUserNameExit(ctx context.Context, userId, userName string) bool {

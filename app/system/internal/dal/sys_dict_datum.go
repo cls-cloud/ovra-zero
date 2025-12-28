@@ -63,15 +63,13 @@ func (l *SysDictDatumDal) DeleteBatch(ctx context.Context, ids []string) (err er
 	return
 }
 
-func (l *SysDictDatumDal) SelectById(ctx context.Context, id string) (info *model.SysDictDatum, err error) {
-	info = new(model.SysDictDatum)
+func (l *SysDictDatumDal) SelectById(ctx context.Context, id string) (*model.SysDictDatum, error) {
 	su := l.query.SysDictDatum
 	data, err := su.WithContext(ctx).Where(su.DictCode.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysDictDatumDal) PageSet(ctx context.Context, pageNum, pageSize int, query *types.DictDataQuery) (total int64, list []*model.SysDictDatum, err error) {

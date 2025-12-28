@@ -3,8 +3,6 @@ package notice
 import (
 	"context"
 	"ovra/app/system/internal/dal/model"
-	"ovra/toolkit/errx"
-
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
 
@@ -32,8 +30,8 @@ func (l *AddLogic) Add(req *types.ModifyNoticeReq) error {
 		NoticeContent: []byte(req.NoticeContent),
 		Status:        req.Status,
 	}
-	if err := l.svcCtx.Dal.Query.SysNotice.WithContext(l.ctx).Create(notice); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysNoticeDal.Insert(l.ctx, notice); err != nil {
+		return err
 	}
 	return nil
 }

@@ -29,7 +29,7 @@ func NewExcludeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ExcludeLo
 func (l *ExcludeLogic) Exclude(req *types.IdReq) (resp []*types.DeptBase, err error) {
 	q := l.svcCtx.Dal.Query
 	sysDept, err := q.SysDept.WithContext(l.ctx).Where(q.SysDept.DeptID.Neq(req.Id)).
-		Where(q.SysDept.Ancestors.NotRegexp(fmt.Sprintf("^%d", req.Id))).
+		Where(q.SysDept.Ancestors.NotRegexp(fmt.Sprintf("^%s", req.Id))).
 		Find()
 	if err != nil {
 		return nil, errx.GORMErr(err)

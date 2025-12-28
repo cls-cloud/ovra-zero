@@ -2,9 +2,7 @@ package notice
 
 import (
 	"context"
-	"ovra/toolkit/errx"
-	"ovra/toolkit/utils"
-
+	"ovra/app/system/internal/dal/model"
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
 
@@ -26,9 +24,15 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ModifyNoticeReq) error {
-	toMapOmit := utils.StructToMapOmit(req.NoticeBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Dal.Query.SysNotice.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysNotice.NoticeID.Eq(req.NoticeID)).Updates(toMapOmit); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysNoticeDal.Update(l.ctx, &model.SysNotice{
+		NoticeID:      req.NoticeID,
+		NoticeTitle:   req.NoticeTitle,
+		NoticeType:    req.NoticeType,
+		NoticeContent: []byte(req.NoticeContent),
+		Status:        req.Status,
+		Remark:        req.Remark,
+	}); err != nil {
+		return err
 	}
 	return nil
 }

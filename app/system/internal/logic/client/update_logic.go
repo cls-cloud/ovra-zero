@@ -2,9 +2,7 @@ package client
 
 import (
 	"context"
-	"ovra/toolkit/errx"
-	"ovra/toolkit/utils"
-
+	"ovra/app/system/internal/dal/model"
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
 
@@ -26,9 +24,18 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ModifyClientReq) error {
-	toMapOmit := utils.StructToMapOmit(req.ClientBase, nil, nil, true)
-	if _, err := l.svcCtx.Dal.Query.SysClient.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysClient.ID.Eq(req.ID)).Updates(toMapOmit); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysClientDal.Update(l.ctx, &model.SysClient{
+		ID:            req.ID,
+		ClientID:      req.ClientID,
+		ClientKey:     req.ClientKey,
+		ClientSecret:  req.ClientSecret,
+		GrantType:     req.GrantType,
+		DeviceType:    req.DeviceType,
+		ActiveTimeout: req.ActiveTimeout,
+		Timeout:       req.Timeout,
+		Status:        req.Status,
+	}); err != nil {
+		return err
 	}
 	return nil
 }

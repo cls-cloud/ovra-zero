@@ -45,6 +45,15 @@ func (l *SysClientDal) Update(ctx context.Context, param *model.SysClient) (err 
 	return
 }
 
+func (l *SysClientDal) UpdateStatus(ctx context.Context, id, status string) (err error) {
+	su := l.query.SysClient
+	_, err = su.WithContext(ctx).Where(su.ClientID.Eq(id)).Update(su.Status, status)
+	if err != nil {
+		return errx.GORMErr(err)
+	}
+	return
+}
+
 func (l *SysClientDal) Delete(ctx context.Context, id string) (err error) {
 	su := l.query.SysClient
 	_, err = su.WithContext(ctx).Where(su.ClientID.Eq(id)).Delete()
@@ -63,15 +72,13 @@ func (l *SysClientDal) DeleteBatch(ctx context.Context, ids []string) (err error
 	return
 }
 
-func (l *SysClientDal) SelectById(ctx context.Context, id string) (info *model.SysClient, err error) {
-	info = new(model.SysClient)
+func (l *SysClientDal) SelectById(ctx context.Context, id string) (*model.SysClient, error) {
 	su := l.query.SysClient
 	data, err := su.WithContext(ctx).Where(su.ClientID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysClientDal) PageSet(ctx context.Context, pageNum, pageSize int, query *types.ClientQuery) (total int64, list []*model.SysClient, err error) {

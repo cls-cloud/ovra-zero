@@ -2,9 +2,7 @@ package dept
 
 import (
 	"context"
-	"ovra/toolkit/errx"
-	"ovra/toolkit/utils"
-
+	"ovra/app/system/internal/dal/model"
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
 
@@ -26,18 +24,19 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ModifyDeptReq) error {
-	toMapOmit := utils.StructToMapOmit(req.DeptBase, nil, []string{"Children", "CreateTime"}, true)
-	if req.DeptCategory == "" {
-		toMapOmit["dept_category"] = req.DeptCategory
-	}
-	if req.Phone == "" {
-		toMapOmit["phone"] = req.Phone
-	}
-	if req.Email == "" {
-		toMapOmit["email"] = req.Email
-	}
-	if _, err := l.svcCtx.Dal.Query.SysDept.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysDept.DeptID.Eq(req.DeptID)).Updates(toMapOmit); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysDeptDal.Update(l.ctx, &model.SysDept{
+		DeptID:       req.DeptID,
+		ParentID:     req.ParentID,
+		Ancestors:    req.Ancestors,
+		DeptName:     req.DeptName,
+		DeptCategory: req.DeptCategory,
+		OrderNum:     req.OrderNum,
+		Leader:       *req.Leader,
+		Phone:        req.Phone,
+		Email:        req.Email,
+		Status:       req.Status,
+	}); err != nil {
+		return err
 	}
 	return nil
 }

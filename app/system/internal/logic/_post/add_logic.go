@@ -3,7 +3,6 @@ package _post
 import (
 	"context"
 	"ovra/app/system/internal/dal/model"
-	"ovra/toolkit/errx"
 	"ovra/toolkit/utils"
 
 	"ovra/app/system/internal/svc"
@@ -38,8 +37,8 @@ func (l *AddLogic) Add(req *types.ModifyPostReq) error {
 		PostCategory: req.PostCategory,
 		Remark:       req.Remark,
 	}
-	if err := l.svcCtx.Dal.Query.SysPost.WithContext(l.ctx).Create(post); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysPostDal.Insert(l.ctx, post); err != nil {
+		return err
 	}
 	return nil
 }

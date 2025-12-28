@@ -71,15 +71,13 @@ func (l *SysDeptDal) DeleteBatch(ctx context.Context, ids []string) (err error) 
 	return
 }
 
-func (l *SysDeptDal) SelectById(ctx context.Context, id string) (info *model.SysDept, err error) {
-	info = new(model.SysDept)
+func (l *SysDeptDal) SelectById(ctx context.Context, id string) (*model.SysDept, error) {
 	su := l.query.SysDept
 	data, err := su.WithContext(ctx).Where(su.DeptID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysDeptDal) PageSet(ctx context.Context, pageNum, pageSize int, query *types.DeptQuery) (total int64, list []*model.SysDept, err error) {

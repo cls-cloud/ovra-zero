@@ -45,8 +45,17 @@ func (l *SysRoleDal) Update(ctx context.Context, param *model.SysRole) (err erro
 	return
 }
 
+func (l *SysRoleDal) UpdateStatus(ctx context.Context, id, status string) (err error) {
+	su := l.query.SysRole
+	_, err = su.WithContext(ctx).Where(su.RoleID.Eq(id)).Update(su.Status, status)
+	if err != nil {
+		return errx.GORMErr(err)
+	}
+	return
+}
+
 func (l *SysRoleDal) Delete(ctx context.Context, id string) (err error) {
-	err = l.query.Transaction(func(tx *query.Query) error {
+	if err = l.query.Transaction(func(tx *query.Query) error {
 		if _, err = tx.SysRole.WithContext(ctx).Where(tx.SysRole.RoleID.Eq(id)).Delete(); err != nil {
 			return errx.GORMErr(err)
 		}
@@ -60,12 +69,14 @@ func (l *SysRoleDal) Delete(ctx context.Context, id string) (err error) {
 			return errx.GORMErr(err)
 		}
 		return nil
-	})
-	return
+	}); err != nil {
+		return errx.GORMErr(err)
+	}
+	return nil
 }
 
 func (l *SysRoleDal) DeleteBatch(ctx context.Context, ids []string) (err error) {
-	err = l.query.Transaction(func(tx *query.Query) error {
+	if err = l.query.Transaction(func(tx *query.Query) error {
 		if _, err = tx.SysRole.WithContext(ctx).Where(tx.SysRole.RoleID.In(ids...)).Delete(); err != nil {
 			return errx.GORMErr(err)
 		}
@@ -79,19 +90,19 @@ func (l *SysRoleDal) DeleteBatch(ctx context.Context, ids []string) (err error) 
 			return errx.GORMErr(err)
 		}
 		return nil
-	})
+	}); err != nil {
+		return errx.GORMErr(err)
+	}
 	return
 }
 
-func (l *SysRoleDal) SelectById(ctx context.Context, id string) (info *model.SysRole, err error) {
-	info = new(model.SysRole)
+func (l *SysRoleDal) SelectById(ctx context.Context, id string) (*model.SysRole, error) {
 	su := l.query.SysRole
 	data, err := su.WithContext(ctx).Where(su.RoleID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysRoleDal) SelectByRoleKeyExit(ctx context.Context, roleId, roleKey string) bool {

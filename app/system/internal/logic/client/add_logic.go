@@ -3,7 +3,6 @@ package client
 import (
 	"context"
 	"ovra/app/system/internal/dal/model"
-	"ovra/toolkit/errx"
 	"ovra/toolkit/utils"
 
 	"ovra/app/system/internal/svc"
@@ -37,8 +36,8 @@ func (l *AddLogic) Add(req *types.ModifyClientReq) error {
 		Timeout:       req.Timeout,
 		ActiveTimeout: req.ActiveTimeout,
 	}
-	if err := l.svcCtx.Dal.Query.SysClient.WithContext(l.ctx).Create(client); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysClientDal.Insert(l.ctx, client); err != nil {
+		return err
 	}
 	return nil
 }

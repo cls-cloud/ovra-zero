@@ -73,15 +73,13 @@ func (l *SysMenuDal) DeleteBatch(ctx context.Context, ids []string) (err error) 
 	return
 }
 
-func (l *SysMenuDal) SelectById(ctx context.Context, id string) (info *model.SysMenu, err error) {
-	info = new(model.SysMenu)
+func (l *SysMenuDal) SelectById(ctx context.Context, id string) (*model.SysMenu, error) {
 	su := l.query.SysMenu
 	data, err := su.WithContext(ctx).Where(su.MenuID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysMenuDal) PageSet(ctx context.Context, pageNum, pageSize int, query *types.MenuQuery) (total int64, list []*model.SysMenu, err error) {

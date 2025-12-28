@@ -63,15 +63,13 @@ func (l *SysNoticeDal) DeleteBatch(ctx context.Context, ids []string) (err error
 	return
 }
 
-func (l *SysNoticeDal) SelectById(ctx context.Context, id string) (info *model.SysNotice, err error) {
-	info = new(model.SysNotice)
+func (l *SysNoticeDal) SelectById(ctx context.Context, id string) (*model.SysNotice, error) {
 	su := l.query.SysNotice
 	data, err := su.WithContext(ctx).Where(su.NoticeID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
-	info = data
-	return
+	return data, nil
 }
 
 func (l *SysNoticeDal) PageSet(ctx context.Context, pageNum, pageSize int, query *types.NoticeQuery) (total int64, list []*model.SysNotice, err error) {
