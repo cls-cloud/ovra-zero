@@ -3,7 +3,6 @@ package data
 import (
 	"context"
 	"ovra/app/system/internal/dal/model"
-	"ovra/toolkit/errx"
 	"ovra/toolkit/utils"
 
 	"ovra/app/system/internal/svc"
@@ -37,9 +36,8 @@ func (l *AddLogic) Add(req *types.ModifyDictDataReq) error {
 		ListClass: req.ListClass,
 		CSSClass:  req.CssClass,
 	}
-	q := l.svcCtx.Dal.Query.SysDictDatum
-	if err := q.WithContext(l.ctx).Create(dictData); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysDictDatumDal.Insert(l.ctx, dictData); err != nil {
+		return err
 	}
 	return nil
 }

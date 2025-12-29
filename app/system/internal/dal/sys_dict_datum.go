@@ -54,9 +54,9 @@ func (l *SysDictDatumDal) Delete(ctx context.Context, id string) (err error) {
 	return
 }
 
-func (l *SysDictDatumDal) DeleteBatch(ctx context.Context, ids []string) (err error) {
+func (l *SysDictDatumDal) DeleteBatch(ctx context.Context, codes []string) (err error) {
 	su := l.query.SysDictDatum
-	_, err = su.WithContext(ctx).Where(su.DictCode.In(ids...)).Delete()
+	_, err = su.WithContext(ctx).Where(su.DictCode.In(codes...)).Unscoped().Delete()
 	if err != nil {
 		return errx.GORMErr(err)
 	}

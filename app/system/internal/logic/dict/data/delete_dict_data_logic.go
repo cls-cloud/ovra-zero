@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-	"ovra/toolkit/errx"
 	"strings"
 
 	"ovra/app/system/internal/svc"
@@ -26,10 +25,9 @@ func NewDeleteDictDataLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 }
 
 func (l *DeleteDictDataLogic) DeleteDictData(req *types.CodeReq) error {
-	ids := strings.Split(req.Code, ",")
-	q := l.svcCtx.Dal.Query
-	if _, err := q.SysDictDatum.WithContext(l.ctx).Where(q.SysDictDatum.DictCode.In(ids...)).Unscoped().Delete(); err != nil {
-		return errx.GORMErr(err)
+	codes := strings.Split(req.Code, ",")
+	if err := l.svcCtx.Dal.SysDictDatumDal.DeleteBatch(l.ctx, codes); err != nil {
+		return err
 	}
 	return nil
 }

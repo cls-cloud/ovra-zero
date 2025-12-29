@@ -2,9 +2,7 @@ package data
 
 import (
 	"context"
-	"ovra/toolkit/errx"
-	"ovra/toolkit/utils"
-
+	"ovra/app/system/internal/dal/model"
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
 
@@ -26,9 +24,18 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ModifyDictDataReq) error {
-	toMapOmit := utils.StructToMapOmit(req.DictDataBase, nil, []string{"CreateTime"}, true)
-	if _, err := l.svcCtx.Dal.Query.SysDictDatum.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysDictDatum.DictCode.Eq(req.DictCode)).Updates(toMapOmit); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysDictDatumDal.Update(l.ctx, &model.SysDictDatum{
+		DictCode:  req.DictCode,
+		DictSort:  req.DictSort,
+		DictLabel: req.DictLabel,
+		DictValue: req.DictValue,
+		DictType:  req.DictType,
+		CSSClass:  req.CssClass,
+		ListClass: req.ListClass,
+		IsDefault: req.IsDefault,
+		Remark:    req.Remark,
+	}); err != nil {
+		return err
 	}
 	return nil
 }

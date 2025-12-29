@@ -3,7 +3,6 @@ package _type
 import (
 	"context"
 	"ovra/app/system/internal/dal/model"
-	"ovra/toolkit/errx"
 	"ovra/toolkit/utils"
 
 	"ovra/app/system/internal/svc"
@@ -33,8 +32,8 @@ func (l *AddLogic) Add(req *types.ModifyDictTypeReq) error {
 		DictType: req.DictType,
 		Remark:   req.Remark,
 	}
-	if err := l.svcCtx.Dal.Query.SysDictType.WithContext(l.ctx).Create(dictType); err != nil {
-		return errx.GORMErr(err)
+	if err := l.svcCtx.Dal.SysDictTypeDal.Insert(l.ctx, dictType); err != nil {
+		return err
 	}
 	return nil
 }
