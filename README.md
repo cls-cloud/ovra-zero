@@ -1,6 +1,8 @@
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold; font-size: 30px">Ovra-Zero</h1>
 <h4 align="center">基于Go-Zero实现的若依服务端脚手架（支持多租户）</h4>
 
+
+
 ## 平台简介
 + 提供了完整的权限系统、多租户支持、RBAC 权限控制、菜单管理等功能，适合快速搭建企业级后台管理系统。
 + 前端项目：基于 [Ruoyi-Plus-Vben5](https://gitee.com/dapppp/ruoyi-plus-vben5.git)
@@ -49,3 +51,9 @@ make init && make build-all && make back-all
 # 下载系统对应版本的traefik，解压后放在bin/traefik目录下
 ./bin/traefik/traefik --configfile=./bin/traefik/traefik.yaml
 ```
+
+## 联系方式 / 技术交流
+
+- **QQ**：2579260178（备注：`ovra-zero`）
+- **邮箱**：ut1221@icloud.com（标题：`[ovra-zero] : 简要说明问题`）
+
