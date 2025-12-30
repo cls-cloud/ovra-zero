@@ -54,6 +54,7 @@ make init && make build-all && make back-all
 
 ## 联系方式 / 技术交流
 
+- **Telegram**：[@ovra12](https://t.me/ovra12)
 - **QQ**：2579260178（备注：`ovra-zero`）
 - **邮箱**：ut1221@icloud.com（标题：`[ovra-zero] : 简要说明问题`）
 
