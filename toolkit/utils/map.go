@@ -91,14 +91,12 @@ func StructToMapOmit[T any](input T, includeFields []string, excludeFields []str
 		if _, skip := excludeSet[fieldName]; skip {
 			continue
 		}
-		// 如果设置了白名单，只保留白名单字段
-		if len(includeSet) > 0 {
-			if _, keep := includeSet[fieldName]; !keep {
-				continue
-			}
-		}
-
+		// 如果设置了白名单，保留白名单字段
 		value := val.Field(i)
+		if _, ok := includeSet[fieldName]; ok {
+			result[fieldName] = value.Interface()
+			continue
+		}
 
 		// 如果启用了 omitEmpty，跳过零值字段
 		if omitEmpty && isEmptyValue(value) {
