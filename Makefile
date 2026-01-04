@@ -4,14 +4,14 @@
 SUBMODULES := system monitor resource
 
 # ========================
-# 模块路径（大写保持原样）
+# 模块路径
 # ========================
 SYSTEM_PATH := app/system
 MONITOR_PATH := app/monitor
 RESOURCE_PATH := app/resource
 
 # ========================
-# 模块名（大写保持原样）
+# 模块名
 # ========================
 SYSTEM_NAME := system
 MONITOR_NAME := monitor
