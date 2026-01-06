@@ -9,8 +9,8 @@ type AddOrUpdateRoleReq struct {
 }
 
 type AddOrUpdateUserReq struct {
-	RoleIds []string `json:"roleIds"`
-	PostIds []string `json:"postIds"`
+	RoleIds []string `json:"roleIds,optional"`
+	PostIds []string `json:"postIds,optional"`
 	UserBase
 }
 
@@ -54,15 +54,16 @@ type ChangeStatusTenantReq struct {
 }
 
 type ClientBase struct {
-	ID            string `json:"id,optional"`
-	ClientID      string `json:"clientId,optional"`
-	ClientKey     string `json:"clientKey,optional"`
-	ClientSecret  string `json:"clientSecret,optional"`
-	GrantType     string `json:"grantType,optional"`
-	DeviceType    string `json:"deviceType,optional"`
-	ActiveTimeout int32  `json:"activeTimeout,optional"`
-	Timeout       int32  `json:"timeout,optional"`
-	Status        string `json:"status,optional"`
+	ID            string   `json:"id,optional"`
+	ClientID      string   `json:"clientId,optional"`
+	ClientKey     string   `json:"clientKey,optional"`
+	ClientSecret  string   `json:"clientSecret,optional"`
+	GrantType     string   `json:"grantType,optional"`
+	GrantTypeList []string `json:"grantTypeList,optional"`
+	DeviceType    string   `json:"deviceType,optional"`
+	ActiveTimeout int32    `json:"activeTimeout,optional"`
+	Timeout       int32    `json:"timeout,optional"`
+	Status        string   `json:"status,optional"`
 }
 
 type ClientQuery struct {

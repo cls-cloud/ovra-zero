@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"ovra/toolkit/errx"
+	"strings"
 
 	"github.com/jinzhu/copier"
 
@@ -34,5 +35,8 @@ func (l *InfoLogic) Info(req *types.IdReq) (resp *types.ClientBase, err error) {
 		return nil, errx.GORMErr(err)
 	}
 	err = copier.Copy(&resp, sysClient)
+	if resp.GrantType != "" {
+		resp.GrantTypeList = strings.Split(resp.GrantType, ",")
+	}
 	return
 }

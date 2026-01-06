@@ -26,6 +26,9 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(req *types.ModifyMenuReq) error {
+	if req.MenuID == req.ParentID {
+		return errx.BizErr("上级菜单不能为当前菜单")
+	}
 	toMapOmit := utils.StructToMapOmit(req.MenuBase, nil, []string{"CreateTime"}, true)
 	if _, err := l.svcCtx.Dal.Query.SysMenu.WithContext(l.ctx).Where(l.svcCtx.Dal.Query.SysMenu.MenuID.Eq(req.MenuID)).Updates(toMapOmit); err != nil {
 		return errx.GORMErr(err)

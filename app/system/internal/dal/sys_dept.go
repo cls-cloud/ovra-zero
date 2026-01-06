@@ -37,7 +37,7 @@ func (l *SysDeptDal) Update(ctx context.Context, param *model.SysDept) (err erro
 	if param.DeptID == "" {
 		return errx.BizErr("deptID is empty")
 	}
-	omit := utils.StructToMapOmit(param, nil, nil, true)
+	omit := utils.StructToMapOmit(param, []string{"DeptCategory"}, nil, true)
 	_, err = su.WithContext(ctx).Where(su.DeptID.Eq(param.DeptID)).Updates(omit)
 	if err != nil {
 		return errx.GORMErr(err)
