@@ -27,21 +27,35 @@ http:
       middlewares:
         - cors-header
 
+    # demo
+    router-demo:
+      rule: "PathPrefix(`/demo`)"
+      entryPoints:
+        - websecure
+      service: service-demo
+      middlewares:
+        - cors-header
+
   services:
     service-system:
       loadBalancer:
         servers:
-          - url: "http://127.0.0.1:8090"
+          - url: "http://127.0.0.1:8091"
 
     service-monitor:
       loadBalancer:
         servers:
-          - url: "http://127.0.0.1:8091"
+          - url: "http://127.0.0.1:8092"
 
     service-resource:
       loadBalancer:
         servers:
-          - url: "http://127.0.0.1:8092"
+          - url: "http://127.0.0.1:8093"
+
+    service-demo:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:8094"
 
   middlewares:
     cors-header:

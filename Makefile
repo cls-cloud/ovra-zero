@@ -66,7 +66,7 @@ db-$(1):
 .PHONY: build-$(1)
 # build-$(1)    构建 $(1) 模块
 build-$(1):
-	GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -tags no_k8s \
+	go build -ldflags="-s -w" -tags no_k8s \
 		-o $($(shell echo $(1) | tr a-z A-Z)_NAME) \
 		$($(shell echo $(1) | tr a-z A-Z)_PATH)/$($(shell echo $(1) | tr a-z A-Z)_NAME).go
 
