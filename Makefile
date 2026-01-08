@@ -1,7 +1,7 @@
 # ========================
 # 模块列表
 # ========================
-SUBMODULES := system monitor resource
+SUBMODULES := system monitor resource demo
 
 # ========================
 # 模块路径
@@ -9,6 +9,7 @@ SUBMODULES := system monitor resource
 SYSTEM_PATH := app/system
 MONITOR_PATH := app/monitor
 RESOURCE_PATH := app/resource
+DEMO_PATH := app/demo
 
 # ========================
 # 模块名
@@ -16,6 +17,7 @@ RESOURCE_PATH := app/resource
 SYSTEM_NAME := system
 MONITOR_NAME := monitor
 RESOURCE_NAME := resource
+DEMO_NAME := demo
 
 # ========================
 # 初始化工具

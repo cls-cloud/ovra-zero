@@ -1,0 +1,27 @@
+syntax = "v1"
+
+info(
+    title: "base.api"
+    desc: "base.api"
+    author: "atlas <atlas.u12@gmail.com>"
+    date: "2026-01-08 22:29:54"
+)
+
+type (
+    PageReq {
+        PageNum  int64  `form:"pageNum,default=1"`
+        PageSize int64  `form:"pageSize,default=20"`
+        TimeReq
+    }
+    IdReq {
+        Id string `path:"id"`
+    }
+    IdsReq {
+        Ids string `path:"ids"`
+    }
+    TimeReq {
+        BeginTime string `form:"params[beginTime],optional"`
+        EndTime   string `form:"params[endTime],optional"`
+    }
+)
+

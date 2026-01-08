@@ -1,0 +1,60 @@
+syntax = "v1"
+
+info(
+    title: "测试树表"
+    desc: "测试树 table: test_tree"
+    author: "atlas <atlas.u12@gmail.com>"
+    date: "2026-01-05 23:56:26"
+)
+
+import "base.api"
+
+type (
+    TreeBase {
+        ID int64 `json:"id,optional"`                // 主键
+        ParentID int64 `json:"parentId,optional"`
+        DeptID string `json:"deptId,optional"`       // 部门id
+        UserID string `json:"userId,optional"`       // 用户id
+        TreeName string `json:"treeName,optional"`   // 值
+        Version string `json:"version,optional"`     // 版本
+    }
+
+    ModifyTreeReq {
+        TreeBase
+    }
+
+    TreeQuery {
+        ParentID string `form:"parentId,optional"`
+        DeptID string `form:"deptId,optional"`      // 部门id
+        UserID string `form:"userId,optional"`      // 用户id
+        TreeName string `form:"treeName,optional"` // 值
+        Version string `form:"version,optional"`
+    }
+    ListTreeReq {
+        TreeQuery
+    }
+)
+
+
+@server(
+    tags: "测试树表"
+    group: demo/tree
+    prefix: demo/tree
+    middleware: Auth
+)
+service demo {
+    @handler Info
+    get /:id (IdReq) returns (TreeBase)
+
+    @handler Add
+    post / (ModifyTreeReq)
+
+    @handler Delete
+    delete /:ids (IdsReq)
+
+    @handler Update
+    put / (ModifyTreeReq)
+
+    @handler List
+    get /list (ListTreeReq) returns ([]*TreeBase)
+}

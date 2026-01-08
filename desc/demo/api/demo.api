@@ -1,0 +1,64 @@
+syntax = "v1"
+
+info(
+    title: "测试单表"
+    desc: "测试单 table: test_demo"
+    author: "atlas <atlas.u12@gmail.com>"
+    date: "2026-01-05 23:56:02"
+)
+
+import "base.api"
+
+type (
+    DemoBase {
+        ID int64 `json:"id,optional"` // 主键
+        OrderNum string `json:"orderNum,optional"` // 排序号
+        TestKey string `json:"testKey,optional"` // key键
+        Value string `json:"value,optional"` // 值
+        Version string `json:"version,optional"` // 版本
+    }
+
+    ModifyDemoReq {
+        DemoBase
+    }
+
+    DemoQuery {
+        OrderNum string `form:"orderNum,optional"` // 排序号
+        TestKey string `form:"testKey,optional"` // key键
+        Value string `form:"value,optional"` // 值
+        Version string `form:"version,optional"` // 版本
+    }
+    PageSetDemoReq {
+        PageReq
+        DemoQuery
+    }
+
+    PageSetDemoResp {
+        Rows []*DemoBase `json:"rows"`
+        Total int64 `json:"total"`
+    }
+)
+
+
+@server(
+    tags: "测试单"
+    group: demo/demo
+    prefix: demo/demo
+    middleware: Auth
+)
+service demo {
+    @handler Info
+    get /:id (IdReq) returns (DemoBase)
+
+    @handler Add
+    post / (ModifyDemoReq)
+
+    @handler Delete
+    delete /:ids (IdsReq)
+
+    @handler Update
+    put / (ModifyDemoReq)
+
+    @handler PageSet
+    get /list (PageSetDemoReq) returns (PageSetDemoResp)
+}
