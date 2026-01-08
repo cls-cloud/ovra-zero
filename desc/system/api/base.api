@@ -247,6 +247,7 @@ type (
         ClientKey    string `json:"clientKey,optional"`
         ClientSecret string `json:"clientSecret,optional"`
         GrantType    string `json:"grantType,optional"`
+        GrantTypeList []string `json:"grantTypeList,optional"`
         DeviceType   string `json:"deviceType,optional"`
         ActiveTimeout int32 `json:"activeTimeout,optional"`
         Timeout       int32 `json:"timeout,optional"`

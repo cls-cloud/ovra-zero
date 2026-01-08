@@ -57,7 +57,7 @@ func (a *Auth) SetToken(ctx context.Context, key, token string, activeTimeout, t
 			return fmt.Errorf("set %s failed: %v", f, err)
 		}
 	}
-	if err := a.rds.ExpireCtx(ctx, key, int(time.Duration(ttl)*time.Second)); err != nil {
+	if err := a.rds.ExpireCtx(ctx, key, int(ttl)); err != nil {
 		return fmt.Errorf("set expire failed: %v", err)
 	}
 	return nil

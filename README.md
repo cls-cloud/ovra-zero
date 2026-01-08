@@ -1,11 +1,14 @@
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold; font-size: 30px">Ovra-Zero</h1>
 <h4 align="center">基于Go-Zero实现的若依服务端脚手架（支持多租户）</h4>
 
-
+## 单体版
+[ovra](https://github.com/ovra-cloud/ovra.git)
+ 项目地址：`https://github.com/ovra-cloud/ovra.git`
 
 ## 平台简介
 + 提供了完整的权限系统、多租户支持、RBAC 权限控制、菜单管理等功能，适合快速搭建企业级后台管理系统。
-+ 前端项目：基于 [Ruoyi-Plus-Vben5](https://gitee.com/dapppp/ruoyi-plus-vben5.git)
++ 前端项目：目前基于 [RuoYi-Plus-Vben5](https://gitee.com/dapppp/ruoyi-plus-vben5.git)
++ 前端项目支持所有支持RuoYi-Plus项目，具体可查看[RuoYi-Plus](https://plus-doc.dromara.org)官网
 + 后端项目：基于 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus.git) 的功能模型，使用 Go-Zero 重写。
 
 ## 在线体验

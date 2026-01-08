@@ -105,6 +105,9 @@ service System {
     @handler Delete
     delete /:id (CodeReq)
 
+    @handler DeleteCascade
+    delete /cascade/:ids (IdsReq)
+
     @handler Update
     put / (ModifyMenuReq)
 

@@ -9,8 +9,8 @@ import "base.api"
 type (
     // 创建和更新共用结构
     AddOrUpdateUserReq {
-        RoleIds []string `json:"roleIds"`
-        PostIds []string `json:"postIds"`
+        RoleIds []string `json:"roleIds,optional"`
+        PostIds []string `json:"postIds,optional"`
         UserBase
     }
         // 更新用户状态

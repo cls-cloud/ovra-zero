@@ -316,6 +316,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: menu.DeleteHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodDelete,
+					Path:    "/cascade/:ids",
+					Handler: menu.DeleteCascadeHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodGet,
 					Path:    "/getRouters",
 					Handler: menu.GetRoutersHandler(serverCtx),
