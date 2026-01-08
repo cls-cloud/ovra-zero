@@ -29,7 +29,7 @@ func init() {
 	if env == "" {
 		env = "dev"
 	}
-	defaultConfig := filepath.Join("etc", env, "monitor.yaml")
+	defaultConfig := filepath.Join("etc", env, "demo.yaml")
 	configFile = flag.String("f", defaultConfig, "the config file")
 	flag.Parse()
 	fmt.Println("Using config file:", *configFile)
