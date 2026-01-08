@@ -2,7 +2,7 @@ RestConf:
   Mode: pre
   Name: system
   Host: 0.0.0.0
-  Port: 8090
+  Port: 8091
   Log:
     ServiceName: system-api
     Level: debug
@@ -11,7 +11,6 @@ RestConf:
     Port: 4001
     Path: /metrics
 RpcConf:
-  Mode: pre
   Name: system
   ListenOn: 0.0.0.0:9091
   Etcd:

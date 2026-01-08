@@ -1,29 +1,23 @@
 RestConf:
-  Mode: dev
-  Name: system
+  Mode: prod
+  Name: demo
   Host: 0.0.0.0
-  Port: 8091
+  Port: 8094
   Log:
-    ServiceName: system-api
+    ServiceName: demo-api
     Level: debug
   Prometheus:
     Host: 0.0.0.0
-    Port: 4001
+    Port: 4004
     Path: /metrics
 RpcConf:
-  Name: system
-  ListenOn: 0.0.0.0:9091
+  Mode: prod
+  Name: demo
+  ListenOn: 0.0.0.0:9094
   Etcd:
     Hosts:
       - 127.0.0.1:2379
-    Key: system.rpc
-
-MonitorRpc:
-  Etcd:
-    Hosts:
-    - 127.0.0.1:2379
-    Key: monitor.rpc
-
+    Key: demo.rpc
 
 JwtAuth:
   AccessSecret: YXTsYXMtYWRtaW4=

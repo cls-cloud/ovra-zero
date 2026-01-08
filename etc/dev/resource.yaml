@@ -2,7 +2,7 @@ RestConf:
   Mode: dev
   Name: resource
   Host: 0.0.0.0
-  Port: 8092
+  Port: 8093
   Log:
     ServiceName: resource-api
     Level: debug

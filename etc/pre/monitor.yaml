@@ -2,7 +2,7 @@ RestConf:
   Mode: pre
   Name: monitor
   Host: 0.0.0.0
-  Port: 8091
+  Port: 8092
   Log:
     ServiceName: monitor-api
     Level: debug

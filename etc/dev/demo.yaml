@@ -2,18 +2,18 @@ RestConf:
   Mode: dev
   Name: demo
   Host: 0.0.0.0
-  Port: 8091
+  Port: 8094
   Log:
     ServiceName: demo-api
     Level: debug
   Prometheus:
     Host: 0.0.0.0
-    Port: 4002
+    Port: 4004
     Path: /metrics
 RpcConf:
   Mode: dev
   Name: demo
-  ListenOn: 0.0.0.0:9091
+  ListenOn: 0.0.0.0:9094
   Etcd:
     Hosts:
       - 127.0.0.1:2379
