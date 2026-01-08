@@ -34,11 +34,11 @@ func (l *SysClientDal) Insert(ctx context.Context, param *model.SysClient) (err 
 
 func (l *SysClientDal) Update(ctx context.Context, param *model.SysClient) (err error) {
 	su := l.query.SysClient
-	if param.ClientID == "" {
-		return errx.BizErr("clientID is empty")
+	if param.ID == "" {
+		return errx.BizErr("ID is empty")
 	}
 	omit := utils.StructToMapOmit(param, nil, nil, true)
-	_, err = su.WithContext(ctx).Where(su.ClientID.Eq(param.ClientID)).Updates(omit)
+	_, err = su.WithContext(ctx).Where(su.ID.Eq(param.ClientID)).Updates(omit)
 	if err != nil {
 		return errx.GORMErr(err)
 	}
@@ -47,7 +47,7 @@ func (l *SysClientDal) Update(ctx context.Context, param *model.SysClient) (err 
 
 func (l *SysClientDal) UpdateStatus(ctx context.Context, id, status string) (err error) {
 	su := l.query.SysClient
-	_, err = su.WithContext(ctx).Where(su.ClientID.Eq(id)).Update(su.Status, status)
+	_, err = su.WithContext(ctx).Where(su.ID.Eq(id)).Update(su.Status, status)
 	if err != nil {
 		return errx.GORMErr(err)
 	}
