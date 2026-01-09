@@ -56,7 +56,7 @@ func (l *SysClientDal) UpdateStatus(ctx context.Context, id, status string) (err
 
 func (l *SysClientDal) Delete(ctx context.Context, id string) (err error) {
 	su := l.query.SysClient
-	_, err = su.WithContext(ctx).Where(su.ClientID.Eq(id)).Delete()
+	_, err = su.WithContext(ctx).Where(su.ID.Eq(id)).Delete()
 	if err != nil {
 		return errx.GORMErr(err)
 	}
@@ -65,7 +65,7 @@ func (l *SysClientDal) Delete(ctx context.Context, id string) (err error) {
 
 func (l *SysClientDal) DeleteBatch(ctx context.Context, ids []string) (err error) {
 	su := l.query.SysClient
-	_, err = su.WithContext(ctx).Where(su.ClientID.In(ids...)).Delete()
+	_, err = su.WithContext(ctx).Where(su.ID.In(ids...)).Delete()
 	if err != nil {
 		return errx.GORMErr(err)
 	}
@@ -74,7 +74,7 @@ func (l *SysClientDal) DeleteBatch(ctx context.Context, ids []string) (err error
 
 func (l *SysClientDal) SelectById(ctx context.Context, id string) (*model.SysClient, error) {
 	su := l.query.SysClient
-	data, err := su.WithContext(ctx).Where(su.ClientID.Eq(id)).First()
+	data, err := su.WithContext(ctx).Where(su.ID.Eq(id)).First()
 	if err != nil {
 		return nil, errx.GORMErr(err)
 	}
