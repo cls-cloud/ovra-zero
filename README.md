@@ -1,3 +1,14 @@
+<p align="center">
+  <a href="https://github.com/cls-cloud/ovra-zero">
+    <img src="https://img.shields.io/github/stars/cls-cloud/ovra-zero?style=flat-square" />
+  </a>
+  <a href="https://github.com/cls-cloud/ovra-zero/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/cls-cloud/ovra-zero?style=flat-square" />
+  </a>
+  <img src="https://img.shields.io/badge/Go-1.22+-blue?style=flat-square" />
+</p>
+
+
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold; font-size: 30px">Ovra-Zero</h1>
 <h4 align="center">基于Go-Zero实现的若依服务端脚手架（支持多租户）</h4>
 
