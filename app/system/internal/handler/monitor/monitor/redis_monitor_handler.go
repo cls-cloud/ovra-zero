@@ -6,9 +6,10 @@ package monitor
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"ovra/app/system/internal/logic/monitor/monitor"
 	"ovra/app/system/internal/svc"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func RedisMonitorHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

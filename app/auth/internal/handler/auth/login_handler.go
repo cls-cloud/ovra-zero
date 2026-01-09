@@ -6,10 +6,11 @@ package auth
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"ovra/app/auth/internal/logic/auth"
 	"ovra/app/auth/internal/svc"
 	"ovra/app/auth/internal/types"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

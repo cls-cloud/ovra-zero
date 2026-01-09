@@ -6,10 +6,11 @@ package _post
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"ovra/app/system/internal/logic/system/_post"
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func UpdateHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

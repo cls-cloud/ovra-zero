@@ -6,9 +6,10 @@ package logininfor
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"ovra/app/system/internal/logic/monitor/logininfor"
 	"ovra/app/system/internal/svc"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func CleanHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

@@ -6,10 +6,11 @@ package _type
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"ovra/app/system/internal/logic/system/dict/_type"
 	"ovra/app/system/internal/svc"
 	"ovra/app/system/internal/types"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func AddHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
