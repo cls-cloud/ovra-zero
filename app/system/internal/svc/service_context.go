@@ -1,9 +1,6 @@
 package svc
 
 import (
-	"ovra/app/monitor/client/logininforpc"
-	"ovra/app/monitor/client/operlogrpc"
-	"ovra/app/monitor/pb/monitor"
 	"ovra/app/system/internal/config"
 	"ovra/app/system/internal/dal"
 	"ovra/app/system/internal/dal/query"
@@ -12,31 +9,27 @@ import (
 
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"
-	"github.com/zeromicro/go-zero/zrpc"
 	"gorm.io/gorm"
 )
 
 type ServiceContext struct {
-	Config       config.Config
-	Db           *gorm.DB
-	Rds          *redis.Redis
-	Query        *query.Query
-	Auth         rest.Middleware
-	LoginInfoRpc monitor.LoginInfoRpcClient
-	OperLogRpc   monitor.OperLogRpcClient
-	Dal          *dal.Dal
+	Config config.Config
+	Db     *gorm.DB
+	Rds    *redis.Redis
+	Query  *query.Query
+	Auth   rest.Middleware
+	Dal    *dal.Dal
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	db := dbs.NewDb(c)
 	rds := redis.MustNewRedis(c.Data.Redis)
 	return &ServiceContext{
-		Config:       c,
-		Rds:          rds,
-		Db:           db,
-		Auth:         middleware.NewAuthMiddleware(c, rds).Handle,
-		LoginInfoRpc: logininforpc.NewLoginInfoRpc(zrpc.MustNewClient(c.MonitorRpc)),
-		OperLogRpc:   operlogrpc.NewOperLogRpc(zrpc.MustNewClient(c.MonitorRpc)),
-		Dal:          dal.NewDal(db, query.Use(db), c),
+		Config: c,
+		Rds:    rds,
+		Db:     db,
+		Query:  query.Use(db),
+		Auth:   middleware.NewAuthMiddleware(c, rds).Handle,
+		Dal:    dal.NewDal(db, query.Use(db), c),
 	}
 }

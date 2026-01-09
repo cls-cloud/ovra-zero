@@ -1,0 +1,125 @@
+info(
+    desc: "用户信息"
+    author: "atlas"
+    email: "ut1221@icloud.com"
+)
+
+import "../base.api"
+
+type (
+    // 创建和更新共用结构
+    AddOrUpdateUserReq {
+        RoleIds []string `json:"roleIds,optional"`
+        PostIds []string `json:"postIds,optional"`
+        UserBase
+    }
+        // 更新用户状态
+    UpdateUserStatusReq {
+        UserId string `json:"userId"`
+        Status string `json:"status"`
+    }
+        // 查询详情响应（包含创建更新信息）
+    UserDetailResp {
+        PostIds []string `json:"postIds"`
+        Posts []*PostBase `json:"posts"`
+        RoleIds []string `json:"roleIds"`
+        Roles []*RoleBase `json:"roles"`
+        User *UserRoles `json:"user"`
+    }
+        // 用户分页请求过滤参数
+    UserQuery {
+        UserId string `form:"userId,optional"`
+        TenantId string `form:"tenantId,optional"`
+        DeptId string `form:"deptId,optional"`
+        UserName string `form:"userName,optional"`
+        NickName string `form:"nickName,optional"`
+        UserType string `form:"userType,optional"`
+        Email string `form:"email,optional"`
+        PhoneNumber string `form:"phonenumber,optional"`
+        Sex string `form:"sex,optional"`
+        Avatar int64 `form:"avatar,optional"`
+        Status string `form:"status,optional"`
+        DelFlag string `form:"delFlag,optional"`
+        LoginIp string `form:"loginIp,optional"`
+    }
+    QueryPageUserListReq {
+        PageReq
+        UserQuery
+    }
+    QueryPageUserListResp {
+        Total int64 `json:"total"`
+        Rows []UserAndDeptName `json:"rows"`
+    }
+    UserAndDeptName {
+        UserRoles
+        DeptName string `json:"deptName"`
+        CreateTime string `json:"createTime"`
+    }
+    QueryUserListReq {
+        UserQuery
+    }
+
+    UserInfoResp {
+        User UserRoles `json:"user"`
+        Roles []string `json:"roles"`
+        Permissions []string `json:"permissions"`
+    }
+    UserRoles {
+        UserBase
+        Roles []RoleBase `json:"roles,omitempty"`
+    }
+    ResetPwdReq {
+        UserId string `json:"userId"`
+        Password string `json:"password"`
+    }
+    UserProfileResp {
+        User UserAndDeptName `json:"user"`
+        PostGroup string `json:"postGroup"`
+        RoleGroup string `json:"roleGroup"`
+    }
+)
+
+@server(
+    group: system/user
+    prefix: /system/user
+    middleware: Auth
+)
+service System {
+    @handler GetDeptTree
+    get /deptTree returns ([]DeptTree)
+
+
+    @handler Profile
+    get /profile returns (UserProfileResp)
+
+    @handler GetUserInfo
+    get /getInfo returns (UserInfoResp)
+    // 编辑查询用户详情
+    @handler QueryUserDetail
+    get /:id (IdReq) returns (UserDetailResp)
+    // 新增查询用户详情
+    @handler QueryUserDetailInsert
+    get / returns (UserDetailResp)
+
+    @handler AddUser
+    post / (AddOrUpdateUserReq)
+
+    @handler DeleteUser
+    delete /:code (CodeReq)
+
+    @handler UpdateUser
+    put / (AddOrUpdateUserReq)
+
+    @handler UpdateUserStatus
+    put /changeStatus (UpdateUserStatusReq)
+
+    @handler ResetPwd
+    put /resetPwd (ResetPwdReq)
+
+    @handler DeptList
+    get /list/dept/:id (IdReq) returns ([]*UserBase)
+
+    @handler QueryPageUserList
+    get /list (QueryPageUserListReq) returns (QueryPageUserListResp)
+}
+

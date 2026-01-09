@@ -1,20 +1,125 @@
 syntax = "proto3";
 
 package system;
-option go_package="./system";
+option go_package = "./system";
 
-message Request {
-  string ping = 1;
+
+service SysRpc {
+  rpc UserInfo(UserInfoReq) returns(UserInfoResp);
+  rpc ClientInfo(ClientInfoReq) returns(ClientInfoResp);
+  rpc SysLogin(LoginReq) returns(LoginResp);
+  rpc TenantList(EmptyReq) returns(TenantListResp);
+
+  rpc LoginInfoSave(LoginInfoReq) returns(EmptyResp);
+
+  rpc OperLogSave(OperLogReq) returns(EmptyResp);
+
 }
 
-message Response {
-  string pong = 1;
+message EmptyReq {}
+message EmptyResp {}
+
+message UserInfoReq {
+  string type = 1;
+  string account = 2;
+  string tenantId = 3;
 }
 
-service UserRpc {
-  rpc Ping(Request) returns(Response);
+message UserInfoResp {
+  string userId = 1;
+  string username = 2;
+  string password = 3;
+  string deptId = 4;
+  string tenantId = 5;
 }
 
-service RoleRpc {
-  rpc Ping(Request) returns(Response);
+message ClientInfoReq {
+  string clientId = 1;
+  string grantType = 2;
+}
+message ClientInfoResp {
+  string id = 1;
+  string clientId = 2;
+  string clientKey = 3;
+  string clientSecret = 4;
+  string grantType = 5;
+  int32  activeTimeout = 6;
+  int32 timeout = 7;
+}
+message LoginReq {
+  string username = 1;
+  string password = 2;
+  string tenantId = 3;
+  string clientId = 4;
+  string grantType = 5;
+  string code = 6;
+  string uuid = 7;
+  string loginIp = 8;
+}
+message LoginResp {
+  string  userId = 1;
+  string tenantId = 2;
+  string clientId = 3;
+  int32 timeout = 4;
+  string deptName = 5;
+  string usMd5 = 6;
+}
+
+message TenantListResp {
+  bool TenantEnable = 1;
+  repeated TenantInfo list = 2;
+}
+message TenantInfo {
+  string tenantId = 1;
+  string companyName = 2;
+  string domain = 3;
+}
+
+message LoginInfoReq {
+  string infoId = 11;
+  string username = 1;
+  string tenantId = 2;
+  string clientKey = 3;
+  string deviceType = 4;
+  string ipaddr = 5;
+  string LoginLocation = 6;
+  string browser = 7;
+  string os = 8;
+  string status = 9;
+  string msg = 10;
+}
+
+message OperLogReq {
+  // 租户编号
+  string tenantId = 2;
+  // 模块标题
+  string title = 3;
+  // 业务类型（0其它 1新增 2修改 3删除）
+  int32 businessType = 4;
+  // 方法名称
+  string method = 5;
+  // 请求方式
+  string requestMethod = 6;
+  // 操作类别（0其它 1后台用户 2手机端用户）
+  int32 operatorType = 7;
+  // 操作人员
+  string operName = 8;
+  // 部门名称
+  string deptName = 9;
+  // 请求URL
+  string operUrl = 10;
+  // 主机地址
+  string operIp = 11;
+  // 操作地点
+  string operLocation = 12;
+  // 请求参数
+  string operParam = 13;
+  // 返回参数
+  string jsonResult = 14;
+  // 操作状态（0正常 1异常）
+  int32 status = 15;
+  // 错误消息
+  string errorMsg = 16;
+  // 消耗时间
+  int64 costTime = 18;
 }

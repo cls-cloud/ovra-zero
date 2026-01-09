@@ -31,15 +31,15 @@ type CancelReq struct {
 	UserId string `json:"userId"`
 }
 
-type CaptchaResp struct {
-	CaptchaEnabled bool   `json:"captchaEnabled"`
-	Img            string `json:"img"`
-	Uuid           string `json:"uuid"`
-}
-
 type ChangeStatusClientReq struct {
 	ClientID string `json:"clientId"`
 	Status   string `json:"status"`
+}
+
+type ChangeStatusOssConfigReq struct {
+	OssConfigId string `json:"ossConfigId"`
+	ConfigKey   string `json:"configKey"`
+	Status      string `json:"status"`
 }
 
 type ChangeStatusTenantPackageReq struct {
@@ -86,6 +86,11 @@ type ClientQuery struct {
 
 type CodeReq struct {
 	Code string `path:"code"`
+}
+
+type CommandState struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }
 
 type ConfigBase struct {
@@ -227,40 +232,37 @@ type IdReq struct {
 }
 
 type IdsReq struct {
-	Id string `path:"ids"`
-}
-
-type LoginReq struct {
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	ClientId  string `json:"clientId"`
-	TenantId  string `json:"tenantId"`
-	GrantType string `json:"grantType"`
-	Code      string `json:"code,optional"`
-	Uuid      string `json:"uuid,optional"`
-}
-
-type LoginResp struct {
-	AccessToken     string `json:"access_token"`
-	RefreshToken    string `json:"refresh_token"`
-	ClientId        string `json:"client_id"`
-	ExpireIn        int64  `json:"expire_in"`
-	RefreshExpireIn int64  `json:"refresh_expire_in"`
+	Ids string `path:"ids"`
 }
 
 type LogininforBase struct {
-	InfoID        string `json:"infoId,optional"`
-	TenantID      string `json:"tenantId,optional"`
-	UserName      string `json:"userName,optional"`
-	ClientKey     string `json:"clientKey,optional"`
-	DeviceType    string `json:"deviceType,optional"`
-	Ipaddr        string `json:"ipaddr,optional"`
-	LoginLocation string `json:"loginLocation,optional"`
-	Browser       string `json:"browser,optional"`
-	Os            string `json:"os,optional"`
-	Status        string `json:"status,optional"`
-	Msg           string `json:"msg,optional"`
-	LoginTime     string `json:"loginTime,optional"`
+	InfoId        string `json:"infoId,optional"`        // 访问ID
+	TenantId      string `json:"tenantId,optional"`      // 租户编号
+	UserName      string `json:"userName,optional"`      // 用户账号
+	ClientKey     string `json:"clientKey,optional"`     // 客户端
+	DeviceType    string `json:"deviceType,optional"`    // 设备类型
+	Ipaddr        string `json:"ipaddr,optional"`        // 登录IP地址
+	LoginLocation string `json:"loginLocation,optional"` // 登录地点
+	Browser       string `json:"browser,optional"`       // 浏览器类型
+	Os            string `json:"os,optional"`            // 操作系统
+	Status        string `json:"status,optional"`        // 登录状态（0成功 1失败）
+	Msg           string `json:"msg,optional"`           // 提示消息
+	LoginTime     string `json:"loginTime,optional"`     // 访问时间
+}
+
+type LogininforQuery struct {
+	InfoId        string `form:"infoId,optional"`        // 访问ID
+	TenantId      string `form:"tenantId,optional"`      // 租户编号
+	UserName      string `form:"userName,optional"`      // 用户账号
+	ClientKey     string `form:"clientKey,optional"`     // 客户端
+	DeviceType    string `form:"deviceType,optional"`    // 设备类型
+	Ipaddr        string `form:"ipaddr,optional"`        // 登录IP地址
+	LoginLocation string `form:"loginLocation,optional"` // 登录地点
+	Browser       string `form:"browser,optional"`       // 浏览器类型
+	Os            string `form:"os,optional"`            // 操作系统
+	Status        string `form:"status,optional"`        // 登录状态（0成功 1失败）
+	Msg           string `form:"msg,optional"`           // 提示消息
+	LoginTime     string `form:"loginTime,optional"`     // 访问时间
 }
 
 type MenuBase struct {
@@ -335,6 +337,14 @@ type ModifyNoticeReq struct {
 	NoticeBase
 }
 
+type ModifyOssConfigReq struct {
+	OssConfigBase
+}
+
+type ModifyOssReq struct {
+	OssBase
+}
+
 type ModifyPostReq struct {
 	PostBase
 }
@@ -380,54 +390,142 @@ type NoticeQuery struct {
 	Remark        string `form:"remark,optional"`        // 备注
 }
 
+type OnlineInfo struct {
+	Browser       string `json:"browser,optional"`       // 浏览器类型
+	ClientKey     string `json:"clientKey,optional"`     // 客户端
+	DeptName      string `json:"deptName,optional"`      // 部门名称
+	DeviceType    string `json:"deviceType,optional"`    // 设备类型
+	Ipaddr        string `json:"ipaddr,optional"`        // 登录IP地址
+	LoginLocation string `json:"loginLocation,optional"` // 登录地点
+	LoginTime     string `json:"loginTime,optional"`     // 访问时间
+	Os            string `json:"os,optional"`            // 操作系统
+	Token         string `json:"tokenId,optional"`       // Token
+	UserName      string `json:"userName,optional"`      // 用户账号
+}
+
+type OnlineQuery struct {
+	Ipaddr   string `json:"ipaddr,optional"`
+	UserName string `json:"userName,optional"`
+}
+
 type OperLogBase struct {
-	OperID        string `json:"operId,optional"`
-	TenantID      string `json:"tenantId,optional"`
-	Title         string `json:"title,optional"`
-	BusinessType  int32  `json:"businessType,optional"`
-	Method        string `json:"method,optional"`
-	RequestMethod string `json:"requestMethod,optional"`
-	OperatorType  int32  `json:"operatorType,optional"`
-	OperName      string `json:"operName,optional"`
-	DeptName      string `json:"deptName,optional"`
-	OperUrl       string `json:"operUrl,optional"`
-	OperIp        string `json:"operIp,optional"`
-	OperLocation  string `json:"operLocation,optional"`
-	OperParam     string `json:"operParam,optional"`
-	JsonResult    string `json:"jsonResult,optional"`
-	Status        int32  `json:"status,optional"`
-	ErrorMsg      string `json:"errorMsg,optional"`
-	OperTime      string `json:"operTime,optional"`
-	CostTime      int64  `json:"costTime,optional"`
+	OperId        string `json:"operId,optional"`        // 日志主键
+	TenantId      string `json:"tenantId,optional"`      // 租户编号
+	Title         string `json:"title,optional"`         // 模块标题
+	BusinessType  int32  `json:"businessType,optional"`  // 业务类型（0其它 1新增 2修改 3删除）
+	Method        string `json:"method,optional"`        // 方法名称
+	RequestMethod string `json:"requestMethod,optional"` // 请求方式
+	OperatorType  int32  `json:"operatorType,optional"`  // 操作类别（0其它 1后台用户 2手机端用户）
+	OperName      string `json:"operName,optional"`      // 操作人员
+	DeptName      string `json:"deptName,optional"`      // 部门名称
+	OperUrl       string `json:"operUrl,optional"`       // 请求URL
+	OperIp        string `json:"operIp,optional"`        // 主机地址
+	OperLocation  string `json:"operLocation,optional"`  // 操作地点
+	OperParam     string `json:"operParam,optional"`     // 请求参数
+	JsonResult    string `json:"jsonResult,optional"`    // 返回参数
+	Status        int32  `json:"status,optional"`        // 操作状态（0正常 1异常）
+	ErrorMsg      string `json:"errorMsg,optional"`      // 错误消息
+	OperTime      string `json:"operTime,optional"`      // 操作时间
+	CostTime      int64  `json:"costTime,optional"`      // 消耗时间
+}
+
+type OperLogQuery struct {
+	OperId        string `form:"operId,optional"`        // 日志主键
+	TenantId      string `form:"tenantId,optional"`      // 租户编号
+	Title         string `form:"title,optional"`         // 模块标题
+	BusinessType  int32  `form:"businessType,optional"`  // 业务类型（0其它 1新增 2修改 3删除）
+	Method        string `form:"method,optional"`        // 方法名称
+	RequestMethod string `form:"requestMethod,optional"` // 请求方式
+	OperatorType  int32  `form:"operatorType,optional"`  // 操作类别（0其它 1后台用户 2手机端用户）
+	OperName      string `form:"operName,optional"`      // 操作人员
+	DeptName      string `form:"deptName,optional"`      // 部门名称
+	OperUrl       string `form:"operUrl,optional"`       // 请求URL
+	OperIp        string `form:"operIp,optional"`        // 主机地址
+	OperLocation  string `form:"operLocation,optional"`  // 操作地点
+	OperParam     string `form:"operParam,optional"`     // 请求参数
+	JsonResult    string `form:"jsonResult,optional"`    // 返回参数
+	Status        int32  `form:"status,optional"`        // 操作状态（0正常 1异常）
+	ErrorMsg      string `form:"errorMsg,optional"`      // 错误消息
+	OperTime      string `form:"operTime,optional"`      // 操作时间
+	CostTime      int64  `form:"costTime,optional"`      // 消耗时间
 }
 
 type OssBase struct {
-	OssID        string `json:"ossId,optional"`
-	TenantID     string `json:"tenantId,optional"`
-	FileName     string `json:"fileName"`
-	OriginalName string `json:"originalName"`
-	FileSuffix   string `json:"fileSuffix"`
-	Url          string `json:"url"`
-	Ext1         string `json:"ext1,optional"`
-	Service      string `json:"service"`
+	OssId        string `json:"ossId,optional"`        // 对象存储主键
+	TenantId     string `json:"tenantId,optional"`     // 租户编号
+	FileName     string `json:"fileName,optional"`     // 文件名
+	OriginalName string `json:"originalName,optional"` // 原名
+	FileSuffix   string `json:"fileSuffix,optional"`   // 文件后缀名
+	Url          string `json:"url,optional"`          // URL地址
+	Ext1         string `json:"ext1,optional"`         // 扩展字段
+	CreateDept   int64  `json:"createDept,optional"`   // 创建部门
+	CreateTime   string `json:"createTime,optional"`   // 创建时间
+	CreateBy     int64  `json:"createBy,optional"`     // 上传人
+	UpdateTime   string `json:"updateTime,optional"`   // 更新时间
+	UpdateBy     int64  `json:"updateBy,optional"`     // 更新人
+	Service      string `json:"service,optional"`      // 服务商
 }
 
 type OssConfigBase struct {
-	OssConfigID  string `json:"ossConfigId,optional"`
-	TenantID     string `json:"tenantId,optional"`
-	ConfigKey    string `json:"configKey"`
-	AccessKey    string `json:"accessKey,optional"`
-	SecretKey    string `json:"secretKey,optional"`
-	BucketName   string `json:"bucketName,optional"`
-	Prefix       string `json:"prefix,optional"`
-	Endpoint     string `json:"endpoint,optional"`
-	Domain       string `json:"domain,optional"`
-	IsHttps      string `json:"isHttps,optional"`
-	Region       string `json:"region,optional"`
-	AccessPolicy string `json:"accessPolicy"`
-	Status       string `json:"status,optional"`
-	Ext1         string `json:"ext1,optional"`
-	Remark       string `json:"remark,optional"`
+	OssConfigID  string `json:"ossConfigId,optional"`  // 主键
+	TenantId     string `json:"tenantId,optional"`     // 租户编号
+	ConfigKey    string `json:"configKey,optional"`    // 配置key
+	AccessKey    string `json:"accessKey,optional"`    // accessKey
+	SecretKey    string `json:"secretKey,optional"`    // 秘钥
+	BucketName   string `json:"bucketName,optional"`   // 桶名称
+	Prefix       string `json:"prefix,optional"`       // 前缀
+	Endpoint     string `json:"endpoint,optional"`     // 访问站点
+	Domain       string `json:"domain,optional"`       // 自定义域名
+	IsHTTPS      string `json:"isHttps,optional"`      // 是否https（Y=是,N=否）
+	Region       string `json:"region,optional"`       // 域
+	AccessPolicy string `json:"accessPolicy,optional"` // 桶权限类型(0=private 1=public 2=custom)
+	Status       string `json:"status,optional"`       // 是否默认（0=是,1=否）
+	Ext1         string `json:"ext1,optional"`         // 扩展字段
+	CreateDept   int64  `json:"createDept,optional"`   // 创建部门
+	CreateBy     int64  `json:"createBy,optional"`     // 创建者
+	CreateTime   string `json:"createTime,optional"`   // 创建时间
+	UpdateBy     int64  `json:"updateBy,optional"`     // 更新者
+	UpdateTime   string `json:"updateTime,optional"`   // 更新时间
+	Remark       string `json:"remark,optional"`       // 备注
+}
+
+type OssConfigQuery struct {
+	OssConfigID  string `form:"ossConfigId,optional"`  // 主键
+	TenantId     string `form:"tenantId,optional"`     // 租户编号
+	ConfigKey    string `form:"configKey,optional"`    // 配置key
+	AccessKey    string `form:"accessKey,optional"`    // accessKey
+	SecretKey    string `form:"secretKey,optional"`    // 秘钥
+	BucketName   string `form:"bucketName,optional"`   // 桶名称
+	Prefix       string `form:"prefix,optional"`       // 前缀
+	Endpoint     string `form:"endpoint,optional"`     // 访问站点
+	Domain       string `form:"domain,optional"`       // 自定义域名
+	IsHTTPS      string `form:"isHttps,optional"`      // 是否https（Y=是,N=否）
+	Region       string `form:"region,optional"`       // 域
+	AccessPolicy string `form:"accessPolicy,optional"` // 桶权限类型(0=private 1=public 2=custom)
+	Status       string `form:"status,optional"`       // 是否默认（0=是,1=否）
+	Ext1         string `form:"ext1,optional"`         // 扩展字段
+	CreateDept   int64  `form:"createDept,optional"`   // 创建部门
+	CreateBy     int64  `form:"createBy,optional"`     // 创建者
+	CreateTime   string `form:"createTime,optional"`   // 创建时间
+	UpdateBy     int64  `form:"updateBy,optional"`     // 更新者
+	UpdateTime   string `form:"updateTime,optional"`   // 更新时间
+	Remark       string `form:"remark,optional"`       // 备注
+}
+
+type OssQuery struct {
+	OssId        string `form:"ossId,optional"`        // 对象存储主键
+	TenantId     string `form:"tenantId,optional"`     // 租户编号
+	FileName     string `form:"fileName,optional"`     // 文件名
+	OriginalName string `form:"originalName,optional"` // 原名
+	FileSuffix   string `form:"fileSuffix,optional"`   // 文件后缀名
+	Url          string `form:"url,optional"`          // URL地址
+	Ext1         string `form:"ext1,optional"`         // 扩展字段
+	CreateDept   int64  `form:"createDept,optional"`   // 创建部门
+	CreateTime   string `form:"createTime,optional"`   // 创建时间
+	CreateBy     int64  `form:"createBy,optional"`     // 上传人
+	UpdateTime   string `form:"updateTime,optional"`   // 更新时间
+	UpdateBy     int64  `form:"updateBy,optional"`     // 更新人
+	Service      string `form:"service,optional"`      // 服务商
 }
 
 type PageReq struct {
@@ -481,6 +579,16 @@ type PageSetDictTypeResp struct {
 	Rows  []*DictTypeBase `json:"rows"`
 }
 
+type PageSetLogininforReq struct {
+	PageReq
+	LogininforQuery
+}
+
+type PageSetLogininforResp struct {
+	Rows  []*LogininforBase `json:"rows"`
+	Total int64             `json:"total"`
+}
+
 type PageSetNoticeReq struct {
 	PageReq
 	NoticeQuery
@@ -489,6 +597,41 @@ type PageSetNoticeReq struct {
 type PageSetNoticeResp struct {
 	Rows  []*NoticeBase `json:"rows"`
 	Total int64         `json:"total"`
+}
+
+type PageSetOnlineResp struct {
+	Rows  []*OnlineInfo `json:"rows"`
+	Total int64         `json:"total"`
+}
+
+type PageSetOperLogReq struct {
+	PageReq
+	OperLogQuery
+}
+
+type PageSetOperLogResp struct {
+	Rows  []*OperLogBase `json:"rows"`
+	Total int64          `json:"total"`
+}
+
+type PageSetOssConfigReq struct {
+	PageReq
+	OssConfigQuery
+}
+
+type PageSetOssConfigResp struct {
+	Rows  []*OssConfigBase `json:"rows"`
+	Total int64            `json:"total"`
+}
+
+type PageSetOssReq struct {
+	PageReq
+	OssQuery
+}
+
+type PageSetOssResp struct {
+	Rows  []*OssBase `json:"rows"`
+	Total int64      `json:"total"`
 }
 
 type PageSetRoleReq struct {
@@ -568,6 +711,12 @@ type QueryPageUserListResp struct {
 
 type QueryUserListReq struct {
 	UserQuery
+}
+
+type RedisMonitorResp struct {
+	Info         map[string]string `json:"info"`
+	DbSize       int64             `json:"dbSize"`
+	CommandStats []CommandState    `json:"commandStats"`
 }
 
 type ResetPwdReq struct {
@@ -767,17 +916,6 @@ type TenantQuery struct {
 	UpdateTime      string `form:"updateTime,optional"`      // 更新时间
 }
 
-type TenantResp struct {
-	TenantEnabled bool       `json:"tenantEnabled"`
-	VoList        []TenantVo `json:"voList"`
-}
-
-type TenantVo struct {
-	TenantId    string `json:"tenantId"`
-	CompanyName string `json:"companyName"`
-	Domain      string `json:"domain"`
-}
-
 type TimeReq struct {
 	BeginTime string `form:"params[beginTime],optional"`
 	EndTime   string `form:"params[endTime],optional"`
@@ -866,9 +1004,4 @@ type UserRoleBase struct {
 type UserRoles struct {
 	UserBase
 	Roles []RoleBase `json:"roles,omitempty"`
-}
-
-type Resp struct {
-	Msg  string `json:"msg"`
-	Code int    `json:"code"`
 }

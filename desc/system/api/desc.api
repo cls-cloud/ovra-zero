@@ -6,30 +6,21 @@ info (
 	email:  "ut1221@icloud.com"
 )
 
-import "auth.api"
-import "user.api"
-import "role.api"
-import "dept.api"
-import "menu.api"
-import "post.api"
-import "notice.api"
-import "client.api"
-import "tenant.api"
-import "tenant_package.api"
-import "config.api"
-import "dict/data.api"
-import "dict/type.api"
-
-type resp {
-	Msg  string `json:"msg"`
-	Code int    `json:"code"`
-}
-
-@server (
-	group: ping
-)
-service System {
-	@handler ping
-	get /ping returns (resp)
-}
-
+import "system/user.api"
+import "system/role.api"
+import "system/dept.api"
+import "system/menu.api"
+import "system/post.api"
+import "system/notice.api"
+import "system/client.api"
+import "system/tenant.api"
+import "system/tenant_package.api"
+import "system/config.api"
+import "system/dict/data.api"
+import "system/dict/type.api"
+import "resource/oss.api"
+import "resource/oss_config.api"
+import "monitor/online.api"
+import "monitor/oper_log.api"
+import "monitor/logininfor.api"
+import "monitor/monitor.api"

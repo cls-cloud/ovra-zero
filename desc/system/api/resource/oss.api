@@ -1,0 +1,60 @@
+info(
+    desc: "OSS对象存储"
+    author: "atlas"
+    email: "ut1221@icloud.com"
+    date: "2025-07-12 17:32:13"
+)
+
+import "../base.api"
+
+type (
+    // 创建和更新共用结构
+    ModifyOssReq {
+        OssBase
+    }
+
+        // 请求过滤参数
+    OssQuery {
+        OssId string `form:"ossId,optional"`               // 对象存储主键
+        TenantId string `form:"tenantId,optional"`         // 租户编号
+        FileName string `form:"fileName,optional"`         // 文件名
+        OriginalName string `form:"originalName,optional"` // 原名
+        FileSuffix string `form:"fileSuffix,optional"`     // 文件后缀名
+        Url string `form:"url,optional"`                   // URL地址
+        Ext1 string `form:"ext1,optional"`                 // 扩展字段
+        CreateDept int64 `form:"createDept,optional"`      // 创建部门
+        CreateTime string `form:"createTime,optional"`     // 创建时间
+        CreateBy int64 `form:"createBy,optional"`          // 上传人
+        UpdateTime string `form:"updateTime,optional"`     // 更新时间
+        UpdateBy int64 `form:"updateBy,optional"`          // 更新人
+        Service string `form:"service,optional"`           // 服务商
+    }
+
+        // 分页请求过滤参数
+    PageSetOssReq {
+        PageReq
+        OssQuery
+    }
+
+    PageSetOssResp {
+        Rows []*OssBase `json:"rows"`
+        Total int64 `json:"total"`
+    }
+)
+
+@server(
+    tags: "OSS对象存储"
+    group: resource/oss
+    prefix: /resource/oss
+    middleware: Auth
+)
+service System {
+    @handler Upload
+    post /upload
+
+    @handler Delete
+    delete /:ids (IdsReq)
+
+    @handler PageSet
+    get /list (PageSetOssReq) returns (PageSetOssResp)
+}

@@ -7,7 +7,9 @@ import (
 	"ovra/app/system/internal/config"
 	"ovra/app/system/internal/handler"
 	"ovra/app/system/internal/middleware"
+	rpcServer "ovra/app/system/internal/server/sysrpc"
 	"ovra/app/system/internal/svc"
+	"ovra/app/system/pb/system"
 	"ovra/toolkit/helper"
 	"ovra/toolkit/middlewares"
 	"ovra/toolkit/utils"
@@ -15,6 +17,9 @@ import (
 
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"github.com/zeromicro/go-zero/zrpc"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
@@ -55,19 +60,18 @@ func main() {
 	server.Use(middleware.LogMiddleware)
 	server.Use(middlewares.ApiMiddleware(c.RestConf.Mode))
 
-	//rpc := zrpc.MustNewServer(c.RpcConf, func(grpcServer *grpc.Server) {
-	//	system.RegisterUserRpcServer(grpcServer, userServer.NewUserRpcServer(ctx))
-	//	system.RegisterRoleRpcServer(grpcServer, roleServer.NewRoleRpcServer(ctx))
-	//
-	//	if c.RpcConf.Mode == service.DevMode || c.RpcConf.Mode == service.TestMode {
-	//		reflection.Register(grpcServer)
-	//	}
-	//})
+	r := zrpc.MustNewServer(c.RpcConf, func(grpcServer *grpc.Server) {
+		system.RegisterSysRpcServer(grpcServer, rpcServer.NewSysRpcServer(ctx))
+
+		if c.RpcConf.Mode == service.DevMode || c.RpcConf.Mode == service.TestMode {
+			reflection.Register(grpcServer)
+		}
+	})
 	group := service.NewServiceGroup()
 	group.Add(server)
-	//group.Add(rpc)
+	group.Add(r)
 	defer group.Stop()
 	fmt.Printf("Starting server at %s:%d...\n", c.RestConf.Host, c.RestConf.Port)
-	//fmt.Printf("Starting rpc server at %s...\n", c.RpcConf.ListenOn)
+	fmt.Printf("Starting rpc server at %s...\n", c.RpcConf.ListenOn)
 	group.Start()
 }

@@ -19,203 +19,291 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserRpc_Ping_FullMethodName = "/system.UserRpc/Ping"
+	SysRpc_UserInfo_FullMethodName      = "/system.SysRpc/UserInfo"
+	SysRpc_ClientInfo_FullMethodName    = "/system.SysRpc/ClientInfo"
+	SysRpc_SysLogin_FullMethodName      = "/system.SysRpc/SysLogin"
+	SysRpc_TenantList_FullMethodName    = "/system.SysRpc/TenantList"
+	SysRpc_LoginInfoSave_FullMethodName = "/system.SysRpc/LoginInfoSave"
+	SysRpc_OperLogSave_FullMethodName   = "/system.SysRpc/OperLogSave"
 )
 
-// UserRpcClient is the client API for UserRpc service.
+// SysRpcClient is the client API for SysRpc service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserRpcClient interface {
-	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+type SysRpcClient interface {
+	UserInfo(ctx context.Context, in *UserInfoReq, opts ...grpc.CallOption) (*UserInfoResp, error)
+	ClientInfo(ctx context.Context, in *ClientInfoReq, opts ...grpc.CallOption) (*ClientInfoResp, error)
+	SysLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
+	TenantList(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*TenantListResp, error)
+	LoginInfoSave(ctx context.Context, in *LoginInfoReq, opts ...grpc.CallOption) (*EmptyResp, error)
+	OperLogSave(ctx context.Context, in *OperLogReq, opts ...grpc.CallOption) (*EmptyResp, error)
 }
 
-type userRpcClient struct {
+type sysRpcClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserRpcClient(cc grpc.ClientConnInterface) UserRpcClient {
-	return &userRpcClient{cc}
+func NewSysRpcClient(cc grpc.ClientConnInterface) SysRpcClient {
+	return &sysRpcClient{cc}
 }
 
-func (c *userRpcClient) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (c *sysRpcClient) UserInfo(ctx context.Context, in *UserInfoReq, opts ...grpc.CallOption) (*UserInfoResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Response)
-	err := c.cc.Invoke(ctx, UserRpc_Ping_FullMethodName, in, out, cOpts...)
+	out := new(UserInfoResp)
+	err := c.cc.Invoke(ctx, SysRpc_UserInfo_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UserRpcServer is the server API for UserRpc service.
-// All implementations must embed UnimplementedUserRpcServer
-// for forward compatibility.
-type UserRpcServer interface {
-	Ping(context.Context, *Request) (*Response, error)
-	mustEmbedUnimplementedUserRpcServer()
+func (c *sysRpcClient) ClientInfo(ctx context.Context, in *ClientInfoReq, opts ...grpc.CallOption) (*ClientInfoResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ClientInfoResp)
+	err := c.cc.Invoke(ctx, SysRpc_ClientInfo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
-// UnimplementedUserRpcServer must be embedded to have
+func (c *sysRpcClient) SysLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LoginResp)
+	err := c.cc.Invoke(ctx, SysRpc_SysLogin_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sysRpcClient) TenantList(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*TenantListResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TenantListResp)
+	err := c.cc.Invoke(ctx, SysRpc_TenantList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sysRpcClient) LoginInfoSave(ctx context.Context, in *LoginInfoReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyResp)
+	err := c.cc.Invoke(ctx, SysRpc_LoginInfoSave_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sysRpcClient) OperLogSave(ctx context.Context, in *OperLogReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyResp)
+	err := c.cc.Invoke(ctx, SysRpc_OperLogSave_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// SysRpcServer is the server API for SysRpc service.
+// All implementations must embed UnimplementedSysRpcServer
+// for forward compatibility.
+type SysRpcServer interface {
+	UserInfo(context.Context, *UserInfoReq) (*UserInfoResp, error)
+	ClientInfo(context.Context, *ClientInfoReq) (*ClientInfoResp, error)
+	SysLogin(context.Context, *LoginReq) (*LoginResp, error)
+	TenantList(context.Context, *EmptyReq) (*TenantListResp, error)
+	LoginInfoSave(context.Context, *LoginInfoReq) (*EmptyResp, error)
+	OperLogSave(context.Context, *OperLogReq) (*EmptyResp, error)
+	mustEmbedUnimplementedSysRpcServer()
+}
+
+// UnimplementedSysRpcServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedUserRpcServer struct{}
+type UnimplementedSysRpcServer struct{}
 
-func (UnimplementedUserRpcServer) Ping(context.Context, *Request) (*Response, error) {
-	return nil, status.Error(codes.Unimplemented, "method Ping not implemented")
+func (UnimplementedSysRpcServer) UserInfo(context.Context, *UserInfoReq) (*UserInfoResp, error) {
+	return nil, status.Error(codes.Unimplemented, "method UserInfo not implemented")
 }
-func (UnimplementedUserRpcServer) mustEmbedUnimplementedUserRpcServer() {}
-func (UnimplementedUserRpcServer) testEmbeddedByValue()                 {}
+func (UnimplementedSysRpcServer) ClientInfo(context.Context, *ClientInfoReq) (*ClientInfoResp, error) {
+	return nil, status.Error(codes.Unimplemented, "method ClientInfo not implemented")
+}
+func (UnimplementedSysRpcServer) SysLogin(context.Context, *LoginReq) (*LoginResp, error) {
+	return nil, status.Error(codes.Unimplemented, "method SysLogin not implemented")
+}
+func (UnimplementedSysRpcServer) TenantList(context.Context, *EmptyReq) (*TenantListResp, error) {
+	return nil, status.Error(codes.Unimplemented, "method TenantList not implemented")
+}
+func (UnimplementedSysRpcServer) LoginInfoSave(context.Context, *LoginInfoReq) (*EmptyResp, error) {
+	return nil, status.Error(codes.Unimplemented, "method LoginInfoSave not implemented")
+}
+func (UnimplementedSysRpcServer) OperLogSave(context.Context, *OperLogReq) (*EmptyResp, error) {
+	return nil, status.Error(codes.Unimplemented, "method OperLogSave not implemented")
+}
+func (UnimplementedSysRpcServer) mustEmbedUnimplementedSysRpcServer() {}
+func (UnimplementedSysRpcServer) testEmbeddedByValue()                {}
 
-// UnsafeUserRpcServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserRpcServer will
+// UnsafeSysRpcServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SysRpcServer will
 // result in compilation errors.
-type UnsafeUserRpcServer interface {
-	mustEmbedUnimplementedUserRpcServer()
+type UnsafeSysRpcServer interface {
+	mustEmbedUnimplementedSysRpcServer()
 }
 
-func RegisterUserRpcServer(s grpc.ServiceRegistrar, srv UserRpcServer) {
-	// If the following call panics, it indicates UnimplementedUserRpcServer was
+func RegisterSysRpcServer(s grpc.ServiceRegistrar, srv SysRpcServer) {
+	// If the following call panics, it indicates UnimplementedSysRpcServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&UserRpc_ServiceDesc, srv)
+	s.RegisterService(&SysRpc_ServiceDesc, srv)
 }
 
-func _UserRpc_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+func _SysRpc_UserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserRpcServer).Ping(ctx, in)
+		return srv.(SysRpcServer).UserInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserRpc_Ping_FullMethodName,
+		FullMethod: SysRpc_UserInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserRpcServer).Ping(ctx, req.(*Request))
+		return srv.(SysRpcServer).UserInfo(ctx, req.(*UserInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// UserRpc_ServiceDesc is the grpc.ServiceDesc for UserRpc service.
+func _SysRpc_ClientInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClientInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysRpcServer).ClientInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SysRpc_ClientInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysRpcServer).ClientInfo(ctx, req.(*ClientInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SysRpc_SysLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysRpcServer).SysLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SysRpc_SysLogin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysRpcServer).SysLogin(ctx, req.(*LoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SysRpc_TenantList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysRpcServer).TenantList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SysRpc_TenantList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysRpcServer).TenantList(ctx, req.(*EmptyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SysRpc_LoginInfoSave_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysRpcServer).LoginInfoSave(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SysRpc_LoginInfoSave_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysRpcServer).LoginInfoSave(ctx, req.(*LoginInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SysRpc_OperLogSave_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OperLogReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysRpcServer).OperLogSave(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SysRpc_OperLogSave_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysRpcServer).OperLogSave(ctx, req.(*OperLogReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// SysRpc_ServiceDesc is the grpc.ServiceDesc for SysRpc service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UserRpc_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "system.UserRpc",
-	HandlerType: (*UserRpcServer)(nil),
+var SysRpc_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "system.SysRpc",
+	HandlerType: (*SysRpcServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Ping",
-			Handler:    _UserRpc_Ping_Handler,
+			MethodName: "UserInfo",
+			Handler:    _SysRpc_UserInfo_Handler,
 		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "desc/system/rpc/desc.proto",
-}
-
-const (
-	RoleRpc_Ping_FullMethodName = "/system.RoleRpc/Ping"
-)
-
-// RoleRpcClient is the client API for RoleRpc service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type RoleRpcClient interface {
-	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
-}
-
-type roleRpcClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewRoleRpcClient(cc grpc.ClientConnInterface) RoleRpcClient {
-	return &roleRpcClient{cc}
-}
-
-func (c *roleRpcClient) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Response)
-	err := c.cc.Invoke(ctx, RoleRpc_Ping_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// RoleRpcServer is the server API for RoleRpc service.
-// All implementations must embed UnimplementedRoleRpcServer
-// for forward compatibility.
-type RoleRpcServer interface {
-	Ping(context.Context, *Request) (*Response, error)
-	mustEmbedUnimplementedRoleRpcServer()
-}
-
-// UnimplementedRoleRpcServer must be embedded to have
-// forward compatible implementations.
-//
-// NOTE: this should be embedded by value instead of pointer to avoid a nil
-// pointer dereference when methods are called.
-type UnimplementedRoleRpcServer struct{}
-
-func (UnimplementedRoleRpcServer) Ping(context.Context, *Request) (*Response, error) {
-	return nil, status.Error(codes.Unimplemented, "method Ping not implemented")
-}
-func (UnimplementedRoleRpcServer) mustEmbedUnimplementedRoleRpcServer() {}
-func (UnimplementedRoleRpcServer) testEmbeddedByValue()                 {}
-
-// UnsafeRoleRpcServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to RoleRpcServer will
-// result in compilation errors.
-type UnsafeRoleRpcServer interface {
-	mustEmbedUnimplementedRoleRpcServer()
-}
-
-func RegisterRoleRpcServer(s grpc.ServiceRegistrar, srv RoleRpcServer) {
-	// If the following call panics, it indicates UnimplementedRoleRpcServer was
-	// embedded by pointer and is nil.  This will cause panics if an
-	// unimplemented method is ever invoked, so we test this at initialization
-	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&RoleRpc_ServiceDesc, srv)
-}
-
-func _RoleRpc_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RoleRpcServer).Ping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: RoleRpc_Ping_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RoleRpcServer).Ping(ctx, req.(*Request))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// RoleRpc_ServiceDesc is the grpc.ServiceDesc for RoleRpc service.
-// It's only intended for direct use with grpc.RegisterService,
-// and not to be introspected or modified (even as a copy)
-var RoleRpc_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "system.RoleRpc",
-	HandlerType: (*RoleRpcServer)(nil),
-	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Ping",
-			Handler:    _RoleRpc_Ping_Handler,
+			MethodName: "ClientInfo",
+			Handler:    _SysRpc_ClientInfo_Handler,
+		},
+		{
+			MethodName: "SysLogin",
+			Handler:    _SysRpc_SysLogin_Handler,
+		},
+		{
+			MethodName: "TenantList",
+			Handler:    _SysRpc_TenantList_Handler,
+		},
+		{
+			MethodName: "LoginInfoSave",
+			Handler:    _SysRpc_LoginInfoSave_Handler,
+		},
+		{
+			MethodName: "OperLogSave",
+			Handler:    _SysRpc_OperLogSave_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

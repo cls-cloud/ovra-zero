@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+    desc: ""
+    author: "atlas"
+    email: "ut1221@icloud.com"
+    date: "2025-07-30 10:22:24"
+)
+
+type (
+    RedisMonitorResp {
+        Info map[string]string `json:"info"`
+        DbSize int64 `json:"dbSize"`
+        CommandStats []CommandState `json:"commandStats"`
+    }
+    CommandState {
+        Name string `json:"name"`
+        Value string `json:"value"`
+    }
+)
+
+@server(
+    tags: "监控日志"
+    group: monitor/monitor
+    prefix: /monitor
+    middleware: Auth
+)
+service System {
+    @handler RedisMonitor
+    get /cache returns (RedisMonitorResp)
+}

@@ -1,0 +1,56 @@
+info(
+    desc: "系统访问记录"
+    author: "atlas"
+    email: "ut1221@icloud.com"
+    date: "2025-07-12 17:38:54"
+)
+
+import "../base.api"
+
+type (
+
+        // 请求过滤参数
+    LogininforQuery {
+        InfoId string `form:"infoId,optional"`               // 访问ID
+        TenantId string `form:"tenantId,optional"`           // 租户编号
+        UserName string `form:"userName,optional"`           // 用户账号
+        ClientKey string `form:"clientKey,optional"`         // 客户端
+        DeviceType string `form:"deviceType,optional"`       // 设备类型
+        Ipaddr string `form:"ipaddr,optional"`               // 登录IP地址
+        LoginLocation string `form:"loginLocation,optional"` // 登录地点
+        Browser string `form:"browser,optional"`             // 浏览器类型
+        Os string `form:"os,optional"`                       // 操作系统
+        Status string `form:"status,optional"`               // 登录状态（0成功 1失败）
+        Msg string `form:"msg,optional"`                     // 提示消息
+        LoginTime string `form:"loginTime,optional"`         // 访问时间
+    }
+
+        // 分页请求过滤参数
+    PageSetLogininforReq {
+        PageReq
+        LogininforQuery
+    }
+
+    PageSetLogininforResp {
+        Rows []*LogininforBase `json:"rows"`
+        Total int64 `json:"total"`
+    }
+)
+
+@server(
+    tags: "系统访问记录"
+    group: monitor/logininfor
+    prefix: /monitor/logininfor
+    middleware: Auth
+)
+service System {
+
+    @handler Clean
+    delete /clean
+
+    @handler Delete
+    delete /:ids (IdsReq)
+
+    @handler PageSet
+    get /list (PageSetLogininforReq) returns (PageSetLogininforResp)
+}

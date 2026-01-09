@@ -21,27 +21,26 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Request struct {
+type EmptyReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Ping          string                 `protobuf:"bytes,1,opt,name=ping,proto3" json:"ping,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Request) Reset() {
-	*x = Request{}
+func (x *EmptyReq) Reset() {
+	*x = EmptyReq{}
 	mi := &file_desc_system_rpc_desc_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Request) String() string {
+func (x *EmptyReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Request) ProtoMessage() {}
+func (*EmptyReq) ProtoMessage() {}
 
-func (x *Request) ProtoReflect() protoreflect.Message {
+func (x *EmptyReq) ProtoReflect() protoreflect.Message {
 	mi := &file_desc_system_rpc_desc_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -53,39 +52,31 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Request.ProtoReflect.Descriptor instead.
-func (*Request) Descriptor() ([]byte, []int) {
+// Deprecated: Use EmptyReq.ProtoReflect.Descriptor instead.
+func (*EmptyReq) Descriptor() ([]byte, []int) {
 	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Request) GetPing() string {
-	if x != nil {
-		return x.Ping
-	}
-	return ""
-}
-
-type Response struct {
+type EmptyResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Pong          string                 `protobuf:"bytes,1,opt,name=pong,proto3" json:"pong,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Response) Reset() {
-	*x = Response{}
+func (x *EmptyResp) Reset() {
+	*x = EmptyResp{}
 	mi := &file_desc_system_rpc_desc_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Response) String() string {
+func (x *EmptyResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Response) ProtoMessage() {}
+func (*EmptyResp) ProtoMessage() {}
 
-func (x *Response) ProtoReflect() protoreflect.Message {
+func (x *EmptyResp) ProtoReflect() protoreflect.Message {
 	mi := &file_desc_system_rpc_desc_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -97,31 +88,989 @@ func (x *Response) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Response.ProtoReflect.Descriptor instead.
-func (*Response) Descriptor() ([]byte, []int) {
+// Deprecated: Use EmptyResp.ProtoReflect.Descriptor instead.
+func (*EmptyResp) Descriptor() ([]byte, []int) {
 	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Response) GetPong() string {
+type UserInfoReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Account       string                 `protobuf:"bytes,2,opt,name=account,proto3" json:"account,omitempty"`
+	TenantId      string                 `protobuf:"bytes,3,opt,name=tenantId,proto3" json:"tenantId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserInfoReq) Reset() {
+	*x = UserInfoReq{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserInfoReq) ProtoMessage() {}
+
+func (x *UserInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[2]
 	if x != nil {
-		return x.Pong
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserInfoReq.ProtoReflect.Descriptor instead.
+func (*UserInfoReq) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UserInfoReq) GetType() string {
+	if x != nil {
+		return x.Type
 	}
 	return ""
+}
+
+func (x *UserInfoReq) GetAccount() string {
+	if x != nil {
+		return x.Account
+	}
+	return ""
+}
+
+func (x *UserInfoReq) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+type UserInfoResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	DeptId        string                 `protobuf:"bytes,4,opt,name=deptId,proto3" json:"deptId,omitempty"`
+	TenantId      string                 `protobuf:"bytes,5,opt,name=tenantId,proto3" json:"tenantId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserInfoResp) Reset() {
+	*x = UserInfoResp{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserInfoResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserInfoResp) ProtoMessage() {}
+
+func (x *UserInfoResp) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserInfoResp.ProtoReflect.Descriptor instead.
+func (*UserInfoResp) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UserInfoResp) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *UserInfoResp) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *UserInfoResp) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *UserInfoResp) GetDeptId() string {
+	if x != nil {
+		return x.DeptId
+	}
+	return ""
+}
+
+func (x *UserInfoResp) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+type ClientInfoReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ClientId      string                 `protobuf:"bytes,1,opt,name=clientId,proto3" json:"clientId,omitempty"`
+	GrantType     string                 `protobuf:"bytes,2,opt,name=grantType,proto3" json:"grantType,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ClientInfoReq) Reset() {
+	*x = ClientInfoReq{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ClientInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClientInfoReq) ProtoMessage() {}
+
+func (x *ClientInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClientInfoReq.ProtoReflect.Descriptor instead.
+func (*ClientInfoReq) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ClientInfoReq) GetClientId() string {
+	if x != nil {
+		return x.ClientId
+	}
+	return ""
+}
+
+func (x *ClientInfoReq) GetGrantType() string {
+	if x != nil {
+		return x.GrantType
+	}
+	return ""
+}
+
+type ClientInfoResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	ClientId      string                 `protobuf:"bytes,2,opt,name=clientId,proto3" json:"clientId,omitempty"`
+	ClientKey     string                 `protobuf:"bytes,3,opt,name=clientKey,proto3" json:"clientKey,omitempty"`
+	ClientSecret  string                 `protobuf:"bytes,4,opt,name=clientSecret,proto3" json:"clientSecret,omitempty"`
+	GrantType     string                 `protobuf:"bytes,5,opt,name=grantType,proto3" json:"grantType,omitempty"`
+	ActiveTimeout int32                  `protobuf:"varint,6,opt,name=activeTimeout,proto3" json:"activeTimeout,omitempty"`
+	Timeout       int32                  `protobuf:"varint,7,opt,name=timeout,proto3" json:"timeout,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ClientInfoResp) Reset() {
+	*x = ClientInfoResp{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ClientInfoResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClientInfoResp) ProtoMessage() {}
+
+func (x *ClientInfoResp) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClientInfoResp.ProtoReflect.Descriptor instead.
+func (*ClientInfoResp) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ClientInfoResp) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ClientInfoResp) GetClientId() string {
+	if x != nil {
+		return x.ClientId
+	}
+	return ""
+}
+
+func (x *ClientInfoResp) GetClientKey() string {
+	if x != nil {
+		return x.ClientKey
+	}
+	return ""
+}
+
+func (x *ClientInfoResp) GetClientSecret() string {
+	if x != nil {
+		return x.ClientSecret
+	}
+	return ""
+}
+
+func (x *ClientInfoResp) GetGrantType() string {
+	if x != nil {
+		return x.GrantType
+	}
+	return ""
+}
+
+func (x *ClientInfoResp) GetActiveTimeout() int32 {
+	if x != nil {
+		return x.ActiveTimeout
+	}
+	return 0
+}
+
+func (x *ClientInfoResp) GetTimeout() int32 {
+	if x != nil {
+		return x.Timeout
+	}
+	return 0
+}
+
+type LoginReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	TenantId      string                 `protobuf:"bytes,3,opt,name=tenantId,proto3" json:"tenantId,omitempty"`
+	ClientId      string                 `protobuf:"bytes,4,opt,name=clientId,proto3" json:"clientId,omitempty"`
+	GrantType     string                 `protobuf:"bytes,5,opt,name=grantType,proto3" json:"grantType,omitempty"`
+	Code          string                 `protobuf:"bytes,6,opt,name=code,proto3" json:"code,omitempty"`
+	Uuid          string                 `protobuf:"bytes,7,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	LoginIp       string                 `protobuf:"bytes,8,opt,name=loginIp,proto3" json:"loginIp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoginReq) Reset() {
+	*x = LoginReq{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginReq) ProtoMessage() {}
+
+func (x *LoginReq) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginReq.ProtoReflect.Descriptor instead.
+func (*LoginReq) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *LoginReq) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *LoginReq) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *LoginReq) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *LoginReq) GetClientId() string {
+	if x != nil {
+		return x.ClientId
+	}
+	return ""
+}
+
+func (x *LoginReq) GetGrantType() string {
+	if x != nil {
+		return x.GrantType
+	}
+	return ""
+}
+
+func (x *LoginReq) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *LoginReq) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+func (x *LoginReq) GetLoginIp() string {
+	if x != nil {
+		return x.LoginIp
+	}
+	return ""
+}
+
+type LoginResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	TenantId      string                 `protobuf:"bytes,2,opt,name=tenantId,proto3" json:"tenantId,omitempty"`
+	ClientId      string                 `protobuf:"bytes,3,opt,name=clientId,proto3" json:"clientId,omitempty"`
+	Timeout       int32                  `protobuf:"varint,4,opt,name=timeout,proto3" json:"timeout,omitempty"`
+	DeptName      string                 `protobuf:"bytes,5,opt,name=deptName,proto3" json:"deptName,omitempty"`
+	UsMd5         string                 `protobuf:"bytes,6,opt,name=usMd5,proto3" json:"usMd5,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoginResp) Reset() {
+	*x = LoginResp{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginResp) ProtoMessage() {}
+
+func (x *LoginResp) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginResp.ProtoReflect.Descriptor instead.
+func (*LoginResp) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *LoginResp) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *LoginResp) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *LoginResp) GetClientId() string {
+	if x != nil {
+		return x.ClientId
+	}
+	return ""
+}
+
+func (x *LoginResp) GetTimeout() int32 {
+	if x != nil {
+		return x.Timeout
+	}
+	return 0
+}
+
+func (x *LoginResp) GetDeptName() string {
+	if x != nil {
+		return x.DeptName
+	}
+	return ""
+}
+
+func (x *LoginResp) GetUsMd5() string {
+	if x != nil {
+		return x.UsMd5
+	}
+	return ""
+}
+
+type TenantListResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantEnable  bool                   `protobuf:"varint,1,opt,name=TenantEnable,proto3" json:"TenantEnable,omitempty"`
+	List          []*TenantInfo          `protobuf:"bytes,2,rep,name=list,proto3" json:"list,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TenantListResp) Reset() {
+	*x = TenantListResp{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TenantListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TenantListResp) ProtoMessage() {}
+
+func (x *TenantListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TenantListResp.ProtoReflect.Descriptor instead.
+func (*TenantListResp) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *TenantListResp) GetTenantEnable() bool {
+	if x != nil {
+		return x.TenantEnable
+	}
+	return false
+}
+
+func (x *TenantListResp) GetList() []*TenantInfo {
+	if x != nil {
+		return x.List
+	}
+	return nil
+}
+
+type TenantInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      string                 `protobuf:"bytes,1,opt,name=tenantId,proto3" json:"tenantId,omitempty"`
+	CompanyName   string                 `protobuf:"bytes,2,opt,name=companyName,proto3" json:"companyName,omitempty"`
+	Domain        string                 `protobuf:"bytes,3,opt,name=domain,proto3" json:"domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TenantInfo) Reset() {
+	*x = TenantInfo{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TenantInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TenantInfo) ProtoMessage() {}
+
+func (x *TenantInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TenantInfo.ProtoReflect.Descriptor instead.
+func (*TenantInfo) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *TenantInfo) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *TenantInfo) GetCompanyName() string {
+	if x != nil {
+		return x.CompanyName
+	}
+	return ""
+}
+
+func (x *TenantInfo) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+type LoginInfoReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	InfoId        string                 `protobuf:"bytes,11,opt,name=infoId,proto3" json:"infoId,omitempty"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	TenantId      string                 `protobuf:"bytes,2,opt,name=tenantId,proto3" json:"tenantId,omitempty"`
+	ClientKey     string                 `protobuf:"bytes,3,opt,name=clientKey,proto3" json:"clientKey,omitempty"`
+	DeviceType    string                 `protobuf:"bytes,4,opt,name=deviceType,proto3" json:"deviceType,omitempty"`
+	Ipaddr        string                 `protobuf:"bytes,5,opt,name=ipaddr,proto3" json:"ipaddr,omitempty"`
+	LoginLocation string                 `protobuf:"bytes,6,opt,name=LoginLocation,proto3" json:"LoginLocation,omitempty"`
+	Browser       string                 `protobuf:"bytes,7,opt,name=browser,proto3" json:"browser,omitempty"`
+	Os            string                 `protobuf:"bytes,8,opt,name=os,proto3" json:"os,omitempty"`
+	Status        string                 `protobuf:"bytes,9,opt,name=status,proto3" json:"status,omitempty"`
+	Msg           string                 `protobuf:"bytes,10,opt,name=msg,proto3" json:"msg,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoginInfoReq) Reset() {
+	*x = LoginInfoReq{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginInfoReq) ProtoMessage() {}
+
+func (x *LoginInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginInfoReq.ProtoReflect.Descriptor instead.
+func (*LoginInfoReq) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *LoginInfoReq) GetInfoId() string {
+	if x != nil {
+		return x.InfoId
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetClientKey() string {
+	if x != nil {
+		return x.ClientKey
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetDeviceType() string {
+	if x != nil {
+		return x.DeviceType
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetIpaddr() string {
+	if x != nil {
+		return x.Ipaddr
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetLoginLocation() string {
+	if x != nil {
+		return x.LoginLocation
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetBrowser() string {
+	if x != nil {
+		return x.Browser
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetOs() string {
+	if x != nil {
+		return x.Os
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *LoginInfoReq) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+type OperLogReq struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 租户编号
+	TenantId string `protobuf:"bytes,2,opt,name=tenantId,proto3" json:"tenantId,omitempty"`
+	// 模块标题
+	Title string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	// 业务类型（0其它 1新增 2修改 3删除）
+	BusinessType int32 `protobuf:"varint,4,opt,name=businessType,proto3" json:"businessType,omitempty"`
+	// 方法名称
+	Method string `protobuf:"bytes,5,opt,name=method,proto3" json:"method,omitempty"`
+	// 请求方式
+	RequestMethod string `protobuf:"bytes,6,opt,name=requestMethod,proto3" json:"requestMethod,omitempty"`
+	// 操作类别（0其它 1后台用户 2手机端用户）
+	OperatorType int32 `protobuf:"varint,7,opt,name=operatorType,proto3" json:"operatorType,omitempty"`
+	// 操作人员
+	OperName string `protobuf:"bytes,8,opt,name=operName,proto3" json:"operName,omitempty"`
+	// 部门名称
+	DeptName string `protobuf:"bytes,9,opt,name=deptName,proto3" json:"deptName,omitempty"`
+	// 请求URL
+	OperUrl string `protobuf:"bytes,10,opt,name=operUrl,proto3" json:"operUrl,omitempty"`
+	// 主机地址
+	OperIp string `protobuf:"bytes,11,opt,name=operIp,proto3" json:"operIp,omitempty"`
+	// 操作地点
+	OperLocation string `protobuf:"bytes,12,opt,name=operLocation,proto3" json:"operLocation,omitempty"`
+	// 请求参数
+	OperParam string `protobuf:"bytes,13,opt,name=operParam,proto3" json:"operParam,omitempty"`
+	// 返回参数
+	JsonResult string `protobuf:"bytes,14,opt,name=jsonResult,proto3" json:"jsonResult,omitempty"`
+	// 操作状态（0正常 1异常）
+	Status int32 `protobuf:"varint,15,opt,name=status,proto3" json:"status,omitempty"`
+	// 错误消息
+	ErrorMsg string `protobuf:"bytes,16,opt,name=errorMsg,proto3" json:"errorMsg,omitempty"`
+	// 消耗时间
+	CostTime      int64 `protobuf:"varint,18,opt,name=costTime,proto3" json:"costTime,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OperLogReq) Reset() {
+	*x = OperLogReq{}
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OperLogReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OperLogReq) ProtoMessage() {}
+
+func (x *OperLogReq) ProtoReflect() protoreflect.Message {
+	mi := &file_desc_system_rpc_desc_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OperLogReq.ProtoReflect.Descriptor instead.
+func (*OperLogReq) Descriptor() ([]byte, []int) {
+	return file_desc_system_rpc_desc_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *OperLogReq) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetBusinessType() int32 {
+	if x != nil {
+		return x.BusinessType
+	}
+	return 0
+}
+
+func (x *OperLogReq) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetRequestMethod() string {
+	if x != nil {
+		return x.RequestMethod
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetOperatorType() int32 {
+	if x != nil {
+		return x.OperatorType
+	}
+	return 0
+}
+
+func (x *OperLogReq) GetOperName() string {
+	if x != nil {
+		return x.OperName
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetDeptName() string {
+	if x != nil {
+		return x.DeptName
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetOperUrl() string {
+	if x != nil {
+		return x.OperUrl
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetOperIp() string {
+	if x != nil {
+		return x.OperIp
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetOperLocation() string {
+	if x != nil {
+		return x.OperLocation
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetOperParam() string {
+	if x != nil {
+		return x.OperParam
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetJsonResult() string {
+	if x != nil {
+		return x.JsonResult
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *OperLogReq) GetErrorMsg() string {
+	if x != nil {
+		return x.ErrorMsg
+	}
+	return ""
+}
+
+func (x *OperLogReq) GetCostTime() int64 {
+	if x != nil {
+		return x.CostTime
+	}
+	return 0
 }
 
 var File_desc_system_rpc_desc_proto protoreflect.FileDescriptor
 
 const file_desc_system_rpc_desc_proto_rawDesc = "" +
 	"\n" +
-	"\x1adesc/system/rpc/desc.proto\x12\x06system\"\x1d\n" +
-	"\aRequest\x12\x12\n" +
-	"\x04ping\x18\x01 \x01(\tR\x04ping\"\x1e\n" +
-	"\bResponse\x12\x12\n" +
-	"\x04pong\x18\x01 \x01(\tR\x04pong24\n" +
-	"\aUserRpc\x12)\n" +
-	"\x04Ping\x12\x0f.system.Request\x1a\x10.system.Response24\n" +
-	"\aRoleRpc\x12)\n" +
-	"\x04Ping\x12\x0f.system.Request\x1a\x10.system.ResponseB\n" +
+	"\x1adesc/system/rpc/desc.proto\x12\x06system\"\n" +
+	"\n" +
+	"\bEmptyReq\"\v\n" +
+	"\tEmptyResp\"W\n" +
+	"\vUserInfoReq\x12\x12\n" +
+	"\x04type\x18\x01 \x01(\tR\x04type\x12\x18\n" +
+	"\aaccount\x18\x02 \x01(\tR\aaccount\x12\x1a\n" +
+	"\btenantId\x18\x03 \x01(\tR\btenantId\"\x92\x01\n" +
+	"\fUserInfoResp\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
+	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x16\n" +
+	"\x06deptId\x18\x04 \x01(\tR\x06deptId\x12\x1a\n" +
+	"\btenantId\x18\x05 \x01(\tR\btenantId\"I\n" +
+	"\rClientInfoReq\x12\x1a\n" +
+	"\bclientId\x18\x01 \x01(\tR\bclientId\x12\x1c\n" +
+	"\tgrantType\x18\x02 \x01(\tR\tgrantType\"\xdc\x01\n" +
+	"\x0eClientInfoResp\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
+	"\bclientId\x18\x02 \x01(\tR\bclientId\x12\x1c\n" +
+	"\tclientKey\x18\x03 \x01(\tR\tclientKey\x12\"\n" +
+	"\fclientSecret\x18\x04 \x01(\tR\fclientSecret\x12\x1c\n" +
+	"\tgrantType\x18\x05 \x01(\tR\tgrantType\x12$\n" +
+	"\ractiveTimeout\x18\x06 \x01(\x05R\ractiveTimeout\x12\x18\n" +
+	"\atimeout\x18\a \x01(\x05R\atimeout\"\xda\x01\n" +
+	"\bLoginReq\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x1a\n" +
+	"\btenantId\x18\x03 \x01(\tR\btenantId\x12\x1a\n" +
+	"\bclientId\x18\x04 \x01(\tR\bclientId\x12\x1c\n" +
+	"\tgrantType\x18\x05 \x01(\tR\tgrantType\x12\x12\n" +
+	"\x04code\x18\x06 \x01(\tR\x04code\x12\x12\n" +
+	"\x04uuid\x18\a \x01(\tR\x04uuid\x12\x18\n" +
+	"\aloginIp\x18\b \x01(\tR\aloginIp\"\xa7\x01\n" +
+	"\tLoginResp\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
+	"\btenantId\x18\x02 \x01(\tR\btenantId\x12\x1a\n" +
+	"\bclientId\x18\x03 \x01(\tR\bclientId\x12\x18\n" +
+	"\atimeout\x18\x04 \x01(\x05R\atimeout\x12\x1a\n" +
+	"\bdeptName\x18\x05 \x01(\tR\bdeptName\x12\x14\n" +
+	"\x05usMd5\x18\x06 \x01(\tR\x05usMd5\"\\\n" +
+	"\x0eTenantListResp\x12\"\n" +
+	"\fTenantEnable\x18\x01 \x01(\bR\fTenantEnable\x12&\n" +
+	"\x04list\x18\x02 \x03(\v2\x12.system.TenantInfoR\x04list\"b\n" +
+	"\n" +
+	"TenantInfo\x12\x1a\n" +
+	"\btenantId\x18\x01 \x01(\tR\btenantId\x12 \n" +
+	"\vcompanyName\x18\x02 \x01(\tR\vcompanyName\x12\x16\n" +
+	"\x06domain\x18\x03 \x01(\tR\x06domain\"\xae\x02\n" +
+	"\fLoginInfoReq\x12\x16\n" +
+	"\x06infoId\x18\v \x01(\tR\x06infoId\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
+	"\btenantId\x18\x02 \x01(\tR\btenantId\x12\x1c\n" +
+	"\tclientKey\x18\x03 \x01(\tR\tclientKey\x12\x1e\n" +
+	"\n" +
+	"deviceType\x18\x04 \x01(\tR\n" +
+	"deviceType\x12\x16\n" +
+	"\x06ipaddr\x18\x05 \x01(\tR\x06ipaddr\x12$\n" +
+	"\rLoginLocation\x18\x06 \x01(\tR\rLoginLocation\x12\x18\n" +
+	"\abrowser\x18\a \x01(\tR\abrowser\x12\x0e\n" +
+	"\x02os\x18\b \x01(\tR\x02os\x12\x16\n" +
+	"\x06status\x18\t \x01(\tR\x06status\x12\x10\n" +
+	"\x03msg\x18\n" +
+	" \x01(\tR\x03msg\"\xe0\x03\n" +
+	"\n" +
+	"OperLogReq\x12\x1a\n" +
+	"\btenantId\x18\x02 \x01(\tR\btenantId\x12\x14\n" +
+	"\x05title\x18\x03 \x01(\tR\x05title\x12\"\n" +
+	"\fbusinessType\x18\x04 \x01(\x05R\fbusinessType\x12\x16\n" +
+	"\x06method\x18\x05 \x01(\tR\x06method\x12$\n" +
+	"\rrequestMethod\x18\x06 \x01(\tR\rrequestMethod\x12\"\n" +
+	"\foperatorType\x18\a \x01(\x05R\foperatorType\x12\x1a\n" +
+	"\boperName\x18\b \x01(\tR\boperName\x12\x1a\n" +
+	"\bdeptName\x18\t \x01(\tR\bdeptName\x12\x18\n" +
+	"\aoperUrl\x18\n" +
+	" \x01(\tR\aoperUrl\x12\x16\n" +
+	"\x06operIp\x18\v \x01(\tR\x06operIp\x12\"\n" +
+	"\foperLocation\x18\f \x01(\tR\foperLocation\x12\x1c\n" +
+	"\toperParam\x18\r \x01(\tR\toperParam\x12\x1e\n" +
+	"\n" +
+	"jsonResult\x18\x0e \x01(\tR\n" +
+	"jsonResult\x12\x16\n" +
+	"\x06status\x18\x0f \x01(\x05R\x06status\x12\x1a\n" +
+	"\berrorMsg\x18\x10 \x01(\tR\berrorMsg\x12\x1a\n" +
+	"\bcostTime\x18\x12 \x01(\x03R\bcostTime2\xd5\x02\n" +
+	"\x06SysRpc\x125\n" +
+	"\bUserInfo\x12\x13.system.UserInfoReq\x1a\x14.system.UserInfoResp\x12;\n" +
+	"\n" +
+	"ClientInfo\x12\x15.system.ClientInfoReq\x1a\x16.system.ClientInfoResp\x12/\n" +
+	"\bSysLogin\x12\x10.system.LoginReq\x1a\x11.system.LoginResp\x126\n" +
+	"\n" +
+	"TenantList\x12\x10.system.EmptyReq\x1a\x16.system.TenantListResp\x128\n" +
+	"\rLoginInfoSave\x12\x14.system.LoginInfoReq\x1a\x11.system.EmptyResp\x124\n" +
+	"\vOperLogSave\x12\x12.system.OperLogReq\x1a\x11.system.EmptyRespB\n" +
 	"Z\b./systemb\x06proto3"
 
 var (
@@ -136,21 +1085,40 @@ func file_desc_system_rpc_desc_proto_rawDescGZIP() []byte {
 	return file_desc_system_rpc_desc_proto_rawDescData
 }
 
-var file_desc_system_rpc_desc_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_desc_system_rpc_desc_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_desc_system_rpc_desc_proto_goTypes = []any{
-	(*Request)(nil),  // 0: system.Request
-	(*Response)(nil), // 1: system.Response
+	(*EmptyReq)(nil),       // 0: system.EmptyReq
+	(*EmptyResp)(nil),      // 1: system.EmptyResp
+	(*UserInfoReq)(nil),    // 2: system.UserInfoReq
+	(*UserInfoResp)(nil),   // 3: system.UserInfoResp
+	(*ClientInfoReq)(nil),  // 4: system.ClientInfoReq
+	(*ClientInfoResp)(nil), // 5: system.ClientInfoResp
+	(*LoginReq)(nil),       // 6: system.LoginReq
+	(*LoginResp)(nil),      // 7: system.LoginResp
+	(*TenantListResp)(nil), // 8: system.TenantListResp
+	(*TenantInfo)(nil),     // 9: system.TenantInfo
+	(*LoginInfoReq)(nil),   // 10: system.LoginInfoReq
+	(*OperLogReq)(nil),     // 11: system.OperLogReq
 }
 var file_desc_system_rpc_desc_proto_depIdxs = []int32{
-	0, // 0: system.UserRpc.Ping:input_type -> system.Request
-	0, // 1: system.RoleRpc.Ping:input_type -> system.Request
-	1, // 2: system.UserRpc.Ping:output_type -> system.Response
-	1, // 3: system.RoleRpc.Ping:output_type -> system.Response
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	9,  // 0: system.TenantListResp.list:type_name -> system.TenantInfo
+	2,  // 1: system.SysRpc.UserInfo:input_type -> system.UserInfoReq
+	4,  // 2: system.SysRpc.ClientInfo:input_type -> system.ClientInfoReq
+	6,  // 3: system.SysRpc.SysLogin:input_type -> system.LoginReq
+	0,  // 4: system.SysRpc.TenantList:input_type -> system.EmptyReq
+	10, // 5: system.SysRpc.LoginInfoSave:input_type -> system.LoginInfoReq
+	11, // 6: system.SysRpc.OperLogSave:input_type -> system.OperLogReq
+	3,  // 7: system.SysRpc.UserInfo:output_type -> system.UserInfoResp
+	5,  // 8: system.SysRpc.ClientInfo:output_type -> system.ClientInfoResp
+	7,  // 9: system.SysRpc.SysLogin:output_type -> system.LoginResp
+	8,  // 10: system.SysRpc.TenantList:output_type -> system.TenantListResp
+	1,  // 11: system.SysRpc.LoginInfoSave:output_type -> system.EmptyResp
+	1,  // 12: system.SysRpc.OperLogSave:output_type -> system.EmptyResp
+	7,  // [7:13] is the sub-list for method output_type
+	1,  // [1:7] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_desc_system_rpc_desc_proto_init() }
@@ -164,9 +1132,9 @@ func file_desc_system_rpc_desc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_desc_system_rpc_desc_proto_rawDesc), len(file_desc_system_rpc_desc_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   12,
 			NumExtensions: 0,
-			NumServices:   2,
+			NumServices:   1,
 		},
 		GoTypes:           file_desc_system_rpc_desc_proto_goTypes,
 		DependencyIndexes: file_desc_system_rpc_desc_proto_depIdxs,

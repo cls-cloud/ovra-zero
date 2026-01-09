@@ -1,0 +1,48 @@
+syntax = "v1"
+
+info(
+    desc: "在线用户"
+    author: "atlas"
+    email: "ut1221@icloud.com"
+    date: "2025-07-12 17:42:41"
+)
+
+import "../base.api"
+
+type (
+    OnlineInfo {
+        Browser string `json:"browser,optional"`             // 浏览器类型
+        ClientKey string `json:"clientKey,optional"`         // 客户端
+        DeptName string `json:"deptName,optional"`           // 部门名称
+        DeviceType string `json:"deviceType,optional"`       // 设备类型
+        Ipaddr string `json:"ipaddr,optional"`               // 登录IP地址
+        LoginLocation string `json:"loginLocation,optional"` // 登录地点
+        LoginTime string `json:"loginTime,optional"`         // 访问时间
+        Os string `json:"os,optional"`                       // 操作系统
+        Token string `json:"tokenId,optional"`               // Token
+        UserName string `json:"userName,optional"`           // 用户账号
+    }
+    OnlineQuery {
+        Ipaddr string `json:"ipaddr,optional"`
+        UserName string `json:"userName,optional"`
+    }
+    PageSetOnlineResp {
+        Rows []*OnlineInfo `json:"rows"`
+        Total int64 `json:"total"`
+    }
+)
+
+
+@server(
+    tags: "在线用户"
+    group: monitor/online
+    prefix: /monitor/online
+    middleware: Auth
+)
+service System {
+    @handler PageSet
+    get /list (OnlineQuery) returns (PageSetOnlineResp)
+
+    @handler Offline
+    delete /:id (IdReq)
+}

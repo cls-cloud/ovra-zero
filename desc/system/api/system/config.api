@@ -1,0 +1,74 @@
+info(
+    desc: "参数配置"
+    author: "atlas"
+    email: "ut1221@icloud.com"
+    data: "2025-07-08 23:04:47"
+)
+
+import "../base.api"
+
+type (
+
+    // 创建和更新共用结构
+    ModifyConfigReq {
+        ConfigBase
+    }
+
+        // 请求过滤参数
+    ConfigQuery {
+        ConfigId string `form:"configId,optional"`        // 参数主键
+        TenantId string `form:"tenantId,optional"`       // 租户编号
+        ConfigName string `form:"configName,optional"`   // 参数名称
+        ConfigKey string `form:"configKey,optional"`     // 参数键名
+        ConfigValue string `form:"configValue,optional"` // 参数键值
+        ConfigType string `form:"configType,optional"`   // 系统内置（Y是 N否）
+        CreateDept int64 `form:"createDept,optional"`    // 创建部门
+        CreateBy int64 `form:"createBy,optional"`        // 创建者
+        CreateTime string `form:"createTime,optional"`   // 创建时间
+        UpdateBy int64 `form:"updateBy,optional"`        // 更新者
+        UpdateTime string `form:"updateTime,optional"`   // 更新时间
+        Remark string `form:"remark,optional"`           // 备注
+    }
+
+        // 分页请求过滤参数
+    PageSetConfigReq {
+        PageReq
+        ConfigQuery
+    }
+        // 分页响应
+    PageSetConfigResp {
+        Total int64 `json:"total"`
+        Rows []*ConfigBase `json:"rows"`
+    }
+
+
+    ConfigKeyResp {
+        Data string `json:"data"`
+    }
+)
+
+@server(
+    tags: "参数配置"
+    group: system/_config
+    prefix: /system/config
+    middleware: Auth
+)
+service System {
+    @handler ConfigKey
+    get /configKey/:code (CodeReq) returns (ConfigKeyResp)
+
+    @handler Info
+    get /:id (IdReq) returns (ConfigBase)
+
+    @handler Add
+    post / (ModifyConfigReq)
+
+    @handler Delete
+    delete /:code (CodeReq)
+
+    @handler Update
+    put / (ModifyConfigReq)
+
+    @handler PageSet
+    get /list (PageSetConfigReq) returns (PageSetConfigResp)
+}

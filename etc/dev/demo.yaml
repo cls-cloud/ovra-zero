@@ -2,18 +2,18 @@ RestConf:
   Mode: dev
   Name: demo
   Host: 0.0.0.0
-  Port: 8094
+  Port: 8099
   Log:
     ServiceName: demo-api
     Level: debug
   Prometheus:
     Host: 0.0.0.0
-    Port: 4004
+    Port: 4009
     Path: /metrics
 RpcConf:
   Mode: dev
   Name: demo
-  ListenOn: 0.0.0.0:9094
+  ListenOn: 0.0.0.0:9099
   Etcd:
     Hosts:
       - 127.0.0.1:2379
@@ -36,15 +36,7 @@ ApiDecrypt:
 Tenant:
   Enabled: true
   IgnoreTables:
-    - sys_tenant
-    - sys_tenant_package
-    - sys_menu
-    - sys_user_role
-    - sys_user_post
-    - sys_role_menu
-    - sys_role_dept
-    - sys_client
-    - sys_config
+    - ignore
 
 Data:
   Database:

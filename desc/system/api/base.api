@@ -13,7 +13,7 @@ type (
         Code string `path:"code"`
     }
     IdsReq {
-        id string `path:"ids"`
+        Ids string `path:"ids"`
     }
     TimeReq {
         BeginTime string `form:"params[beginTime],optional"`
@@ -145,20 +145,6 @@ type (
         Remark      string `json:"remark,optional"`
         CreateTime  string `json:"createTime,optional"`
     }
-    LogininforBase {
-        InfoID        string `json:"infoId,optional"`
-        TenantID      string `json:"tenantId,optional"`
-        UserName      string `json:"userName,optional"`
-        ClientKey     string `json:"clientKey,optional"`
-        DeviceType    string `json:"deviceType,optional"`
-        Ipaddr        string `json:"ipaddr,optional"`
-        LoginLocation string `json:"loginLocation,optional"`
-        Browser       string `json:"browser,optional"`
-        Os            string `json:"os,optional"`
-        Status        string `json:"status,optional"`
-        Msg           string `json:"msg,optional"`
-        LoginTime     string `json:"loginTime,optional"`
-    }
     NoticeBase {
         NoticeID      string `json:"noticeId,optional"`
         TenantID      string `json:"tenantId,optional"`
@@ -169,53 +155,6 @@ type (
         Remark        string `json:"remark,optional"`
         CreateTime string `json:"createTime,optional,omitempty"`
         CreateByName string `json:"createByName,optional,omitempty"`
-    }
-    OperLogBase {
-        OperID        string `json:"operId,optional"`
-        TenantID      string `json:"tenantId,optional"`
-        Title         string `json:"title,optional"`
-        BusinessType  int32  `json:"businessType,optional"`
-        Method        string `json:"method,optional"`
-        RequestMethod string `json:"requestMethod,optional"`
-        OperatorType  int32  `json:"operatorType,optional"`
-        OperName      string `json:"operName,optional"`
-        DeptName      string `json:"deptName,optional"`
-        OperUrl       string `json:"operUrl,optional"`
-        OperIp        string `json:"operIp,optional"`
-        OperLocation  string `json:"operLocation,optional"`
-        OperParam     string `json:"operParam,optional"`
-        JsonResult    string `json:"jsonResult,optional"`
-        Status        int32  `json:"status,optional"`
-        ErrorMsg      string `json:"errorMsg,optional"`
-        OperTime      string `json:"operTime,optional"`
-        CostTime      int64  `json:"costTime,optional"`
-    }
-    OssBase {
-        OssID       string `json:"ossId,optional"`
-        TenantID    string `json:"tenantId,optional"`
-        FileName    string `json:"fileName"`
-        OriginalName string `json:"originalName"`
-        FileSuffix  string `json:"fileSuffix"`
-        Url         string `json:"url"`
-        Ext1        string `json:"ext1,optional"`
-        Service     string `json:"service"`
-    }
-    OssConfigBase {
-        OssConfigID     string `json:"ossConfigId,optional"`
-        TenantID        string `json:"tenantId,optional"`
-        ConfigKey       string `json:"configKey"`
-        AccessKey       string `json:"accessKey,optional"`
-        SecretKey       string `json:"secretKey,optional"`
-        BucketName      string `json:"bucketName,optional"`
-        Prefix          string `json:"prefix,optional"`
-        Endpoint        string `json:"endpoint,optional"`
-        Domain          string `json:"domain,optional"`
-        IsHttps         string `json:"isHttps,optional"`
-        Region          string `json:"region,optional"`
-        AccessPolicy    string `json:"accessPolicy"`
-        Status          string `json:"status,optional"`
-        Ext1            string `json:"ext1,optional"`
-        Remark          string `json:"remark,optional"`
     }
     TenantBase {
         ID            string `json:"id,optional"`
@@ -285,5 +224,80 @@ type (
         ParentId string `json:"parentId"`
         Weight   int64  `json:"weight"`
         Children []DeptTree `json:"children"`
+    }
+
+    LogininforBase {
+        InfoId string `json:"infoId,optional"`               // 访问ID
+        TenantId string `json:"tenantId,optional"`           // 租户编号
+        UserName string `json:"userName,optional"`           // 用户账号
+        ClientKey string `json:"clientKey,optional"`         // 客户端
+        DeviceType string `json:"deviceType,optional"`       // 设备类型
+        Ipaddr string `json:"ipaddr,optional"`               // 登录IP地址
+        LoginLocation string `json:"loginLocation,optional"` // 登录地点
+        Browser string `json:"browser,optional"`             // 浏览器类型
+        Os string `json:"os,optional"`                       // 操作系统
+        Status string `json:"status,optional"`               // 登录状态（0成功 1失败）
+        Msg string `json:"msg,optional"`                     // 提示消息
+        LoginTime string `json:"loginTime,optional"`         // 访问时间
+    }
+
+    OperLogBase {
+        OperId string `json:"operId,optional"`               // 日志主键
+        TenantId string `json:"tenantId,optional"`           // 租户编号
+        Title string `json:"title,optional"`                 // 模块标题
+        BusinessType int32 `json:"businessType,optional"`    // 业务类型（0其它 1新增 2修改 3删除）
+        Method string `json:"method,optional"`               // 方法名称
+        RequestMethod string `json:"requestMethod,optional"` // 请求方式
+        OperatorType int32 `json:"operatorType,optional"`    // 操作类别（0其它 1后台用户 2手机端用户）
+        OperName string `json:"operName,optional"`           // 操作人员
+        DeptName string `json:"deptName,optional"`           // 部门名称
+        OperUrl string `json:"operUrl,optional"`             // 请求URL
+        OperIp string `json:"operIp,optional"`               // 主机地址
+        OperLocation string `json:"operLocation,optional"`   // 操作地点
+        OperParam string `json:"operParam,optional"`         // 请求参数
+        JsonResult string `json:"jsonResult,optional"`       // 返回参数
+        Status int32 `json:"status,optional"`                // 操作状态（0正常 1异常）
+        ErrorMsg string `json:"errorMsg,optional"`           // 错误消息
+        OperTime string `json:"operTime,optional"`           // 操作时间
+        CostTime int64 `json:"costTime,optional"`            // 消耗时间
+    }
+
+    OssBase {
+        OssId string `json:"ossId,optional"`               // 对象存储主键
+        TenantId string `json:"tenantId,optional"`         // 租户编号
+        FileName string `json:"fileName,optional"`         // 文件名
+        OriginalName string `json:"originalName,optional"` // 原名
+        FileSuffix string `json:"fileSuffix,optional"`     // 文件后缀名
+        Url string `json:"url,optional"`                   // URL地址
+        Ext1 string `json:"ext1,optional"`                 // 扩展字段
+        CreateDept int64 `json:"createDept,optional"`      // 创建部门
+        CreateTime string `json:"createTime,optional"`     // 创建时间
+        CreateBy int64 `json:"createBy,optional"`          // 上传人
+        UpdateTime string `json:"updateTime,optional"`     // 更新时间
+        UpdateBy int64 `json:"updateBy,optional"`          // 更新人
+        Service string `json:"service,optional"`           // 服务商
+    }
+
+    OssConfigBase {
+        OssConfigID string `json:"ossConfigId,optional"`   // 主键
+        TenantId string `json:"tenantId,optional"`         // 租户编号
+        ConfigKey string `json:"configKey,optional"`       // 配置key
+        AccessKey string `json:"accessKey,optional"`       // accessKey
+        SecretKey string `json:"secretKey,optional"`       // 秘钥
+        BucketName string `json:"bucketName,optional"`     // 桶名称
+        Prefix string `json:"prefix,optional"`             // 前缀
+        Endpoint string `json:"endpoint,optional"`         // 访问站点
+        Domain string `json:"domain,optional"`             // 自定义域名
+        IsHTTPS string `json:"isHttps,optional"`           // 是否https（Y=是,N=否）
+        Region string `json:"region,optional"`             // 域
+        AccessPolicy string `json:"accessPolicy,optional"` // 桶权限类型(0=private 1=public 2=custom)
+        Status string `json:"status,optional"`             // 是否默认（0=是,1=否）
+        Ext1 string `json:"ext1,optional"`                 // 扩展字段
+        CreateDept int64 `json:"createDept,optional"`      // 创建部门
+        CreateBy int64 `json:"createBy,optional"`          // 创建者
+        CreateTime string `json:"createTime,optional"`     // 创建时间
+        UpdateBy int64 `json:"updateBy,optional"`          // 更新者
+        UpdateTime string `json:"updateTime,optional"`     // 更新时间
+        Remark string `json:"remark,optional"`             // 备注
     }
 )

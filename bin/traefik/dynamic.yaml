@@ -1,29 +1,20 @@
 http:
   routers:
+    # auth
+    router-auth:
+      rule: "PathPrefix(`/auth`)"
+      entryPoints:
+        - websecure
+      service: service-auth
+      middlewares:
+        - cors-header
+
     # System 子路径
     router-system:
-      rule: "(PathPrefix(`/system`) || PathPrefix(`/auth`))"
+      rule: "(PathPrefix(`/system`) || PathPrefix(`/monitor`) || PathPrefix(`/resource`))"
       entryPoints:
         - websecure
       service: service-system
-      middlewares:
-        - cors-header
-
-    # Monitor
-    router-monitor:
-      rule: "PathPrefix(`/monitor`)"
-      entryPoints:
-        - websecure
-      service: service-monitor
-      middlewares:
-        - cors-header
-
-    # Resource
-    router-resource:
-      rule: "PathPrefix(`/resource`)"
-      entryPoints:
-        - websecure
-      service: service-resource
       middlewares:
         - cors-header
 
@@ -36,26 +27,22 @@ http:
       middlewares:
         - cors-header
 
+
   services:
-    service-system:
+    service-auth:
       loadBalancer:
         servers:
           - url: "http://127.0.0.1:8091"
 
-    service-monitor:
+    service-system:
       loadBalancer:
         servers:
           - url: "http://127.0.0.1:8092"
 
-    service-resource:
-      loadBalancer:
-        servers:
-          - url: "http://127.0.0.1:8093"
-
     service-demo:
       loadBalancer:
         servers:
-          - url: "http://127.0.0.1:8094"
+          - url: "http://127.0.0.1:8099"
 
   middlewares:
     cors-header:

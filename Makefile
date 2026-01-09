@@ -1,23 +1,21 @@
 # ========================
 # 模块列表
 # ========================
-SUBMODULES := system monitor resource demo
+SUBMODULES := system demo auth
 
 # ========================
 # 模块路径
 # ========================
 SYSTEM_PATH := app/system
-MONITOR_PATH := app/monitor
-RESOURCE_PATH := app/resource
 DEMO_PATH := app/demo
+AUTH_PATH := app/auth
 
 # ========================
 # 模块名
 # ========================
 SYSTEM_NAME := system
-MONITOR_NAME := monitor
-RESOURCE_NAME := resource
 DEMO_NAME := demo
+AUTH_NAME := auth
 
 # ========================
 # 初始化工具

@@ -1,0 +1,68 @@
+syntax = "v1"
+
+info(
+    desc: "字典类型"
+    author: "atlas"
+    email: "ut1221@icloud.com"
+    date: "2025-07-08 23:01:18"
+)
+
+import "../../base.api"
+
+type (
+
+    // 创建和更新共用结构
+    ModifyDictTypeReq {
+        DictTypeBase
+    }
+        // 请求过滤参数
+    DictTypeQuery {
+        DictId string `form:"dictId,optional"`          // 字典主键
+        TenantId string `form:"tenantId,optional"`     // 租户编号
+        DictName string `form:"dictName,optional"`     // 字典名称
+        DictType string `form:"dictType,optional"`     // 字典类型
+        CreateDept int64 `form:"createDept,optional"`  // 创建部门
+        CreateBy int64 `form:"createBy,optional"`      // 创建者
+        CreateTime string `form:"createTime,optional"` // 创建时间
+        UpdateBy int64 `form:"updateBy,optional"`      // 更新者
+        UpdateTime string `form:"updateTime,optional"` // 更新时间
+        Remark string `form:"remark,optional"`         // 备注
+    }
+
+
+    PageSetDictTypeReq {
+        PageReq
+        DictTypeQuery
+    }
+
+    PageSetDictTypeResp {
+        Total int64 `json:"total"`
+        Rows []*DictTypeBase `json:"rows"`
+    }
+)
+
+@server(
+    tags: "字典类型"
+    group: system/dict/_type
+    prefix: /system/dict/type
+    middleware: Auth
+)
+service System {
+    @handler Info
+    get /:id (IdReq) returns (DictTypeBase)
+
+    @handler Add
+    post / (ModifyDictTypeReq)
+
+    @handler RefreshCache
+    delete /refreshCache
+
+    @handler Delete
+    delete /:code (CodeReq)
+
+    @handler Update
+    put / (ModifyDictTypeReq)
+
+    @handler PageSet
+    get /list (PageSetDictTypeReq) returns (PageSetDictTypeResp)
+}

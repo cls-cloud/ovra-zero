@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etcd
+  labels:
+    app: etcd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etcd
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: etcd
+    spec:
+      containers:
+        - name: etcd
+          image: quay.io/coreos/etcd:v3.5.13
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ETCD_LISTEN_CLIENT_URLS
+              value: http://0.0.0.0:2379
+            - name: ETCD_ADVERTISE_CLIENT_URLS
+              value: http://etcd-svc:2379
+          ports:
+            - name: tcp-2379
+              containerPort: 2379
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          volumeMounts:
+            - name: volume-localtime
+              mountPath: /etc/localtime
+      volumes:
+        - name: volume-localtime
+          hostPath:
+            path: /etc/localtime
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: etcd-svc
+spec:
+  clusterIP: None
+  ports:
+    - name: tcp-2379
+      port: 2379
+      targetPort: 2379
+      protocol: TCP
+  selector:
+    app: etcd

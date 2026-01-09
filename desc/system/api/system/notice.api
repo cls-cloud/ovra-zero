@@ -1,0 +1,66 @@
+info(
+    desc: "通知公告"
+    author: "atlas"
+    email: "ut1221@icloud.com"
+    date: "2025-07-11 15:37:01"
+)
+
+import "../base.api"
+
+type (
+
+        // 创建和更新共用结构
+    ModifyNoticeReq {
+        NoticeBase
+    }
+
+        // 请求过滤参数
+    NoticeQuery {
+        NoticeId string `form:"noticeId,optional"`           // 公告ID
+        TenantId string `form:"tenantId,optional"`           // 租户编号
+        NoticeTitle string `form:"noticeTitle,optional"`     // 公告标题
+        NoticeType string `form:"noticeType,optional"`       // 公告类型（1通知 2公告）
+        NoticeContent string `form:"noticeContent,optional"` // 公告内容
+        Status string `form:"status,optional"`               // 公告状态（0正常 1关闭）
+        CreateDept int64 `form:"createDept,optional"`        // 创建部门
+        CreateBy string `form:"createBy,optional"`            // 创建者
+        CreateTime string `form:"createTime,optional"`       // 创建时间
+        UpdateBy int64 `form:"updateBy,optional"`            // 更新者
+        UpdateTime string `form:"updateTime,optional"`       // 更新时间
+        Remark string `form:"remark,optional"`               // 备注
+    }
+
+        // 分页请求过滤参数
+    PageSetNoticeReq {
+        PageReq
+        NoticeQuery
+    }
+
+    PageSetNoticeResp {
+        Rows []*NoticeBase `json:"rows"`
+        Total int64 `json:"total"`
+    }
+)
+
+@server(
+    tags: "通知公告"
+    group: system/notice
+    prefix: /system/notice
+    middleware: Auth
+)
+service System {
+    @handler Info
+    get /:id (IdReq) returns (NoticeBase)
+
+    @handler Add
+    post / (ModifyNoticeReq)
+
+    @handler Delete
+    delete /:ids (IdsReq)
+
+    @handler Update
+    put / (ModifyNoticeReq)
+
+    @handler PageSet
+    get /list (PageSetNoticeReq) returns (PageSetNoticeResp)
+}

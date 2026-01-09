@@ -6,20 +6,24 @@ package handler
 import (
 	"net/http"
 
-	_config "ovra/app/system/internal/handler/_config"
-	_post "ovra/app/system/internal/handler/_post"
-	auth "ovra/app/system/internal/handler/auth"
-	client "ovra/app/system/internal/handler/client"
-	dept "ovra/app/system/internal/handler/dept"
-	dict_type "ovra/app/system/internal/handler/dict/_type"
-	dictdata "ovra/app/system/internal/handler/dict/data"
-	menu "ovra/app/system/internal/handler/menu"
-	notice "ovra/app/system/internal/handler/notice"
-	ping "ovra/app/system/internal/handler/ping"
-	role "ovra/app/system/internal/handler/role"
-	tenant "ovra/app/system/internal/handler/tenant"
-	tenant_package "ovra/app/system/internal/handler/tenant/_package"
-	user "ovra/app/system/internal/handler/user"
+	monitorlogininfor "ovra/app/system/internal/handler/monitor/logininfor"
+	monitormonitor "ovra/app/system/internal/handler/monitor/monitor"
+	monitoronline "ovra/app/system/internal/handler/monitor/online"
+	monitoroperLog "ovra/app/system/internal/handler/monitor/operLog"
+	resourceoss "ovra/app/system/internal/handler/resource/oss"
+	resourceossconfig "ovra/app/system/internal/handler/resource/oss/config"
+	system_config "ovra/app/system/internal/handler/system/_config"
+	system_post "ovra/app/system/internal/handler/system/_post"
+	systemclient "ovra/app/system/internal/handler/system/client"
+	systemdept "ovra/app/system/internal/handler/system/dept"
+	systemdict_type "ovra/app/system/internal/handler/system/dict/_type"
+	systemdictdata "ovra/app/system/internal/handler/system/dict/data"
+	systemmenu "ovra/app/system/internal/handler/system/menu"
+	systemnotice "ovra/app/system/internal/handler/system/notice"
+	systemrole "ovra/app/system/internal/handler/system/role"
+	systemtenant "ovra/app/system/internal/handler/system/tenant"
+	systemtenant_package "ovra/app/system/internal/handler/system/tenant/_package"
+	systemuser "ovra/app/system/internal/handler/system/user"
 	"ovra/app/system/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -31,34 +35,178 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Middleware{serverCtx.Auth},
 			[]rest.Route{
 				{
-					Method:  http.MethodPost,
-					Path:    "/",
-					Handler: _config.AddHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPut,
-					Path:    "/",
-					Handler: _config.UpdateHandler(serverCtx),
+					Method:  http.MethodDelete,
+					Path:    "/:ids",
+					Handler: monitorlogininfor.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
-					Path:    "/:code",
-					Handler: _config.DeleteHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/:id",
-					Handler: _config.InfoHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/configKey/:code",
-					Handler: _config.ConfigKeyHandler(serverCtx),
+					Path:    "/clean",
+					Handler: monitorlogininfor.CleanHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: _config.PageSetHandler(serverCtx),
+					Handler: monitorlogininfor.PageSetHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/monitor/logininfor"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/cache",
+					Handler: monitormonitor.RedisMonitorHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/monitor"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:id",
+					Handler: monitoronline.OfflineHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: monitoronline.PageSetHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/monitor/online"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:ids",
+					Handler: monitoroperLog.DeleteHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/clean",
+					Handler: monitoroperLog.CleanHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: monitoroperLog.PageSetHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/monitor/operlog"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:ids",
+					Handler: resourceoss.DeleteHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: resourceoss.PageSetHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/upload",
+					Handler: resourceoss.UploadHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/resource/oss"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/",
+					Handler: resourceossconfig.AddHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/",
+					Handler: resourceossconfig.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/:id",
+					Handler: resourceossconfig.InfoHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:ids",
+					Handler: resourceossconfig.DeleteHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/changeStatus",
+					Handler: resourceossconfig.ChangeStatusHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: resourceossconfig.PageSetHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/resource/oss/config"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Auth},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/",
+					Handler: system_config.AddHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/",
+					Handler: system_config.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/:code",
+					Handler: system_config.DeleteHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/:id",
+					Handler: system_config.InfoHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/configKey/:code",
+					Handler: system_config.ConfigKeyHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/list",
+					Handler: system_config.PageSetHandler(serverCtx),
 				},
 			}...,
 		),
@@ -72,67 +220,41 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: _post.AddHandler(serverCtx),
+					Handler: system_post.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: _post.UpdateHandler(serverCtx),
+					Handler: system_post.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:code",
-					Handler: _post.DeleteHandler(serverCtx),
+					Handler: system_post.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: _post.InfoHandler(serverCtx),
+					Handler: system_post.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/deptTree",
-					Handler: _post.GetDeptTreeHandler(serverCtx),
+					Handler: system_post.GetDeptTreeHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: _post.PageSetHandler(serverCtx),
+					Handler: system_post.PageSetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/optionselect",
-					Handler: _post.OptionSelectHandler(serverCtx),
+					Handler: system_post.OptionSelectHandler(serverCtx),
 				},
 			}...,
 		),
 		rest.WithPrefix("/system/post"),
-	)
-
-	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodGet,
-				Path:    "/code",
-				Handler: auth.CaptchaHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/login",
-				Handler: auth.LoginHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/logout",
-				Handler: auth.LogoutHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/tenant/list",
-				Handler: auth.TenantListHandler(serverCtx),
-			},
-		},
-		rest.WithPrefix("/auth"),
 	)
 
 	server.AddRoutes(
@@ -142,32 +264,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: client.AddHandler(serverCtx),
+					Handler: systemclient.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: client.UpdateHandler(serverCtx),
+					Handler: systemclient.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: client.InfoHandler(serverCtx),
+					Handler: systemclient.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:ids",
-					Handler: client.DeleteHandler(serverCtx),
+					Handler: systemclient.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/changeStatus",
-					Handler: client.ChangeStatusHandler(serverCtx),
+					Handler: systemclient.ChangeStatusHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: client.PageSetHandler(serverCtx),
+					Handler: systemclient.PageSetHandler(serverCtx),
 				},
 			}...,
 		),
@@ -181,32 +303,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: dept.AddHandler(serverCtx),
+					Handler: systemdept.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: dept.UpdateHandler(serverCtx),
+					Handler: systemdept.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:code",
-					Handler: dept.DeleteHandler(serverCtx),
+					Handler: systemdept.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: dept.InfoHandler(serverCtx),
+					Handler: systemdept.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: dept.ListHandler(serverCtx),
+					Handler: systemdept.ListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list/exclude/:id",
-					Handler: dept.ExcludeHandler(serverCtx),
+					Handler: systemdept.ExcludeHandler(serverCtx),
 				},
 			}...,
 		),
@@ -220,32 +342,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: dict_type.AddHandler(serverCtx),
+					Handler: systemdict_type.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: dict_type.UpdateHandler(serverCtx),
+					Handler: systemdict_type.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:code",
-					Handler: dict_type.DeleteHandler(serverCtx),
+					Handler: systemdict_type.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: dict_type.InfoHandler(serverCtx),
+					Handler: systemdict_type.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: dict_type.PageSetHandler(serverCtx),
+					Handler: systemdict_type.PageSetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/refreshCache",
-					Handler: dict_type.RefreshCacheHandler(serverCtx),
+					Handler: systemdict_type.RefreshCacheHandler(serverCtx),
 				},
 			}...,
 		),
@@ -259,32 +381,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: dictdata.AddHandler(serverCtx),
+					Handler: systemdictdata.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: dictdata.UpdateHandler(serverCtx),
+					Handler: systemdictdata.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:code",
-					Handler: dictdata.DeleteDictDataHandler(serverCtx),
+					Handler: systemdictdata.DeleteDictDataHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: dictdata.InfoHandler(serverCtx),
+					Handler: systemdictdata.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: dictdata.PageSetHandler(serverCtx),
+					Handler: systemdictdata.PageSetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/type/:code",
-					Handler: dictdata.DataByTypeHandler(serverCtx),
+					Handler: systemdictdata.DataByTypeHandler(serverCtx),
 				},
 			}...,
 		),
@@ -298,52 +420,52 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: menu.AddHandler(serverCtx),
+					Handler: systemmenu.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: menu.UpdateHandler(serverCtx),
+					Handler: systemmenu.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: menu.InfoHandler(serverCtx),
+					Handler: systemmenu.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:id",
-					Handler: menu.DeleteHandler(serverCtx),
+					Handler: systemmenu.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/cascade/:ids",
-					Handler: menu.DeleteCascadeHandler(serverCtx),
+					Handler: systemmenu.DeleteCascadeHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/getRouters",
-					Handler: menu.GetRoutersHandler(serverCtx),
+					Handler: systemmenu.GetRoutersHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: menu.ListHandler(serverCtx),
+					Handler: systemmenu.ListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/roleMenuTreeselect/:id",
-					Handler: menu.RoleMenuTreeHandler(serverCtx),
+					Handler: systemmenu.RoleMenuTreeHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/tenantPackageMenuTreeselect/:id",
-					Handler: menu.TenantPackageTreeHandler(serverCtx),
+					Handler: systemmenu.TenantPackageTreeHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/treeselect",
-					Handler: menu.TreeSelectHandler(serverCtx),
+					Handler: systemmenu.TreeSelectHandler(serverCtx),
 				},
 			}...,
 		),
@@ -357,41 +479,31 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: notice.AddHandler(serverCtx),
+					Handler: systemnotice.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: notice.UpdateHandler(serverCtx),
+					Handler: systemnotice.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: notice.InfoHandler(serverCtx),
+					Handler: systemnotice.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:ids",
-					Handler: notice.DeleteHandler(serverCtx),
+					Handler: systemnotice.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: notice.PageSetHandler(serverCtx),
+					Handler: systemnotice.PageSetHandler(serverCtx),
 				},
 			}...,
 		),
 		rest.WithPrefix("/system/notice"),
-	)
-
-	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodGet,
-				Path:    "/ping",
-				Handler: ping.PingHandler(serverCtx),
-			},
-		},
 	)
 
 	server.AddRoutes(
@@ -401,62 +513,62 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: role.AddHandler(serverCtx),
+					Handler: systemrole.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: role.UpdateHandler(serverCtx),
+					Handler: systemrole.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:code",
-					Handler: role.RemoveHandler(serverCtx),
+					Handler: systemrole.RemoveHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: role.InfoHandler(serverCtx),
+					Handler: systemrole.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/authUser/allocatedList",
-					Handler: role.AllocatedListHandler(serverCtx),
+					Handler: systemrole.AllocatedListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/authUser/cancel",
-					Handler: role.CancelHandler(serverCtx),
+					Handler: systemrole.CancelHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/authUser/cancelAll",
-					Handler: role.CancelAllHandler(serverCtx),
+					Handler: systemrole.CancelAllHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/authUser/selectAll",
-					Handler: role.SelectAllHandler(serverCtx),
+					Handler: systemrole.SelectAllHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/authUser/unallocatedList",
-					Handler: role.UnAllocatedListHandler(serverCtx),
+					Handler: systemrole.UnAllocatedListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/changeStatus",
-					Handler: role.ChangeStatusHandler(serverCtx),
+					Handler: systemrole.ChangeStatusHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/deptTree/:id",
-					Handler: role.DeptTreeHandler(serverCtx),
+					Handler: systemrole.DeptTreeHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: role.PageSetHandler(serverCtx),
+					Handler: systemrole.PageSetHandler(serverCtx),
 				},
 			}...,
 		),
@@ -470,47 +582,47 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: tenant.AddHandler(serverCtx),
+					Handler: systemtenant.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: tenant.UpdateHandler(serverCtx),
+					Handler: systemtenant.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: tenant.InfoHandler(serverCtx),
+					Handler: systemtenant.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:ids",
-					Handler: tenant.DeleteHandler(serverCtx),
+					Handler: systemtenant.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/changeStatus",
-					Handler: tenant.ChangeStatusHandler(serverCtx),
+					Handler: systemtenant.ChangeStatusHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/dynamic/:id",
-					Handler: tenant.DynamicHandler(serverCtx),
+					Handler: systemtenant.DynamicHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: tenant.PageSetHandler(serverCtx),
+					Handler: systemtenant.PageSetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/syncTenantDict",
-					Handler: tenant.SyncTenantDictHandler(serverCtx),
+					Handler: systemtenant.SyncTenantDictHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/syncTenantPackage",
-					Handler: tenant.SyncTenantPackageHandler(serverCtx),
+					Handler: systemtenant.SyncTenantPackageHandler(serverCtx),
 				},
 			}...,
 		),
@@ -524,37 +636,37 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: tenant_package.AddHandler(serverCtx),
+					Handler: systemtenant_package.AddHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: tenant_package.UpdateHandler(serverCtx),
+					Handler: systemtenant_package.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: tenant_package.InfoHandler(serverCtx),
+					Handler: systemtenant_package.InfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:ids",
-					Handler: tenant_package.DeleteHandler(serverCtx),
+					Handler: systemtenant_package.DeleteHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/changeStatus",
-					Handler: tenant_package.ChangeStatusHandler(serverCtx),
+					Handler: systemtenant_package.ChangeStatusHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: tenant_package.PageSetHandler(serverCtx),
+					Handler: systemtenant_package.PageSetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/selectList",
-					Handler: tenant_package.SelectListHandler(serverCtx),
+					Handler: systemtenant_package.SelectListHandler(serverCtx),
 				},
 			}...,
 		),
@@ -568,62 +680,62 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodGet,
 					Path:    "/",
-					Handler: user.QueryUserDetailInsertHandler(serverCtx),
+					Handler: systemuser.QueryUserDetailInsertHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/",
-					Handler: user.AddUserHandler(serverCtx),
+					Handler: systemuser.AddUserHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/",
-					Handler: user.UpdateUserHandler(serverCtx),
+					Handler: systemuser.UpdateUserHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/:code",
-					Handler: user.DeleteUserHandler(serverCtx),
+					Handler: systemuser.DeleteUserHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/:id",
-					Handler: user.QueryUserDetailHandler(serverCtx),
+					Handler: systemuser.QueryUserDetailHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/changeStatus",
-					Handler: user.UpdateUserStatusHandler(serverCtx),
+					Handler: systemuser.UpdateUserStatusHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/deptTree",
-					Handler: user.GetDeptTreeHandler(serverCtx),
+					Handler: systemuser.GetDeptTreeHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/getInfo",
-					Handler: user.GetUserInfoHandler(serverCtx),
+					Handler: systemuser.GetUserInfoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list",
-					Handler: user.QueryPageUserListHandler(serverCtx),
+					Handler: systemuser.QueryPageUserListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list/dept/:id",
-					Handler: user.DeptListHandler(serverCtx),
+					Handler: systemuser.DeptListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/profile",
-					Handler: user.ProfileHandler(serverCtx),
+					Handler: systemuser.ProfileHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/resetPwd",
-					Handler: user.ResetPwdHandler(serverCtx),
+					Handler: systemuser.ResetPwdHandler(serverCtx),
 				},
 			}...,
 		),
