@@ -131,14 +131,23 @@ func (l *QueryPageUserListLogic) QueryPageUserList(req *types.QueryPageUserListR
 	return
 }
 
-func GetDeptIds(req *types.QueryPageUserListReq, db *gorm.DB, ctx context.Context) ([]string, error) {
+func GetDeptIds(
+	req *types.QueryPageUserListReq,
+	db *gorm.DB,
+	ctx context.Context,
+) ([]string, error) {
 	var deptIds []string
-	err := db.WithContext(ctx).
-		Table("sys_dept").
-		Select("dept_id").
-		Where("FIND_IN_SET(?, ancestors)", req.DeptId).
-		Find(&deptIds).Error
-	if err != nil {
+	d := db.WithContext(ctx).Table("sys_dept").Select("dept_id")
+	switch db.Dialector.Name() {
+	case "mysql":
+		// MySQL
+		d = d.Where("FIND_IN_SET(?, ancestors)", req.DeptId)
+	case "postgres":
+		d = d.Where("? = ANY(string_to_array(ancestors, ','))", req.DeptId)
+	default:
+		return nil, fmt.Errorf("unsupported database: %s", db.Dialector.Name())
+	}
+	if err := d.Find(&deptIds).Error; err != nil {
 		return nil, errx.GORMErr(err)
 	}
 	deptIds = append(deptIds, req.DeptId)

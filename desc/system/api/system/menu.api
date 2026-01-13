@@ -103,7 +103,7 @@ service System {
     post / (ModifyMenuReq)
 
     @handler Delete
-    delete /:id (CodeReq)
+    delete /:ids (IdsReq)
 
     @handler DeleteCascade
     delete /cascade/:ids (IdsReq)

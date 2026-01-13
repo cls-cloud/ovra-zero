@@ -23,8 +23,8 @@ func NewDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteLogi
 	}
 }
 
-func (l *DeleteLogic) Delete(req *types.CodeReq) error {
-	ids := strings.Split(req.Code, ",")
+func (l *DeleteLogic) Delete(req *types.IdsReq) error {
+	ids := strings.Split(req.Ids, ",")
 	dal := l.svcCtx.Dal
 	if len(ids) > 0 {
 		if err := dal.SysMenuDal.DeleteBatch(l.ctx, ids); err != nil {

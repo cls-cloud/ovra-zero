@@ -434,7 +434,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodDelete,
-					Path:    "/:id",
+					Path:    "/:ids",
 					Handler: systemmenu.DeleteHandler(serverCtx),
 				},
 				{
